@@ -5,7 +5,6 @@
  */
 package web;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import negocio.entidade.Usuario;
@@ -31,12 +30,15 @@ public class LoginManagedBean extends MB {
     
     public void logar() throws Exception {
         final LoginService loginService = new LoginService();
+        super.limparMensagem();
         usuario = loginService.logar(usuario);
         if (usuario == null) {
             usuario = new Usuario();
+            super.addMensagem("Email e/ou Senha inválido.");
             super.redirect("/index.xhtml");
         } else {
             super.redirect("/index2.xhtml");
         }
     }
+   
 }

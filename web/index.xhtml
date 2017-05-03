@@ -5,20 +5,28 @@
     <head>
         <title>Aprendizagem Virtual</title>
     </head>
-    
+
     <body style="background-color: lightblue;">
+        <h1 align="center">
+            <font color="white">APRENDIZAGEM VIRTUAL</font>
+        </h1>
+        
         <h:form id="formLogin">
-            <h1 align="center">
-                <font color="white">APRENDIZAGEM VIRTUAL</font>
-            </h1>
+
             <table align="center" cellpadding="0" cellspacing="5" border="0" style="background-color: white">
+                <tr>
+                    <td colspan="2">
+                        <h:outputText id="msgLogin" value="#{loginMB.mensagem}" rendered="#{loginMB.exibeMsg}" 
+                                      style="color: red;"/>
+                    </td>
+                </tr>
                 <tr>
                     <td>
                         E-mail:
                     </td>
                     <td>
                         <h:inputText id="loginEmail" value="#{loginMB.usuario.email}" maxlength="50" 
-                               size="30" required="true" requiredMessage="E-mail obrigatório" />
+                                     size="30" required="true" requiredMessage="E-mail obrigatório" />
                     </td>
                     <td>
                         <h:message for="loginEmail" />
@@ -38,7 +46,7 @@
                 </tr>
                 <tr>
                     <td colspan="3">
-                        <h:commandButton id="btnLoginLogar" value="Logar" action="#{loginMB.logar()}"  />
+                        <h:commandButton id="btnLoginLogar" value="Logar" action="#{loginMB.logar()}" />
                     </td>
                 </tr>
             </table>
