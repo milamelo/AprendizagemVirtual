@@ -8,6 +8,7 @@ package web;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -52,5 +53,28 @@ public class MB {
         this.exibeMsg = false;
     }
 
+    public HttpSession pegarSessao() {
+        return (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+    }
+    
+    public void guardarNaSessao(String key, Object obj) {
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(key, obj);
+    }
+    
+    public Object pegarDaSessao(String key) {
+        return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(key);
+    }
+
+    public void removerDaSessao(String atributeName) {
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(atributeName);
+    }
+    
+    public void invalidarSessao() {
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().clear();
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+    }
     
 }

@@ -35,9 +35,11 @@ public class LoginManagedBean extends MB {
         if (usuario == null) {
             usuario = new Usuario();
             super.addMensagem("Email e/ou Senha inválido.");
+            super.invalidarSessao();
             super.redirect("/index.xhtml");
         } else {
-            super.redirect("/index2.xhtml");
+            super.guardarNaSessao("usuarioLogado", usuario);
+            super.redirect("/pages/index2.xhtml");
         }
     }
    
