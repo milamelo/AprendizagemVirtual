@@ -16,10 +16,10 @@ import javax.servlet.http.HttpSession;
  */
 @SessionScoped
 public class MB {
-    
+
     private String mensagem;
     private boolean exibeMsg = false;
-    
+
     public String getMensagem() {
         return mensagem;
     }
@@ -35,7 +35,7 @@ public class MB {
     public void setExibeMsg(boolean exibeMsg) {
         this.exibeMsg = exibeMsg;
     }
-    
+
     public void redirect(String caminho) throws Exception {
         FacesContext ctx = FacesContext.getCurrentInstance();
         ExternalContext extContext = ctx.getExternalContext();
@@ -47,7 +47,7 @@ public class MB {
         this.mensagem = mensagem;
         this.exibeMsg = true;
     }
-    
+
     public void limparMensagem() {
         this.mensagem = null;
         this.exibeMsg = false;
@@ -56,11 +56,11 @@ public class MB {
     public HttpSession pegarSessao() {
         return (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
     }
-    
+
     public void guardarNaSessao(String key, Object obj) {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(key, obj);
     }
-    
+
     public Object pegarDaSessao(String key) {
         return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(key);
     }
@@ -68,7 +68,7 @@ public class MB {
     public void removerDaSessao(String atributeName) {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(atributeName);
     }
-    
+
     public void invalidarSessao() {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().clear();
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
@@ -76,5 +76,5 @@ public class MB {
             session.invalidate();
         }
     }
-    
+
 }

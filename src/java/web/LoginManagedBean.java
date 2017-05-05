@@ -17,7 +17,7 @@ import negocio.service.LoginService;
 @ManagedBean(name = "loginMB")
 @SessionScoped
 public class LoginManagedBean extends MB {
-    
+
     private Usuario usuario = new Usuario();
 
     public Usuario getUsuario() {
@@ -27,7 +27,7 @@ public class LoginManagedBean extends MB {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    
+
     public void logar() throws Exception {
         final LoginService loginService = new LoginService();
         super.limparMensagem();
@@ -35,12 +35,11 @@ public class LoginManagedBean extends MB {
         if (usuario == null) {
             usuario = new Usuario();
             super.addMensagem("Email e/ou Senha inválido.");
-            super.invalidarSessao();
             super.redirect("/index.xhtml");
         } else {
             super.guardarNaSessao("usuarioLogado", usuario);
             super.redirect("/pages/index2.xhtml");
         }
     }
-   
+
 }

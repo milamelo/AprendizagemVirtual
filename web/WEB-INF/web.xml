@@ -28,6 +28,7 @@
     </filter>
     <filter-mapping>
         <filter-name>loginFilter</filter-name>
+        <url-pattern>/faces/pages/*</url-pattern>
         <url-pattern>/pages/*</url-pattern>
     </filter-mapping>
 </web-app>

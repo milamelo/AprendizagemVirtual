@@ -14,13 +14,13 @@ import java.sql.SQLException;
  * @author Camila
  */
 public class Conexao {
-    
+
     private final String DRIVER = "org.postgresql.Driver";
     private final String URL = "jdbc:postgresql://localhost:5432/aprendizagemvirtual";
     private final String USER = "postgres";
     private final String PASSWORD = "password";
     protected StringBuilder sql;
-    
+
     public StringBuilder getSql() {
         return sql;
     }

@@ -6,7 +6,6 @@
 package negocio.entidade;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 /**
  *
@@ -77,5 +76,5 @@ public class Usuario {
     public void setMedalha(Medalha medalha) {
         this.medalha = medalha;
     }
-    
+
 }

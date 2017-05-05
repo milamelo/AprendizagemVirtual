@@ -3,7 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/web/LoginManagedBean.java</file>
+            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/negocio/entidade/Medalha.java</file>
+            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/web/MB.java</file>
+            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/web/LoginFilter.java</file>
             <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/web/index.xhtml</file>
+            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/negocio/service/LoginService.java</file>
+            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/banco/Conexao.java</file>
+            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/negocio/entidade/Usuario.java</file>
+            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/banco/dao/DAOUsuario.java</file>
         </group>
     </open-files>
 </project-private>
