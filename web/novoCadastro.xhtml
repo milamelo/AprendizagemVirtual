@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <head>
+        <title>Aprendizagem Virtual</title>
+    </head>
+    <body style="background-color: lightblue;">
+        <h1 align="center">
+            <font color="white">NOVO CADASTRO</font>
+        </h1>
+        
+        <h:form id="formNovoCadastro">
+            <table align="center" cellpadding="0" cellspacing="5" border="0" style="background-color: white">
+                <tr>
+                    <td colspan="2">
+                        <h:outputText id="msgLogin" value="#{usuarioMB.mensagem}" rendered="#{usuarioMB.exibeMsg}" 
+                                      style="color: red;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        CPF:
+                    </td>
+                    <td>
+                        <h:inputText id="novoCadastroCpf" value="#{usuarioMB.usuario.cpf}" maxlength="11" 
+                                     size="30" required="true" requiredMessage="CPF obrigatório" />
+                    </td>
+                    <td>
+                        <h:message for="novoCadastroCpf" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Nome:
+                    </td>
+                    <td>
+                        <h:inputText id="novoCadastroNome" value="#{usuarioMB.usuario.nome}" maxlength="50"
+                                       size="30" required="true" requiredMessage="Nome obrigatório" />
+                    </td>    
+                    <td>
+                        <h:message for="novoCadastroNome" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        E-mail:
+                    </td>
+                    <td>
+                        <h:inputText id="novoCadastroEmail" value="#{usuarioMB.usuario.email}" maxlength="50"
+                                       size="30" required="true" requiredMessage="E-mail obrigatório" />
+                    </td>    
+                    <td>
+                        <h:message for="novoCadastroEmail" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Senha:
+                    </td>
+                    <td>
+                        <h:inputSecret id="novoCadastroSenha" value="#{usuarioMB.usuario.senha}" maxlength="20"
+                                       size="30" required="true" requiredMessage="Senha obrigatório" />
+                    </td>    
+                    <td>
+                        <h:message for="novoCadastroSenha" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Confirmar Senha:
+                    </td>
+                    <td>
+                        <h:inputSecret id="novoCadastroConfirmarSenha" value="#{usuarioMB.confirmarSenha}" maxlength="20"
+                                       size="30" required="true" requiredMessage="Confirmar senha obrigatório" />
+                    </td>    
+                    <td>
+                        <h:message for="novoCadastroConfirmarSenha" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <h:commandButton id="btnNovoCadatroEnviar" value="Enviar" action="#{usuarioMB.salvarNovoCadastro()}" />
+                        <h:button id="btnNovoCadatroVoltar" value="Voltar" outcome="index" />
+                    </td>
+                </tr>
+            </table>
+        </h:form>
+    </body>
+</html>
