@@ -6,12 +6,12 @@
 package banco.dao;
 
 import banco.Conexao;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import negocio.entidade.Medalha;
 import negocio.entidade.Usuario;
 
@@ -27,7 +27,7 @@ public class DAOUsuario extends Conexao {
 
     public Usuario logar(final Usuario usuario) throws Exception {
         Usuario usu = null;
-        Connection conexao;
+        Connection conexao = null;
         PreparedStatement preparedStatement;
         ResultSet resultSet;
 
@@ -53,8 +53,9 @@ public class DAOUsuario extends Conexao {
             }
 
         } catch (SQLException e) {
-            Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, e);
             throw new SQLException("Erro: DAOUsuario.logar \n" + e.getMessage());
+        } finally {
+            fecharConexao(conexao);
         }
         return usu;
     }
@@ -77,5 +78,92 @@ public class DAOUsuario extends Conexao {
         usuario.setMedalha(medalha);
 
         return usuario;
+    }
+    
+    public boolean existeCpf(final String cpf) throws Exception {
+        Connection conexao = null;
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        boolean retorno = false;
+
+        try {
+            sql = new StringBuilder();
+            sql.append("    SELECT * ");
+            sql.append("      FROM USUARIO U ");
+            sql.append("     WHERE CPF = ? ");
+
+            conexao = abrirConexao();
+            preparedStatement = conexao.prepareStatement(sql.toString());
+
+            int i = 1;
+            preparedStatement.setString(i++, cpf);
+
+            resultSet = preparedStatement.executeQuery();
+            retorno = resultSet.next();
+
+        } catch (SQLException e) {
+            throw new SQLException("Erro: DAOUsuario.existeCpf \n" + e.getMessage());
+        } finally {
+            fecharConexao(conexao);
+        }
+        
+        return retorno;
+    }
+    
+    public boolean existeEmail(final String email) throws Exception {
+        Connection conexao = null;
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        boolean retorno = false;
+
+        try {
+            sql = new StringBuilder();
+            sql.append("    SELECT * ");
+            sql.append("      FROM USUARIO U ");
+            sql.append("     WHERE EMAIL = ? ");
+
+            conexao = abrirConexao();
+            preparedStatement = conexao.prepareStatement(sql.toString());
+
+            int i = 1;
+            preparedStatement.setString(i++, email);
+
+            resultSet = preparedStatement.executeQuery();
+            retorno = resultSet.next();
+
+        } catch (SQLException e) {
+            throw new SQLException("Erro: DAOUsuario.existeEmail \n" + e.getMessage());
+        } finally {
+            fecharConexao(conexao);
+        }
+        return retorno;
+    }
+    
+    public int inserir(final Usuario usuario) throws Exception {
+        Connection conexao = null;
+        PreparedStatement preparedStatement;
+
+        try {
+            sql = new StringBuilder();
+            sql.append(" INSERT INTO USUARIO ");
+            sql.append("    (CPF, NOME, EMAIL, SENHA, PONTUACAO_ACUMULADA, DATA_INCLUSAO) ");
+            sql.append(" VALUES(?, ?, ?, ?, ?, CURRENT_TIMESTAMP) ");
+
+            conexao = abrirConexao();
+            preparedStatement = conexao.prepareStatement(sql.toString());
+
+            int i = 1;
+            preparedStatement.setString(i++, usuario.getCpf());
+            preparedStatement.setString(i++, usuario.getNome().trim().toUpperCase());
+            preparedStatement.setString(i++, usuario.getEmail().trim().toUpperCase());
+            preparedStatement.setString(i++, usuario.getSenha());
+            preparedStatement.setBigDecimal(i++, new BigDecimal(BigInteger.ZERO));
+
+            return preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new SQLException("Erro: DAOUsuario.existeEmail \n" + e.getMessage());
+        } finally {
+            fecharConexao(conexao);
+        }
     }
 }

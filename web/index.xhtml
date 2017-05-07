@@ -16,8 +16,10 @@
             <table align="center" cellpadding="0" cellspacing="5" border="0" style="background-color: white">
                 <tr>
                     <td colspan="2">
-                        <h:outputText id="msgLogin" value="#{loginMB.mensagem}" rendered="#{loginMB.exibeMsg}" 
+                        <h:outputText id="msgErroLogin" value="#{loginMB.mensagem}" rendered="#{loginMB.exibeMsgErro}" 
                                       style="color: red;"/>
+                        <h:outputText id="msgSucessoLogin" value="#{loginMB.mensagem}" rendered="#{loginMB.exibeMsgSucesso}" 
+                                      style="color: blue;"/>
                     </td>
                 </tr>
                 <tr>
@@ -47,6 +49,7 @@
                 <tr>
                     <td colspan="3">
                         <h:commandButton id="btnLoginLogar" value="Logar" action="#{loginMB.logar()}" />
+                        <h:commandButton id="btnNovoCadastro" value="Cadastrar" action="#{usuarioMB.novoCadastro()}" />
                     </td>
                 </tr>
             </table>
