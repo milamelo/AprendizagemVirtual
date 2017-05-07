@@ -19,8 +19,10 @@ and open the template in the editor.
             <table align="center" cellpadding="0" cellspacing="5" border="0" style="background-color: white">
                 <tr>
                     <td colspan="2">
-                        <h:outputText id="msgLogin" value="#{usuarioMB.mensagem}" rendered="#{usuarioMB.exibeMsg}" 
+                        <h:outputText id="msgErroNovoCadastro" value="#{usuarioMB.mensagem}" rendered="#{usuarioMB.exibeMsgErro}" 
                                       style="color: red;"/>
+                        <h:outputText id="msgSucessoNovoCadastro" value="#{usuarioMB.mensagem}" rendered="#{usuarioMB.exibeMsgSucesso}" 
+                                      style="color: blue;"/>
                     </td>
                 </tr>
                 <tr>

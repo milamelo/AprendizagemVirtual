@@ -51,14 +51,14 @@ public class UsuarioManagedBean extends MB {
                 final UsuarioService usuarioService = new UsuarioService();
                 usuarioService.cadastrarUsuario(usuario);
                 limparUsuario();
-                super.addMensagem("Usuário cadastrado com sucesso.");
+                super.addMensagemSucesso("Usuário cadastrado com sucesso.");
                 super.redirect("/novoCadastro.xhtml");
             } else {
-                super.addMensagem("Senhas não conferem");
+                super.addMensagemErro("Senhas não conferem");
                 super.redirect("/novoCadastro.xhtml");
             }
         } catch (ControleException e) {
-            super.addMensagem(e.getMessage());
+            super.addMensagemErro(e.getMessage());
         } catch (Exception e) {
 
         }

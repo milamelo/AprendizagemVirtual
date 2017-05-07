@@ -18,7 +18,8 @@ import javax.servlet.http.HttpSession;
 public class MB {
 
     private String mensagem;
-    private boolean exibeMsg = false;
+    private boolean exibeMsgErro = false;
+    private boolean exibeMsgSucesso = false;
 
     public String getMensagem() {
         return mensagem;
@@ -28,14 +29,22 @@ public class MB {
         this.mensagem = mensagem;
     }
 
-    public boolean isExibeMsg() {
-        return exibeMsg;
+    public boolean isExibeMsgErro() {
+        return exibeMsgErro;
     }
 
-    public void setExibeMsg(boolean exibeMsg) {
-        this.exibeMsg = exibeMsg;
+    public void setExibeMsgErro(boolean exibeMsgErro) {
+        this.exibeMsgErro = exibeMsgErro;
     }
 
+    public boolean isExibeMsgSucesso() {
+        return exibeMsgSucesso;
+    }
+
+    public void setExibeMsgSucesso(boolean exibeMsgSucesso) {
+        this.exibeMsgSucesso = exibeMsgSucesso;
+    }
+    
     public void redirect(String caminho) throws Exception {
         FacesContext ctx = FacesContext.getCurrentInstance();
         ExternalContext extContext = ctx.getExternalContext();
@@ -43,14 +52,22 @@ public class MB {
         extContext.redirect(url);
     }
 
-    public void addMensagem(final String mensagem) {
+    public void addMensagemErro(final String mensagem) {
         this.mensagem = mensagem;
-        this.exibeMsg = true;
+        this.exibeMsgErro = true;
+        this.exibeMsgSucesso = false;
+    }
+    
+    public void addMensagemSucesso(final String mensagem) {
+        this.mensagem = mensagem;
+        this.exibeMsgSucesso = true;
+        this.exibeMsgErro = false;
     }
 
     public void limparMensagem() {
         this.mensagem = null;
-        this.exibeMsg = false;
+        this.exibeMsgErro = false;
+        this.exibeMsgSucesso = false;
     }
 
     public HttpSession pegarSessao() {
