@@ -38,8 +38,17 @@ public class LoginManagedBean extends MB {
             super.redirect("/index.xhtml");
         } else {
             super.guardarNaSessao("usuarioLogado", usuario);
-            super.redirect("/pages/index2.xhtml");
+            super.redirect("/pages/logado.xhtml");
         }
+    }
+    
+    public void sair() throws Exception {
+        super.limparMensagem();
+        usuario = (Usuario) pegarDaSessao("usuarioLogado");
+        if (usuario != null) {
+            super.invalidarSessao();
+            super.redirect("/index.xhtml");
+        } 
     }
 
 }

@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <head>
+        <title>Aprendizagem Virtual</title>
+    </head>
+
+    <body style="background-color: lightblue;">
+        <h1 align="center">
+            <font color="white">APRENDIZAGEM VIRTUAL</font>
+        </h1>
+
+        <h:form id="formUsuarioLogado">
+
+            <table align="center" cellpadding="20" cellspacing="20" border="0" style="background-color: white">
+                <tr>
+                    <td>
+                        <h:commandButton id="btnLogadoPerfil" value="PERFIL" action="perfil" />
+                    </td>
+                    <td>
+                        <h:commandButton id="btnLogadoCurso" value="CURSOS" action="curso" />
+                    </td>
+                    <td>
+                        <h:commandButton id="btnLogadoSair" value="SAIR" action="#{loginMB.sair()}" />
+                    </td>
+                </tr>
+                
+            </table>
+        </h:form>
+    </body>
+</html>
+
