@@ -21,7 +21,17 @@
                     <td>
                         <h:commandButton id="btnLogadoCurso" value="CURSOS" action="curso" />
                     </td>
+                </tr>
+                <tr>
                     <td>
+                        <h:commandButton id="btnLogadoMedalha" value="MEDALHA" action="perfil" rendered="#{medalhaMB.permissaoEspecial}"/>
+                    </td>
+                    <td>
+                        <h:commandButton id="btnLogadoTipoAtividade" value="TIPO ATIVIDADE" action="curso" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
                         <h:commandButton id="btnLogadoSair" value="SAIR" action="#{loginMB.sair()}" />
                     </td>
                 </tr>
