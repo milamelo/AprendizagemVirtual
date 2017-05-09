@@ -15,9 +15,11 @@ public class ServiceFactory {
 
     public static final byte LOGIN = 0;
     public static final byte USUARIO = 1;
+    public static final byte MEDALHA = 2;
 
     private static LoginService loginService;
     private static UsuarioService usuarioService;
+    private static MedalhaService medalhaService;
 
     public static Object criarService(final byte id) throws ControleException {
         try {
@@ -33,6 +35,12 @@ public class ServiceFactory {
                         usuarioService = new UsuarioService();
                     }
                     return usuarioService;
+                    
+                 case MEDALHA:
+                    if (medalhaService == null) {
+                        medalhaService = new MedalhaService();
+                    }
+                    return medalhaService;   
 
                 default:
                     throw new ControleException("Erro ao criar service");

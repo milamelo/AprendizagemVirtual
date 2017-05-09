@@ -5,8 +5,6 @@
  */
 package negocio.entidade;
 
-import java.math.BigDecimal;
-
 /**
  *
  * @author Camila
@@ -15,7 +13,7 @@ public class Medalha {
 
     private Integer id;
     private String nome;
-    private BigDecimal pontuacaoNecessaria;
+    private Integer pontuacaoNecessaria;
 
     public Integer getId() {
         return id;
@@ -33,11 +31,11 @@ public class Medalha {
         this.nome = nome;
     }
 
-    public BigDecimal getPontuacaoNecessaria() {
+    public Integer getPontuacaoNecessaria() {
         return pontuacaoNecessaria;
     }
 
-    public void setPontuacaoNecessaria(BigDecimal pontuacaoNecessaria) {
+    public void setPontuacaoNecessaria(Integer pontuacaoNecessaria) {
         this.pontuacaoNecessaria = pontuacaoNecessaria;
     }
 }
