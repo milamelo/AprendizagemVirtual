@@ -68,6 +68,7 @@ public class DAOUsuario extends Conexao {
         usuario.setEmail(rs.getString("EMAIL"));
         usuario.setSenha(rs.getString("SENHA"));
         usuario.setPontuacaoAcumulada(rs.getBigDecimal("PONTUACAO_ACUMULADA"));
+        usuario.setPermissaoEspecial(rs.getBoolean("PERMISSAO_ESPECIAL"));
 
         final Medalha medalha = new Medalha();
         if (rs.getInt("ID_MEDALHA") != 0) {

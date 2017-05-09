@@ -20,6 +20,7 @@ public class Usuario {
     private String senha;
     private BigDecimal pontuacaoAcumulada;
     private Medalha medalha;
+    private boolean permissaoEspecial;
 
     public Integer getId() {
         return id;
@@ -75,6 +76,14 @@ public class Usuario {
 
     public void setMedalha(Medalha medalha) {
         this.medalha = medalha;
+    }
+
+    public boolean isPermissaoEspecial() {
+        return permissaoEspecial;
+    }
+
+    public void setPermissaoEspecial(boolean permissaoEspecial) {
+        this.permissaoEspecial = permissaoEspecial;
     }
 
 }

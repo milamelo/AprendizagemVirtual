@@ -9,6 +9,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import negocio.entidade.Usuario;
 
 /**
  *
@@ -20,6 +21,7 @@ public class MB {
     private String mensagem;
     private boolean exibeMsgErro = false;
     private boolean exibeMsgSucesso = false;
+    private boolean permissaoEspecial = false;
 
     public String getMensagem() {
         return mensagem;
@@ -43,6 +45,17 @@ public class MB {
 
     public void setExibeMsgSucesso(boolean exibeMsgSucesso) {
         this.exibeMsgSucesso = exibeMsgSucesso;
+    }
+
+    public boolean isPermissaoEspecial() {
+        if (pegarDaSessao("usuarioLogado") != null) {
+            this.permissaoEspecial = ((Usuario) pegarDaSessao("usuarioLogado")).isPermissaoEspecial();
+        }
+        return permissaoEspecial;
+    }
+
+    public void setPermissaoEspecial() {
+        
     }
     
     public void redirect(String caminho) throws Exception {

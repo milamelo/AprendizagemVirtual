@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import negocio.entidade.Usuario;
 import negocio.excecao.ControleException;
+import negocio.service.ServiceFactory;
 import negocio.service.UsuarioService;
 
 /**
@@ -48,7 +49,7 @@ public class UsuarioManagedBean extends MB {
         try {
             super.limparMensagem();
             if (usuario.getSenha().equals(confirmarSenha)) {
-                final UsuarioService usuarioService = new UsuarioService();
+                final UsuarioService usuarioService = (UsuarioService) ServiceFactory.criarService(ServiceFactory.USUARIO);
                 usuarioService.cadastrarUsuario(usuario);
                 limparUsuario();
                 super.addMensagemSucesso("Usuário cadastrado com sucesso.");

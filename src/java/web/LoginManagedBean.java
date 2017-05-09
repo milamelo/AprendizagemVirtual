@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import negocio.entidade.Usuario;
 import negocio.service.LoginService;
+import negocio.service.ServiceFactory;
 
 /**
  *
@@ -29,7 +30,7 @@ public class LoginManagedBean extends MB {
     }
 
     public void logar() throws Exception {
-        final LoginService loginService = new LoginService();
+        final LoginService loginService = (LoginService) ServiceFactory.criarService(ServiceFactory.LOGIN);
         super.limparMensagem();
         usuario = loginService.logar(usuario);
         if (usuario == null) {
@@ -38,7 +39,16 @@ public class LoginManagedBean extends MB {
             super.redirect("/index.xhtml");
         } else {
             super.guardarNaSessao("usuarioLogado", usuario);
-            super.redirect("/pages/index2.xhtml");
+            super.redirect("/pages/logado.xhtml");
+        }
+    }
+
+    public void sair() throws Exception {
+        super.limparMensagem();
+        usuario = (Usuario) pegarDaSessao("usuarioLogado");
+        if (usuario != null) {
+            super.invalidarSessao();
+            super.redirect("/index.xhtml");
         }
     }
 
