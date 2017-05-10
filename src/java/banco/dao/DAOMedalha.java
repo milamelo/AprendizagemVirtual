@@ -18,12 +18,12 @@ import negocio.entidade.Medalha;
  * @author Camila
  */
 public class DAOMedalha extends Conexao {
-    
+
     public DAOMedalha() {
-        
+
     }
-    
-    public int inserir (final Medalha medalha) throws Exception {
+
+    public int inserir(final Medalha medalha) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
         ResultSet result = null;
@@ -40,13 +40,13 @@ public class DAOMedalha extends Conexao {
             int i = 1;
             preparedStatement.setString(i++, medalha.getNome().trim().toUpperCase());
             preparedStatement.setInt(i++, medalha.getPontuacaoNecessaria());
-            
+
             int retorno = preparedStatement.executeUpdate();
             result = preparedStatement.getGeneratedKeys();
             if (result.next()) {
                 medalha.setId(result.getInt(1));
             }
-            
+
             return retorno;
         } catch (SQLException e) {
             throw new SQLException("Erro: DAOMedalha.inserir \n" + e.getMessage());
@@ -56,8 +56,8 @@ public class DAOMedalha extends Conexao {
             fecharConexao(conexao);
         }
     }
-    
-    public int atualizar (final Medalha medalha) throws Exception {
+
+    public int atualizar(final Medalha medalha) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
         ResultSet result = null;
@@ -75,7 +75,7 @@ public class DAOMedalha extends Conexao {
             preparedStatement.setString(i++, medalha.getNome().trim().toUpperCase());
             preparedStatement.setInt(i++, medalha.getPontuacaoNecessaria());
             preparedStatement.setInt(i++, medalha.getId());
-            
+
             return preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new SQLException("Erro: DAOMedalha.atualizar \n" + e.getMessage());
@@ -85,8 +85,8 @@ public class DAOMedalha extends Conexao {
             fecharConexao(conexao);
         }
     }
-    
-    public int remover (final Medalha medalha) throws Exception {
+
+    public int remover(final Medalha medalha) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
         ResultSet result = null;
@@ -101,7 +101,7 @@ public class DAOMedalha extends Conexao {
 
             int i = 1;
             preparedStatement.setInt(i++, medalha.getId());
-            
+
             return preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new SQLException("Erro: DAOMedalha.remover \n" + e.getMessage());
@@ -111,7 +111,7 @@ public class DAOMedalha extends Conexao {
             fecharConexao(conexao);
         }
     }
-    
+
     public boolean existePontuacao(final Integer pontuacaoNecessaria) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -140,10 +140,10 @@ public class DAOMedalha extends Conexao {
             fecharResultSet(resultSet);
             fecharConexao(conexao);
         }
-        
+
         return retorno;
     }
-    
+
     public boolean existeNome(final String nome) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -172,7 +172,42 @@ public class DAOMedalha extends Conexao {
             fecharResultSet(resultSet);
             fecharConexao(conexao);
         }
-        
+
+        return retorno;
+    }
+
+    public int countUsuariosComMedalha(final Medalha medalha) throws Exception {
+        Connection conexao = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        int retorno = 0;
+
+        try {
+            sql = new StringBuilder();
+            sql.append("     SELECT COUNT(*) TOTAL ");
+            sql.append("       FROM MEDALHA M ");
+            sql.append(" INNER JOIN USUARIO U ON U.ID_MEDALHA = M.ID ");
+            sql.append("      WHERE ID = ? ");
+
+            conexao = abrirConexao();
+            preparedStatement = conexao.prepareStatement(sql.toString());
+
+            int i = 1;
+            preparedStatement.setInt(i++, medalha.getId());
+
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                retorno = resultSet.getInt("TOTAL");
+            }
+
+        } catch (SQLException e) {
+            throw new SQLException("Erro: DAOMedalha.countUsuariosComMedalha \n" + e.getMessage());
+        } finally {
+            fecharPreparedStatement(preparedStatement);
+            fecharResultSet(resultSet);
+            fecharConexao(conexao);
+        }
+
         return retorno;
     }
 }
