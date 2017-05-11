@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import negocio.entidade.Medalha;
 
 /**
@@ -21,6 +23,56 @@ public class DAOMedalha extends Conexao {
 
     public DAOMedalha() {
 
+    }
+
+    public List<Medalha> listar(final Medalha medalha) throws Exception {
+        Connection conexao = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<Medalha> medalhas = new ArrayList<>();
+
+        try {
+            sql = new StringBuilder();
+            sql.append(" SELECT * ");
+            sql.append("   FROM MEDALHA M ");
+            sql.append("  WHERE 1 = 1 ");
+            if (medalha != null && medalha.getNome() != null && !medalha.getNome().trim().isEmpty()) {
+                sql.append(" AND TRIM(NOME) ILIKE ? ");
+            }
+            if (medalha != null && medalha.getPontuacaoNecessaria() != null && medalha.getPontuacaoNecessaria() > 0) {
+                sql.append(" AND PONTUACAO_NECESSARIA = ? ");
+            }
+            sql.append(" ORDER BY PONTUACAO_NECESSARIA ");
+
+            conexao = abrirConexao();
+            preparedStatement = conexao.prepareStatement(sql.toString());
+
+            int i = 1;
+            if (medalha != null && medalha.getNome() != null && !medalha.getNome().trim().isEmpty()) {
+                preparedStatement.setString(i++, "%" + medalha.getNome().trim().toUpperCase() + "%");
+            }
+            if (medalha != null && medalha.getPontuacaoNecessaria() != null && medalha.getPontuacaoNecessaria() > 0) {
+                preparedStatement.setInt(i++, medalha.getPontuacaoNecessaria());
+            }
+
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Medalha med = new Medalha();
+                med.setId(resultSet.getInt("ID"));
+                med.setNome((resultSet.getString("NOME")).trim());
+                med.setPontuacaoNecessaria(resultSet.getInt("PONTUACAO_NECESSARIA"));
+                medalhas.add(med);
+            }
+
+        } catch (SQLException e) {
+            throw new SQLException("Erro: DAOMedalha.listar \n" + e.getMessage());
+        } finally {
+            fecharPreparedStatement(preparedStatement);
+            fecharResultSet(resultSet);
+            fecharConexao(conexao);
+        }
+
+        return medalhas;
     }
 
     public int inserir(final Medalha medalha) throws Exception {
