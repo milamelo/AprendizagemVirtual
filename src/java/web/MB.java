@@ -64,6 +64,10 @@ public class MB {
         String url = extContext.encodeActionURL(ctx.getApplication().getViewHandler().getActionURL(ctx, caminho));
         extContext.redirect(url);
     }
+    
+    public void paginaLogado() throws Exception {
+        redirect("/pages/logado.xhtml");
+    }
 
     public void addMensagemErro(final String mensagem) {
         this.mensagem = mensagem;

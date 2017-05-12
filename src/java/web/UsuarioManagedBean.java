@@ -58,10 +58,8 @@ public class UsuarioManagedBean extends MB {
                 super.addMensagemErro("Senhas não conferem");
                 super.redirect("/novoCadastro.xhtml");
             }
-        } catch (ControleException e) {
-            super.addMensagemErro(e.getMessage());
         } catch (Exception e) {
-
+            super.addMensagemErro(e.getMessage());
         }
     }
     

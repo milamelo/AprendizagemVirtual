@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <head>
+        <title>Aprendizagem Virtual</title>
+    </head>
+    <body style="background-color: lightblue;">
+        <h1 align="center">
+            <font color="white">MEDALHA - ALTERAR</font>
+        </h1>
+        
+        <h:form id="formMedalhaAlterar">
+            <table align="center" cellpadding="0" cellspacing="5" border="0" style="background-color: white">
+                <tr>
+                    <td colspan="2">
+                        <h:outputText id="msgErroMedalhaAlterar" value="#{medalhaMB.mensagem}" rendered="#{medalhaMB.exibeMsgErro}" 
+                                      style="color: red;"/>
+                        <h:outputText id="msgSucessoMedalhaAlterar" value="#{medalhaMB.mensagem}" rendered="#{medalhaMB.exibeMsgSucesso}" 
+                                      style="color: blue;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Nome:
+                    </td>
+                    <td>
+                        <h:inputText id="medalhaAlterarNome" value="#{medalhaMB.medalhaSelecionada.nome}" maxlength="50" 
+                                     size="30" required="true" requiredMessage="Nome obrigatório" />
+                    </td>
+                    <td>
+                        <h:message for="medalhaAlterarNome" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Pontuação Necessária:
+                    </td>
+                    <td>
+                        <h:inputText id="medalhaAlterarPontuacaoNecessaria" value="#{medalhaMB.medalhaSelecionada.pontuacaoNecessaria}" maxlength="50"
+                                       size="30" required="true" requiredMessage="Pontuação Necessária obrigatória" />
+                    </td>    
+                    <td>
+                        <h:message for="medalhaAlterarPontuacaoNecessaria" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <h:commandButton id="btnMedalhaAlterarAlterar" value="Alterar" action="#{medalhaMB.alterarMedalha()}" />
+                        <h:button id="btnMedalhaAlterarVoltar" value="Voltar" outcome="medalha" />
+                    </td>
+                </tr>
+            </table>
+        </h:form>
+    </body>
+</html>

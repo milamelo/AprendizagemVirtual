@@ -164,7 +164,7 @@ public class DAOMedalha extends Conexao {
         }
     }
 
-    public boolean existePontuacao(final Integer pontuacaoNecessaria) throws Exception {
+    public boolean existePontuacao(final Medalha medalha) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -175,12 +175,14 @@ public class DAOMedalha extends Conexao {
             sql.append("    SELECT * ");
             sql.append("      FROM MEDALHA M ");
             sql.append("     WHERE PONTUACAO_NECESSARIA = ? ");
+            sql.append("       AND ID <> ? ");
 
             conexao = abrirConexao();
             preparedStatement = conexao.prepareStatement(sql.toString());
 
             int i = 1;
-            preparedStatement.setInt(i++, pontuacaoNecessaria);
+            preparedStatement.setInt(i++, medalha.getPontuacaoNecessaria());
+            preparedStatement.setInt(i++, medalha.getId() == null ? 0 : medalha.getId());
 
             resultSet = preparedStatement.executeQuery();
             retorno = resultSet.next();
@@ -196,7 +198,7 @@ public class DAOMedalha extends Conexao {
         return retorno;
     }
 
-    public boolean existeNome(final String nome) throws Exception {
+    public boolean existeNome(final Medalha medalha) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -207,12 +209,14 @@ public class DAOMedalha extends Conexao {
             sql.append("    SELECT * ");
             sql.append("      FROM MEDALHA M ");
             sql.append("     WHERE NOME = ? ");
+            sql.append("       AND ID <> ? ");
 
             conexao = abrirConexao();
             preparedStatement = conexao.prepareStatement(sql.toString());
 
             int i = 1;
-            preparedStatement.setString(i++, nome.trim().toUpperCase());
+            preparedStatement.setString(i++, medalha.getNome().trim().toUpperCase());
+            preparedStatement.setInt(i++, medalha.getId() == null ? 0 : medalha.getId());
 
             resultSet = preparedStatement.executeQuery();
             retorno = resultSet.next();
@@ -239,7 +243,7 @@ public class DAOMedalha extends Conexao {
             sql.append("     SELECT COUNT(*) TOTAL ");
             sql.append("       FROM MEDALHA M ");
             sql.append(" INNER JOIN USUARIO U ON U.ID_MEDALHA = M.ID ");
-            sql.append("      WHERE ID = ? ");
+            sql.append("      WHERE M.ID = ? ");
 
             conexao = abrirConexao();
             preparedStatement = conexao.prepareStatement(sql.toString());

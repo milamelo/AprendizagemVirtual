@@ -34,10 +34,10 @@ public class MedalhaService {
 
     public void inserir(final Medalha medalha) throws ControleException, Exception {
         try {
-            if (daoMedalha.existePontuacao(medalha.getPontuacaoNecessaria())) {
+            if (daoMedalha.existePontuacao(medalha)) {
                 throw new ControleException("Pontuação já cadastrada.");
             }
-            if (daoMedalha.existeNome(medalha.getNome())) {
+            if (daoMedalha.existeNome(medalha)) {
                 throw new ControleException("Nome já cadastrado.");
             }
             int retorno = daoMedalha.inserir(medalha);
@@ -53,10 +53,10 @@ public class MedalhaService {
 
     public void alterar(final Medalha medalha) throws ControleException, Exception {
         try {
-            if (daoMedalha.existePontuacao(medalha.getPontuacaoNecessaria())) {
+            if (daoMedalha.existePontuacao(medalha)) {
                 throw new ControleException("Pontuação já cadastrada.");
             }
-            if (daoMedalha.existeNome(medalha.getNome())) {
+            if (daoMedalha.existeNome(medalha)) {
                 throw new ControleException("Nome já cadastrado.");
             }
             int retorno = daoMedalha.atualizar(medalha);
