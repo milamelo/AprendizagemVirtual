@@ -29,6 +29,7 @@ and open the template in the editor.
                         </center>
                     </td>
                 </tr>
+
                 <tr>
                     <td>
                         <center>
@@ -47,6 +48,60 @@ and open the template in the editor.
                         </center>
                     </td>
                 </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <hr/>
+                    </td>
+                </tr>
+
+                <!-- FILTRO -->
+                <tr>
+                    <td colspan="3">
+                        <table align="center" cellpadding="4" cellspacing="4" border="0" 
+                               style="background-color: white;">
+                            <tr>
+                                <td colspan="2">
+                                    <center><b>FILTRO</b></center>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Nome:
+                                </td>
+                                <td>
+                                    <h:inputText id="medalhaNome" value="#{medalhaMB.filtroMedalha.nome}" maxlength="50" 
+                                                 size="30" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Pontuação Necessária:
+                                </td>
+                                <td>
+                                    <h:inputText id="medalhaPontuacaoNecessaria" value="#{medalhaMB.filtroMedalha.pontuacaoNecessaria}" maxlength="50"
+                                                 size="30" />
+                                </td>    
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <h:commandButton id="btnMedalhaLocalizar" value="Localizar" action="#{medalhaMB.localizar()}" />
+                                    <h:commandButton id="btnMedalhaLimpar" value="Limpar" action="#{medalhaMB.limpar()}" />
+                                </td>
+                            </tr>
+
+                        </table>
+                    </td>
+                </tr>
+                <!-- FILTRO -->
+
+                <tr>
+                    <td colspan="3">
+                        <hr/>
+                    </td>
+                </tr>
+
+                <!-- LISTA -->
                 <tr>
                     <td colspan="3">
                         <center>
@@ -79,6 +134,8 @@ and open the template in the editor.
                         </center>
                     </td>
                 </tr>
+                <!-- LISTA -->
+
             </table>
         </h:form>
     </body>

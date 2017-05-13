@@ -22,6 +22,7 @@ import negocio.service.ServiceFactory;
 public class MedalhaManegedBean extends MB {
 
     private Medalha medalhaSelecionada = new Medalha();
+    private Medalha filtroMedalha = new Medalha();
     private List<Medalha> medalhas = new ArrayList<>();
 
     public Medalha getMedalhaSelecionada() {
@@ -30,6 +31,14 @@ public class MedalhaManegedBean extends MB {
 
     public void setMedalhaSelecionada(Medalha medalhaSelecionada) {
         this.medalhaSelecionada = medalhaSelecionada;
+    }
+
+    public Medalha getFiltroMedalha() {
+        return filtroMedalha;
+    }
+
+    public void setFiltroMedalha(Medalha filtroMedalha) {
+        this.filtroMedalha = filtroMedalha;
     }
 
     public List<Medalha> getMedalhas() {
@@ -56,7 +65,6 @@ public class MedalhaManegedBean extends MB {
             limparMedalha();
             listar();
             super.addMensagemSucesso("Medalha removida com sucesso.");
-            super.redirect("/pages/medalha/medalha.xhtml");
         } catch (Exception e) {
             super.addMensagemErro(e.getMessage());
         }
@@ -65,7 +73,7 @@ public class MedalhaManegedBean extends MB {
     public void listar() {
         try {
             final MedalhaService medalhaService = (MedalhaService) ServiceFactory.criarService(ServiceFactory.MEDALHA);
-            medalhas = medalhaService.listar(medalhaSelecionada);
+            medalhas = medalhaService.listar(filtroMedalha);
         } catch (Exception e) {
             super.addMensagemErro(e.getMessage());
         }
@@ -77,6 +85,7 @@ public class MedalhaManegedBean extends MB {
 
     public void prepararMedalha(final Medalha medalha) {
         try {
+            limparMensagem();
             medalhaSelecionada = medalha;
             super.redirect("/pages/medalha/medalhaAlterar.xhtml");
         } catch (Exception e) {
@@ -97,16 +106,17 @@ public class MedalhaManegedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     public void prepararCadastrar() {
         try {
+            limparMensagem();
             limparMedalha();
             super.redirect("/pages/medalha/medalhaCadastro.xhtml");
         } catch (Exception e) {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     public void cadastrarMedalha() {
         try {
             super.limparMensagem();
@@ -120,4 +130,14 @@ public class MedalhaManegedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
+
+    public void limpar() {
+        filtroMedalha = new Medalha();
+    }
+
+    public void localizar() {
+        limparMensagem();
+        listar();
+    }
+
 }
