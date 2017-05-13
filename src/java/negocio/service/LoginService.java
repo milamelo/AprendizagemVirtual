@@ -22,7 +22,11 @@ public class LoginService {
 
     public Usuario logar(final Usuario usuario) throws Exception {
         try {
-            return this.daoUsuario.logar(usuario);
+            final Usuario usu = this.daoUsuario.logar(usuario);
+            if (usu != null) {
+                this.daoUsuario.atualizarUltimoAcesso(usu);
+            }
+            return usu;
         } catch (Exception e) {
             throw new Exception("Erro: LoginService.logar \n" + e.getMessage());
         }

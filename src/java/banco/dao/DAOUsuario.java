@@ -69,6 +69,8 @@ public class DAOUsuario extends Conexao {
         usuario.setSenha(rs.getString("SENHA"));
         usuario.setPontuacaoAcumulada(rs.getBigDecimal("PONTUACAO_ACUMULADA"));
         usuario.setPermissaoEspecial(rs.getBoolean("PERMISSAO_ESPECIAL"));
+        usuario.setDataInclusao(rs.getTimestamp("DATA_INCLUSAO"));
+        usuario.setUltimoAcesso(rs.getTimestamp("ULTIMO_ACESSO"));
 
         final Medalha medalha = new Medalha();
         if (rs.getInt("ID_MEDALHA") != 0) {
@@ -147,8 +149,8 @@ public class DAOUsuario extends Conexao {
         try {
             sql = new StringBuilder();
             sql.append(" INSERT INTO USUARIO ");
-            sql.append("    (CPF, NOME, EMAIL, SENHA, PONTUACAO_ACUMULADA, DATA_INCLUSAO) ");
-            sql.append(" VALUES(?, ?, ?, ?, ?, CURRENT_TIMESTAMP) ");
+            sql.append("    (CPF, NOME, EMAIL, SENHA, PONTUACAO_ACUMULADA, DATA_INCLUSAO, ULTIMO_ACESSO) ");
+            sql.append(" VALUES(?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) ");
 
             conexao = abrirConexao();
             preparedStatement = conexao.prepareStatement(sql.toString());
@@ -163,6 +165,30 @@ public class DAOUsuario extends Conexao {
             return preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new SQLException("Erro: DAOUsuario.existeEmail \n" + e.getMessage());
+        } finally {
+            fecharConexao(conexao);
+        }
+    }
+    
+    public int atualizarUltimoAcesso(final Usuario usuario) throws Exception {
+        Connection conexao = null;
+        PreparedStatement preparedStatement;
+
+        try {
+            sql = new StringBuilder();
+            sql.append(" UPDATE USUARIO ");
+            sql.append("    SET ULTIMO_ACESSO = CURRENT_TIMESTAMP ");
+            sql.append("  WHERE ID = ? ");
+
+            conexao = abrirConexao();
+            preparedStatement = conexao.prepareStatement(sql.toString());
+
+            int i = 1;
+            preparedStatement.setInt(i++, usuario.getId());
+            
+            return preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new SQLException("Erro: DAOUsuario.atualizarUltimoAcesso \n" + e.getMessage());
         } finally {
             fecharConexao(conexao);
         }
