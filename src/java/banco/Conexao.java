@@ -7,6 +7,8 @@ package banco;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -49,6 +51,26 @@ public class Conexao {
             }
         } catch (SQLException e) {
             throw new SQLException("Erro: Conexao.fecharConexao \n" + e.getMessage());
+        }
+    }
+    
+    protected void fecharPreparedStatement(final PreparedStatement preparedStatement) throws SQLException {
+        try {
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+        } catch (SQLException e) {
+            throw new SQLException("Erro: Conexao.fecharPreparedStatement \n" + e.getMessage());
+        }
+    }
+    
+    protected void fecharResultSet(final ResultSet resultSet) throws SQLException {
+        try {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+        } catch (SQLException e) {
+            throw new SQLException("Erro: Conexao.fecharResultSet \n" + e.getMessage());
         }
     }
 

@@ -16,23 +16,23 @@
             <table align="center" cellpadding="20" cellspacing="20" border="0" style="background-color: white">
                 <tr>
                     <td>
-                        <h:commandButton id="btnLogadoPerfil" value="PERFIL" action="perfil" />
+                        <center><h:commandButton id="btnLogadoPerfil" value="PERFIL" action="perfil" /></center>
                     </td>
                     <td>
-                        <h:commandButton id="btnLogadoCurso" value="CURSOS" action="curso" />
+                        <center><h:commandButton id="btnLogadoCurso" value="CURSOS" action="curso" /></center>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <h:commandButton id="btnLogadoMedalha" value="MEDALHA" action="perfil" rendered="#{medalhaMB.permissaoEspecial}"/>
+                        <center><h:commandButton id="btnLogadoMedalha" value="MEDALHA" action="medalha/medalha" /></center>
                     </td>
                     <td>
-                        <h:commandButton id="btnLogadoTipoAtividade" value="TIPO ATIVIDADE" action="curso" />
+                        <center><h:commandButton id="btnLogadoTipoAtividade" value="TIPO ATIVIDADE" action="curso" /></center>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
-                        <h:commandButton id="btnLogadoSair" value="SAIR" action="#{loginMB.sair()}" />
+                        <center><h:commandButton id="btnLogadoLogout" value="LOGOUT" action="#{loginMB.sair()}" /></center>
                     </td>
                 </tr>
                 
