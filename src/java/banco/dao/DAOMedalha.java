@@ -121,7 +121,7 @@ public class DAOMedalha extends Conexao {
             sql.append(" WHERE ID = ? ");
 
             conexao = abrirConexao();
-            preparedStatement = conexao.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
+            preparedStatement = conexao.prepareStatement(sql.toString());
 
             int i = 1;
             preparedStatement.setString(i++, medalha.getNome().trim().toUpperCase());
@@ -149,7 +149,7 @@ public class DAOMedalha extends Conexao {
             sql.append(" WHERE ID = ? ");
 
             conexao = abrirConexao();
-            preparedStatement = conexao.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
+            preparedStatement = conexao.prepareStatement(sql.toString());
 
             int i = 1;
             preparedStatement.setInt(i++, medalha.getId());

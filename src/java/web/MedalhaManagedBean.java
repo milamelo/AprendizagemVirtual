@@ -19,7 +19,7 @@ import negocio.service.ServiceFactory;
  */
 @ManagedBean(name = "medalhaMB")
 @SessionScoped
-public class MedalhaManegedBean extends MB {
+public class MedalhaManagedBean extends MB {
 
     private Medalha medalhaSelecionada = new Medalha();
     private Medalha filtroMedalha = new Medalha();
@@ -49,10 +49,9 @@ public class MedalhaManegedBean extends MB {
         this.medalhas = medalhas;
     }
 
-    public MedalhaManegedBean() {
+    public MedalhaManagedBean() {
         try {
-            final MedalhaService medalhaService = (MedalhaService) ServiceFactory.criarService(ServiceFactory.MEDALHA);
-            medalhas = medalhaService.listar(medalhaSelecionada);
+            listar();
         } catch (Exception e) {
             super.addMensagemErro(e.getMessage());
         }
@@ -70,7 +69,7 @@ public class MedalhaManegedBean extends MB {
         }
     }
 
-    public void listar() {
+    private void listar() {
         try {
             final MedalhaService medalhaService = (MedalhaService) ServiceFactory.criarService(ServiceFactory.MEDALHA);
             medalhas = medalhaService.listar(filtroMedalha);
