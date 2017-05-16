@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <head>
+        <title>Aprendizagem Virtual</title>
+    </head>
+    <body style="background-color: lightblue;">
+        <h1 align="center">
+            <font color="white">USUÁRIO - ALTERAR</font>
+        </h1>
+
+        <h:form id="formUsuarioAlterar">
+            <table align="center" cellpadding="0" cellspacing="5" border="0" style="background-color: white">
+                <tr>
+                    <td colspan="2">
+                        <h:outputText id="msgErroUsuarioAlterar" value="#{usuarioMB.mensagem}" rendered="#{usuarioMB.exibeMsgErro}" 
+                                      style="color: red;"/>
+                        <h:outputText id="msgSucessoUsuarioAlterar" value="#{usuarioMB.mensagem}" rendered="#{usuarioMB.exibeMsgSucesso}" 
+                                      style="color: blue;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        CPF:
+                    </td>
+                    <td colspan="2">
+                        <h:inputText id="usuarioAlterarCpf" value="#{usuarioMB.usuarioSelecionado.cpf}" maxlength="11" 
+                                     size="30" readonly="true" disabled="true"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Nome:
+                    </td>
+                    <td>
+                        <h:inputText id="usuarioAlterarNome" value="#{usuarioMB.usuarioSelecionado.nome}" maxlength="50"
+                                     size="30" required="true" requiredMessage="Nome obrigatório" />
+                    </td>    
+                    <td>
+                        <h:message for="usuarioAlterarNome" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        E-mail:
+                    </td>
+                    <td colspan="2">
+                        <h:inputText id="usuarioAlterarEmail" value="#{usuarioMB.usuarioSelecionado.email}" maxlength="50"
+                                     size="30" readonly="true" disabled="true" />
+                    </td>    
+                </tr>
+                <tr>
+                    <td>
+                        Pontuação Acumulada:
+                    </td>
+                    <td colspan="2">
+                        <h:inputText id="usuarioAlterarPontuacaoAcumulada" value="#{usuarioMB.usuarioSelecionado.pontuacaoAcumulada}" maxlength="50"
+                                     size="30" readonly="true" disabled="true" />
+                    </td>    
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <h:commandButton id="btnUsuarioAlterarAlterar" value="Alterar" action="#{usuarioMB.alterarUsuario()}" />
+                        <h:commandButton id="btnNovoCadatroVoltar" value="Voltar" action="#{usuarioMB.voltar()}" />
+                    </td>
+                </tr>
+            </table>
+        </h:form>
+    </body>
+</html>

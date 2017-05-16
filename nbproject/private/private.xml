@@ -3,19 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/negocio/entidade/Medalha.java</file>
-            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/negocio/service/ServiceFactory.java</file>
-            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/web/pages/medalha/medalha.xhtml</file>
-            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/negocio/entidade/TipoAtividade.java</file>
-            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/negocio/service/MedalhaService.java</file>
-            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/web/TipoAtividadeManagedBean.java</file>
-            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/web/MedalhaManagedBean.java</file>
-            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/negocio/service/TipoAtividadeService.java</file>
+            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/web/pages/tipoAtividade/tipoAtividadeAlterar.xhtml</file>
             <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/web/pages/tipoAtividade/tipoAtividade.xhtml</file>
-            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/banco/dao/DAOTipoAtividade.java</file>
-            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/web/pages/medalha/medalhaCadastro.xhtml</file>
-            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/banco/dao/DAOMedalha.java</file>
-            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/web/pages/tipoAtividade/tipoAtividadeCadastro.xhtml</file>
+            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/web/pages/usuario/usuarioAlterar.xhtml</file>
+            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/web/novoCadastro.xhtml</file>
         </group>
     </open-files>
 </project-private>

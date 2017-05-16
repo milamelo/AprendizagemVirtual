@@ -28,8 +28,8 @@ public class DAOUsuario extends Conexao {
     public Usuario logar(final Usuario usuario) throws Exception {
         Usuario usu = null;
         Connection conexao = null;
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
         try {
             sql = new StringBuilder();
@@ -55,6 +55,8 @@ public class DAOUsuario extends Conexao {
         } catch (SQLException e) {
             throw new SQLException("Erro: DAOUsuario.logar \n" + e.getMessage());
         } finally {
+            fecharPreparedStatement(preparedStatement);
+            fecharResultSet(resultSet);
             fecharConexao(conexao);
         }
         return usu;
@@ -82,11 +84,11 @@ public class DAOUsuario extends Conexao {
 
         return usuario;
     }
-    
+
     public boolean existeCpf(final String cpf) throws Exception {
         Connection conexao = null;
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
         boolean retorno = false;
 
         try {
@@ -107,12 +109,14 @@ public class DAOUsuario extends Conexao {
         } catch (SQLException e) {
             throw new SQLException("Erro: DAOUsuario.existeCpf \n" + e.getMessage());
         } finally {
+            fecharPreparedStatement(preparedStatement);
+            fecharResultSet(resultSet);
             fecharConexao(conexao);
         }
-        
+
         return retorno;
     }
-    
+
     public boolean existeEmail(final String email) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement;
@@ -141,10 +145,10 @@ public class DAOUsuario extends Conexao {
         }
         return retorno;
     }
-    
+
     public int inserir(final Usuario usuario) throws Exception {
         Connection conexao = null;
-        PreparedStatement preparedStatement;
+        PreparedStatement preparedStatement = null;
 
         try {
             sql = new StringBuilder();
@@ -166,13 +170,14 @@ public class DAOUsuario extends Conexao {
         } catch (SQLException e) {
             throw new SQLException("Erro: DAOUsuario.existeEmail \n" + e.getMessage());
         } finally {
+            fecharPreparedStatement(preparedStatement);
             fecharConexao(conexao);
         }
     }
-    
+
     public int atualizarUltimoAcesso(final Usuario usuario) throws Exception {
         Connection conexao = null;
-        PreparedStatement preparedStatement;
+        PreparedStatement preparedStatement = null;
 
         try {
             sql = new StringBuilder();
@@ -185,12 +190,75 @@ public class DAOUsuario extends Conexao {
 
             int i = 1;
             preparedStatement.setInt(i++, usuario.getId());
-            
+
             return preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new SQLException("Erro: DAOUsuario.atualizarUltimoAcesso \n" + e.getMessage());
         } finally {
+            fecharPreparedStatement(preparedStatement);
             fecharConexao(conexao);
         }
+    }
+
+    public int alterar(final Usuario usuario) throws Exception {
+        Connection conexao = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            sql = new StringBuilder();
+            sql.append(" UPDATE USUARIO ");
+            sql.append("    SET NOME = ?, SENHA = ? ");
+            sql.append("  WHERE ID = ? ");
+
+            conexao = abrirConexao();
+            preparedStatement = conexao.prepareStatement(sql.toString());
+
+            int i = 1;
+            preparedStatement.setString(i++, usuario.getNome().trim().toUpperCase());
+            preparedStatement.setString(i++, usuario.getSenha());
+            preparedStatement.setInt(i++, usuario.getId());
+
+            return preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new SQLException("Erro: DAOUsuario.alterar \n" + e.getMessage());
+        } finally {
+            fecharPreparedStatement(preparedStatement);
+            fecharConexao(conexao);
+        }
+    }
+
+    public Usuario consultarUsuario(final Usuario usuario) throws Exception {
+        Usuario usu = null;
+        Connection conexao = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            sql = new StringBuilder();
+            sql.append("    SELECT U.*, ");
+            sql.append("           M.ID ID_MEDALHA, M.NOME NOME_MEDALHA, M.PONTUACAO_NECESSARIA ");
+            sql.append("      FROM USUARIO U");
+            sql.append(" LEFT JOIN MEDALHA M ON M.ID = U.ID_MEDALHA ");
+            sql.append("     WHERE U.ID = ? ");
+
+            conexao = abrirConexao();
+            preparedStatement = conexao.prepareStatement(sql.toString());
+
+            int i = 1;
+            preparedStatement.setInt(i++, usuario.getId());
+
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                usu = createUsuario(resultSet);
+            }
+
+        } catch (SQLException e) {
+            throw new SQLException("Erro: DAOUsuario.consultarUsuario \n" + e.getMessage());
+        } finally {
+            fecharPreparedStatement(preparedStatement);
+            fecharResultSet(resultSet);
+            fecharConexao(conexao);
+        }
+        return usu;
     }
 }

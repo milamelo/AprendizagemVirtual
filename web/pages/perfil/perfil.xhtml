@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <head>
+        <title>Aprendizagem Virtual</title>
+    </head>
+    <body style="background-color: lightblue;">
+        <h1 align="center">
+            <font color="white">APRENDIAZAGEM VIRTUAL - PERFIL</font>
+        </h1>
+
+        <h:form id="formPerfil">
+            <table align="center" cellpadding="4" cellspacing="4" border="0" 
+                   style="background-color: white;">
+                <tr>
+                    <td colspan="4">
+                        <center>
+                            <h:outputText id="msgErroPerfil" value="#{usuarioMB.mensagem}" rendered="#{usuarioMB.exibeMsgErro}" 
+                                          style="color: red;"/>
+                            <h:outputText id="msgSucessoPerfil" value="#{usuarioMB.mensagem}" rendered="#{usuarioMB.exibeMsgSucesso}" 
+                                          style="color: blue;"/>
+                        </center>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <center>
+                            <h:commandButton id="btnPerfilAlterar" value="Alterar" action="#{usuarioMB.prepararAlterar()}" />
+                        </center>
+                    </td>
+                    <td>
+                        <center>
+                            <h:commandButton id="btnPerfilAlterarSenha" value="AlterarSenha" action="#{usuarioMB.prepararAlterarSenha()}" />
+                        </center>
+                    </td>
+                    <td>
+                        <center>
+                            <h:commandButton id="btnPerfilMenu" value="Voltar ao Menu" action="#{usuarioMB.paginaLogado()}" />
+                        </center>
+                    </td>
+                    <td>
+                        <center>
+                            <h:commandButton id="btnPerfilLogout" value="Logout" action="#{loginMB.sair()}" />
+                        </center>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="4">
+                        <hr/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="4">
+                        <table align="center" cellpadding="4" cellspacing="4" border="0" 
+                               style="background-color: white;">
+                            <tr>
+                                <td>
+                                    CPF:
+                                </td>
+                                <td>
+                                    <h:outputLabel id="perfilCpf" value="#{usuarioMB.usuarioSelecionado.cpf}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Nome:
+                                </td>
+                                <td>
+                                    <h:outputLabel id="perfilNome" value="#{usuarioMB.usuarioSelecionado.nome}" />
+                                </td>    
+                            </tr>
+                            <tr>
+                                <td>
+                                    E-mail:
+                                </td>
+                                <td>
+                                    <h:outputLabel id="pefilEmail" value="#{usuarioMB.usuarioSelecionado.email}" />
+                                </td>    
+                            </tr>
+                            <tr>
+                                <td>
+                                    Pontuação Acumulada:
+                                </td>
+                                <td>
+                                    <h:outputLabel id="perfilPontuacaoAcumulada" value="#{usuarioMB.usuarioSelecionado.pontuacaoAcumulada}" />
+                                </td>    
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    Medalha:
+                                </td>
+                                <td>
+                                    <h:outputLabel id="perfilMedalha" value="#{usuarioMB.usuarioSelecionado.medalha.nome}" />
+                                </td>    
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    Último Acesso:
+                                </td>
+                                <td>
+                                    <h:outputLabel id="perfilUltimoAcesso" value="#{usuarioMB.usuarioSelecionado.ultimoAcesso}" />
+                                </td>    
+                            </tr>
+
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </h:form>
+    </body>
+</html>

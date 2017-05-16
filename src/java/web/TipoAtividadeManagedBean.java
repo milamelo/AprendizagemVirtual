@@ -84,7 +84,7 @@ public class TipoAtividadeManagedBean extends MB {
 
     public void prepararTipoAtividade(final TipoAtividade tipoAtividade) {
         try {
-            limparMensagem();
+            super.limparMensagem();
             tipoAtividadeSelecionada = tipoAtividade;
             super.redirect("/pages/tipoAtividade/tipoAtividadeAlterar.xhtml");
         } catch (Exception e) {
@@ -108,7 +108,7 @@ public class TipoAtividadeManagedBean extends MB {
 
     public void prepararCadastrar() {
         try {
-            limparMensagem();
+            super.limparMensagem();
             limparTipoAtividade();
             super.redirect("/pages/tipoAtividade/tipoAtividadeCadastro.xhtml");
         } catch (Exception e) {
@@ -135,8 +135,17 @@ public class TipoAtividadeManagedBean extends MB {
     }
 
     public void localizar() {
-        limparMensagem();
+        super.limparMensagem();
         listar();
     }
 
+    public void voltar() {
+        try {
+            super.limparMensagem();
+            listar();
+            super.redirect("/pages/tipoAtividade/tipoAtividade.xhtml");
+        } catch (Exception e) {
+            super.addMensagemErro(e.getMessage());
+        }
+    }
 }
