@@ -165,6 +165,7 @@ public class UsuarioManagedBean extends MB {
     public void voltar() {
         try {
             super.limparMensagem();
+            prepararUsuario();
             super.redirect("/pages/perfil/perfil.xhtml");
         } catch (Exception e) {
             super.addMensagemErro(e.getMessage());
