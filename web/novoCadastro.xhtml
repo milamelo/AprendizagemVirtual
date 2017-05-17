@@ -30,7 +30,7 @@ and open the template in the editor.
                         CPF:
                     </td>
                     <td>
-                        <h:inputText id="novoCadastroCpf" value="#{usuarioMB.usuario.cpf}" maxlength="11" 
+                        <h:inputText id="novoCadastroCpf" value="#{usuarioMB.usuarioSelecionado.cpf}" maxlength="11" 
                                      size="30" required="true" requiredMessage="CPF obrigatório" />
                     </td>
                     <td>
@@ -42,7 +42,7 @@ and open the template in the editor.
                         Nome:
                     </td>
                     <td>
-                        <h:inputText id="novoCadastroNome" value="#{usuarioMB.usuario.nome}" maxlength="50"
+                        <h:inputText id="novoCadastroNome" value="#{usuarioMB.usuarioSelecionado.nome}" maxlength="50"
                                        size="30" required="true" requiredMessage="Nome obrigatório" />
                     </td>    
                     <td>
@@ -54,7 +54,7 @@ and open the template in the editor.
                         E-mail:
                     </td>
                     <td>
-                        <h:inputText id="novoCadastroEmail" value="#{usuarioMB.usuario.email}" maxlength="50"
+                        <h:inputText id="novoCadastroEmail" value="#{usuarioMB.usuarioSelecionado.email}" maxlength="50"
                                        size="30" required="true" requiredMessage="E-mail obrigatório" />
                     </td>    
                     <td>
@@ -66,7 +66,7 @@ and open the template in the editor.
                         Senha:
                     </td>
                     <td>
-                        <h:inputSecret id="novoCadastroSenha" value="#{usuarioMB.usuario.senha}" maxlength="20"
+                        <h:inputSecret id="novoCadastroSenha" value="#{usuarioMB.usuarioSelecionado.senha}" maxlength="20"
                                        size="30" required="true" requiredMessage="Senha obrigatório" />
                     </td>    
                     <td>

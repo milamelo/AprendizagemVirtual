@@ -35,4 +35,12 @@ public class UsuarioService {
         }
     }
     
+    public Usuario alterarUsuario(final Usuario usuario) throws ControleException, Exception {
+        int retorno = daoUsuario.alterar(usuario);
+        if (retorno == 0) {
+            throw new ControleException("Usuário não alterado.");
+        }
+        return daoUsuario.consultarUsuario(usuario);
+    }
+    
 }

@@ -84,7 +84,7 @@ public class MedalhaManagedBean extends MB {
 
     public void prepararMedalha(final Medalha medalha) {
         try {
-            limparMensagem();
+            super.limparMensagem();
             medalhaSelecionada = medalha;
             super.redirect("/pages/medalha/medalhaAlterar.xhtml");
         } catch (Exception e) {
@@ -108,7 +108,7 @@ public class MedalhaManagedBean extends MB {
 
     public void prepararCadastrar() {
         try {
-            limparMensagem();
+            super.limparMensagem();
             limparMedalha();
             super.redirect("/pages/medalha/medalhaCadastro.xhtml");
         } catch (Exception e) {
@@ -135,8 +135,18 @@ public class MedalhaManagedBean extends MB {
     }
 
     public void localizar() {
-        limparMensagem();
+        super.limparMensagem();
         listar();
+    }
+    
+    public void voltar() {
+        try {
+            super.limparMensagem();
+            listar();
+            super.redirect("/pages/medalha/medalha.xhtml");
+        } catch (Exception e) {
+            super.addMensagemErro(e.getMessage());
+        }
     }
 
 }
