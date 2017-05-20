@@ -130,7 +130,7 @@ public class TipoAtividadeManagedBean extends MB {
         }
     }
 
-    public void limpar() {
+    public void limparFiltro() {
         filtroTipoAtividade = new TipoAtividade();
     }
 

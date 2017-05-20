@@ -130,7 +130,7 @@ public class MedalhaManagedBean extends MB {
         }
     }
 
-    public void limpar() {
+    public void limparFiltro() {
         filtroMedalha = new Medalha();
     }
 

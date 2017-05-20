@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <title>Aprendizagem Virtual</title>
+    </head>
+    <body style="background-color: lightblue;">
+        <h1 align="center">
+            <font color="white">APRENDIAZAGEM VIRTUAL - GRUPOS</font>
+        </h1>
+
+        <h:form id="formGrupo">
+            <table align="center" cellpadding="4" cellspacing="4" border="0" 
+                   style="background-color: white;">
+                <tr>
+                    <td colspan="3">
+                        <center>
+                            <h:outputText id="msgErroGrupo" value="#{grupoMB.mensagem}" rendered="#{grupoMB.exibeMsgErro}" 
+                                          style="color: red;"/>
+                            <h:outputText id="msgSucessoGrupo" value="#{grupoMB.mensagem}" rendered="#{grupoMB.exibeMsgSucesso}" 
+                                          style="color: blue;"/>
+                        </center>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <center>
+                            <h:commandButton id="btnGrupoCadastrar" value="Cadastrar" action="#{grupoMB.prepararCadastrar()}" />
+                        </center>
+                    </td>
+                    <td>
+                        <center>
+                            <h:commandButton id="btnGrupoMenu" value="Voltar ao Menu" action="#{grupoMB.paginaLogado()}" />
+                        </center>
+                    </td>
+                    <td>
+                        <center>
+                            <h:commandButton id="btnGrupoLogout" value="Logout" action="#{loginMB.sair()}" />
+                        </center>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <hr/>
+                    </td>
+                </tr>
+
+                <!-- FILTRO -->
+                <tr>
+                    <td colspan="3">
+                        <table align="center" cellpadding="4" cellspacing="4" border="0" 
+                               style="background-color: white;">
+                            <tr>
+                                <td colspan="2">
+                                    <center><b>FILTRO</b></center>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Nome:
+                                </td>
+                                <td>
+                                    <h:inputText id="grupoNome" value="#{grupoMB.filtroGrupo.nome}" maxlength="50" 
+                                                 size="30" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <h:commandButton id="btnGrupoLocalizar" value="Localizar" action="#{grupoMB.localizar()}" />
+                                    <h:commandButton id="btnGrupoLimpar" value="Limpar" action="#{grupoMB.limparFiltro()}" />
+                                </td>
+                            </tr>
+
+                        </table>
+                    </td>
+                </tr>
+                <!-- FILTRO -->
+
+                <tr>
+                    <td colspan="3">
+                        <hr/>
+                    </td>
+                </tr>
+
+                <!-- LISTA -->
+                <tr>
+                    <td colspan="3">
+                        <center>
+                            <h:dataTable value="#{grupoMB.grupos}" var="grupo" style="width: 450px;">
+                                <h:column>
+                                    <f:facet name="header">NOME</f:facet>
+                                        #{grupo.nome}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">TOTAL INTEGRANTES</f:facet>
+                                    <center>#{grupo.usuarios.size()}</center>
+                                </h:column>
+
+                                <h:column>
+                                    <center>
+                                        <h:commandButton id="btnGrupoEntrar" value="Entrar" 
+                                                         action="#{grupoMB.entrar(grupo)}" rendered="#{grupoMB.podeEntrar(grupo)}"/>
+                                        <h:commandButton id="btnGrupoSair" value="Sair" 
+                                                         action="#{grupoMB.sair(grupo)}" rendered="#{grupoMB.podeSair(grupo)}"/>
+                                    </center>
+                                </h:column>
+                                
+                                <h:column>
+                                    <center>
+                                        <h:commandButton id="btnGrupoAlterar" value="Alterar" 
+                                                         action="#{grupoMB.prepararGrupo(grupo)}" rendered="#{grupoMB.podeAlterarRemover(grupo)}"/>
+                                    </center>
+                                </h:column>
+
+                                <h:column>
+                                    <center>
+                                        <h:commandButton id="btnGrupoRemover" value="Remover" 
+                                                         action="#{grupoMB.remover(grupo)}" rendered="#{grupoMB.podeAlterarRemover(grupo)}"/>
+                                    </center>
+                                </h:column>
+
+                            </h:dataTable>
+                        </center>
+                    </td>
+                </tr>
+                <!-- LISTA -->
+
+            </table>
+        </h:form>
+    </body>
+</html>

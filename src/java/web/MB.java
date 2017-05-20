@@ -55,16 +55,23 @@ public class MB {
     }
 
     public void setPermissaoEspecial() {
-        
+
     }
-    
+
+    protected Usuario getUsuarioLogado() {
+        if (pegarDaSessao("usuarioLogado") != null) {
+            return (Usuario) pegarDaSessao("usuarioLogado");
+        }
+        return null;
+    }
+
     public void redirect(String caminho) throws Exception {
         FacesContext ctx = FacesContext.getCurrentInstance();
         ExternalContext extContext = ctx.getExternalContext();
         String url = extContext.encodeActionURL(ctx.getApplication().getViewHandler().getActionURL(ctx, caminho));
         extContext.redirect(url);
     }
-    
+
     public void paginaLogado() throws Exception {
         redirect("/pages/logado.xhtml");
     }
@@ -74,7 +81,7 @@ public class MB {
         this.exibeMsgErro = true;
         this.exibeMsgSucesso = false;
     }
-    
+
     public void addMensagemSucesso(final String mensagem) {
         this.mensagem = mensagem;
         this.exibeMsgSucesso = true;
