@@ -76,7 +76,7 @@ and open the template in the editor.
                             <tr>
                                 <td colspan="2">
                                     <h:commandButton id="btnGrupoLocalizar" value="Localizar" action="#{grupoMB.localizar()}" />
-                                    <h:commandButton id="btnGrupoLimpar" value="Limpar" action="#{grupoMB.limpar()}" />
+                                    <h:commandButton id="btnGrupoLimpar" value="Limpar" action="#{grupoMB.limparFiltro()}" />
                                 </td>
                             </tr>
 
@@ -102,7 +102,7 @@ and open the template in the editor.
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Total Participantes</f:facet>
+                                    <f:facet name="header">TOTAL INTEGRANTES</f:facet>
                                     <center>#{grupo.usuarios.size()}</center>
                                 </h:column>
 
@@ -110,11 +110,6 @@ and open the template in the editor.
                                     <center>
                                         <h:commandButton id="btnGrupoEntrar" value="Entrar" 
                                                          action="#{grupoMB.entrar(grupo)}" rendered="#{grupoMB.podeEntrar(grupo)}"/>
-                                    </center>
-                                </h:column>
-                                
-                                <h:column>
-                                    <center>
                                         <h:commandButton id="btnGrupoSair" value="Sair" 
                                                          action="#{grupoMB.sair(grupo)}" rendered="#{grupoMB.podeSair(grupo)}"/>
                                     </center>

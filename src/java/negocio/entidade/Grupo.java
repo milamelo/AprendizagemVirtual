@@ -5,6 +5,7 @@
  */
 package negocio.entidade;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,8 +16,8 @@ public class Grupo {
 
     private Integer id;
     private String nome;
-    private Usuario usuario;
-    private List<Usuario> usuarios;
+    private Usuario usuario = new Usuario();
+    private List<Usuario> usuarios = new ArrayList<>();
 
     public Integer getId() {
         return id;

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <head>
+        <title>Aprendizagem Virtual</title>
+    </head>
+    <body style="background-color: lightblue;">
+        <h1 align="center">
+            <font color="white">GRUPO - ALTERAR</font>
+        </h1>
+        
+        <h:form id="formGrupoAlterar">
+            <table align="center" cellpadding="0" cellspacing="5" border="0" style="background-color: white">
+                <tr>
+                    <td colspan="2">
+                        <h:outputText id="msgErroGrupoAlterar" value="#{grupoMB.mensagem}" rendered="#{grupoMB.exibeMsgErro}" 
+                                      style="color: red;"/>
+                        <h:outputText id="msgSucessoGrupoAlterar" value="#{grupoMB.mensagem}" rendered="#{grupoMB.exibeMsgSucesso}" 
+                                      style="color: blue;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Nome:
+                    </td>
+                    <td>
+                        <h:inputText id="grupoAlterarNome" value="#{grupoMB.grupoSelecionado.nome}" maxlength="50" 
+                                     size="30" required="true" requiredMessage="Nome obrigatório" />
+                    </td>
+                    <td>
+                        <h:message for="grupoAlterarNome" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Total Integrantes:
+                    </td>
+                    <td colspan="2">
+                        <h:inputText id="grupoAlterarTotalIntegrantes" value="#{grupoMB.grupoSelecionado.usuarios.size()}" maxlength="50"
+                                       size="30" readonly="true" disabled="true" />
+                    </td>    
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <h:commandButton id="btnGrupoAlterarAlterar" value="Alterar" action="#{grupoMB.alterarGrupo()}" />
+                        <h:commandButton id="btnGrupoAlterarVoltar" value="Voltar" action="#{grupoMB.voltar()}" />
+                    </td>
+                </tr>
+            </table>
+        </h:form>
+    </body>
+</html>

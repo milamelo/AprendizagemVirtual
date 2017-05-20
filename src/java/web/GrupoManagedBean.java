@@ -21,16 +21,16 @@ import negocio.service.ServiceFactory;
 @SessionScoped
 public class GrupoManagedBean extends MB {
 
-    private Grupo grupoSelecionada = new Grupo();
+    private Grupo grupoSelecionado = new Grupo();
     private Grupo filtroGrupo = new Grupo();
     private List<Grupo> grupos = new ArrayList<>();
 
-    public Grupo getGrupoSelecionada() {
-        return grupoSelecionada;
+    public Grupo getGrupoSelecionado() {
+        return grupoSelecionado;
     }
 
-    public void setGrupoSelecionada(Grupo grupoSelecionada) {
-        this.grupoSelecionada = grupoSelecionada;
+    public void setGrupoSelecionado(Grupo grupoSelecionado) {
+        this.grupoSelecionado = grupoSelecionado;
     }
 
     public Grupo getFiltroGrupo() {
@@ -60,7 +60,7 @@ public class GrupoManagedBean extends MB {
     private void listar() {
         try {
             final GrupoService grupoService = (GrupoService) ServiceFactory.criarService(ServiceFactory.GRUPO);
-//            grupos = grupoService.listar(filtroGrupo);
+            grupos = grupoService.listar(filtroGrupo);
         } catch (Exception e) {
             super.addMensagemErro(e.getMessage());
         }
@@ -104,6 +104,118 @@ public class GrupoManagedBean extends MB {
         }
         return retorno;
     }
+    
+    private void limparGrupo() {
+        grupoSelecionado = new Grupo();
+    }
+    
+    public void limparFiltro() {
+        filtroGrupo = new Grupo();
+    }
+    
+    public void localizar() {
+        super.limparMensagem();
+        listar();
+    }
 
+    public void prepararCadastrar() {
+        try {
+            super.limparMensagem();
+            limparGrupo();
+            super.redirect("/pages/grupo/grupoCadastro.xhtml");
+        } catch (Exception e) {
+            super.addMensagemErro(e.getMessage());
+        }
+    }
 
+    public void cadastrarGrupo() {
+        try {
+            super.limparMensagem();
+            final GrupoService grupoService = (GrupoService) ServiceFactory.criarService(ServiceFactory.GRUPO);
+            grupoSelecionado.setUsuario(getUsuarioLogado());
+            grupoService.inserir(grupoSelecionado);
+            limparGrupo();
+            listar();
+            super.addMensagemSucesso("Grupo cadastrada com sucesso.");
+            super.redirect("/pages/grupo/grupo.xhtml");
+        } catch (Exception e) {
+            super.addMensagemErro(e.getMessage());
+        }
+    }
+
+    public void entrar(final Grupo grupo) {
+        try {
+            super.limparMensagem();
+            final GrupoService grupoService = (GrupoService) ServiceFactory.criarService(ServiceFactory.GRUPO);
+            grupoService.entrar(grupo, getUsuarioLogado());
+            limparGrupo();
+            listar();
+            super.addMensagemSucesso("Você entrou no grupo: " + grupo.getNome());
+            super.redirect("/pages/grupo/grupo.xhtml");
+        } catch (Exception e) {
+            super.addMensagemErro(e.getMessage());
+        }
+    }
+    
+    public void sair(final Grupo grupo) {
+        try {
+            super.limparMensagem();
+            final GrupoService grupoService = (GrupoService) ServiceFactory.criarService(ServiceFactory.GRUPO);
+            grupoService.sair(grupo, getUsuarioLogado());
+            limparGrupo();
+            listar();
+            super.addMensagemSucesso("Você saiu do grupo: " + grupo.getNome());
+            super.redirect("/pages/grupo/grupo.xhtml");
+        } catch (Exception e) {
+            super.addMensagemErro(e.getMessage());
+        }
+    }
+    
+    public void prepararGrupo(final Grupo grupo) {
+        try {
+            super.limparMensagem();
+            grupoSelecionado = grupo;
+            super.redirect("/pages/grupo/grupoAlterar.xhtml");
+        } catch (Exception e) {
+            super.addMensagemErro(e.getMessage());
+        }
+    }
+    
+    public void alterarGrupo() {
+        try {
+            super.limparMensagem();
+            final GrupoService grupoService = (GrupoService) ServiceFactory.criarService(ServiceFactory.GRUPO);
+            grupoService.alterar(grupoSelecionado);
+            limparGrupo();
+            listar();
+            super.addMensagemSucesso("Grupo alterado com sucesso.");
+            super.redirect("/pages/grupo/grupo.xhtml");
+        } catch (Exception e) {
+            super.addMensagemErro(e.getMessage());
+        }
+    }
+    
+    public void remover(final Grupo grupo) {
+        try {
+            super.limparMensagem();
+            final GrupoService grupoService = (GrupoService) ServiceFactory.criarService(ServiceFactory.GRUPO);
+            grupoService.remover(grupo);
+            limparGrupo();
+            listar();
+            super.addMensagemSucesso("Grupo removido com sucesso.");
+            super.redirect("/pages/grupo/grupo.xhtml");
+        } catch (Exception e) {
+            super.addMensagemErro(e.getMessage());
+        }
+    }
+    
+    public void voltar() {
+        try {
+            super.limparMensagem();
+            listar();
+            super.redirect("/pages/grupo/grupo.xhtml");
+        } catch (Exception e) {
+            super.addMensagemErro(e.getMessage());
+        }
+    }
 }
