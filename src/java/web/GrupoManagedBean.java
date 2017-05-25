@@ -136,7 +136,7 @@ public class GrupoManagedBean extends MB {
             grupoService.inserir(grupoSelecionado);
             limparGrupo();
             listar();
-            super.addMensagemSucesso("Grupo cadastrada com sucesso.");
+            super.addMensagemSucesso("Grupo cadastrado com sucesso.");
             super.redirect("/pages/grupo/grupo.xhtml");
         } catch (Exception e) {
             super.addMensagemErro(e.getMessage());

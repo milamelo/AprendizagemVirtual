@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <head>
+        <title>Aprendizagem Virtual</title>
+    </head>
+    <body style="background-color: lightblue;">
+        <h1 align="center">
+            <font color="white">CURSO - CADASTRAR</font>
+        </h1>
+
+        <h:form id="formCursoCadastro">
+            <table align="center" cellpadding="0" cellspacing="5" border="0" style="background-color: white">
+                <tr>
+                    <td colspan="2">
+                        <h:outputText id="msgErroCursoCadastro" value="#{cursoMB.mensagem}" rendered="#{cursoMB.exibeMsgErro}" 
+                                      style="color: red;"/>
+                        <h:outputText id="msgSucessoCursoCadastro" value="#{cursoMB.mensagem}" rendered="#{cursoMB.exibeMsgSucesso}" 
+                                      style="color: blue;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Nome:
+                    </td>
+                    <td>
+                        <h:inputText id="cursoCadastroNome" value="#{cursoMB.cursoSelecionado.nome}" maxlength="50" 
+                                     size="30" required="true" requiredMessage="Nome obrigatório" />
+                    </td>
+                    <td>
+                        <h:message for="cursoCadastroNome" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Descrição:
+                    </td>
+                    <td>
+                        <h:inputTextarea id="cursoCadastroDescricao" value="#{cursoMB.cursoSelecionado.descricao}"  
+                                         cols="31" rows="4" required="true" requiredMessage="Descrição obrigatório" />
+                    </td>
+                    <td>
+                        <h:message for="cursoCadastroDescricao" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <h:commandButton id="btnCursoCadastroCadastrar" value="Cadastrar" action="#{cursoMB.cadastrarCurso()}" />
+                        <h:button id="btnCursoCadastroVoltar" value="Voltar" outcome="curso" />
+                    </td>
+                </tr>
+            </table>
+        </h:form>
+    </body>
+</html>
