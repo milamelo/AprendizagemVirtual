@@ -3,23 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/negocio/entidade/Medalha.java</file>
+            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/web/pages/curso/curso.xhtml</file>
+            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/web/GrupoManagedBean.java</file>
+            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/negocio/entidade/Curso.java</file>
             <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/negocio/service/ServiceFactory.java</file>
-            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/web/pages/perfil/usuarioAlterar.xhtml</file>
-            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/web/pages/medalha/medalha.xhtml</file>
+            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/web/CursoManagedBean.java</file>
+            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/banco/dao/DAOGrupo.java</file>
             <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/web/pages/logado.xhtml</file>
-            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/negocio/service/MedalhaService.java</file>
-            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/web/pages/tipoAtividade/tipoAtividadeAlterar.xhtml</file>
+            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/web/pages/grupo/grupoAlterar.xhtml</file>
+            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/negocio/service/GrupoService.java</file>
+            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/banco/dao/DAOCurso.java</file>
+            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/web/pages/curso/cursoCadastro.xhtml</file>
+            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/negocio/service/CursoService.java</file>
             <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/web/MB.java</file>
-            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/web/TipoAtividadeManagedBean.java</file>
-            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/web/pages/medalha/medalhaAlterar.xhtml</file>
-            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/web/MedalhaManagedBean.java</file>
-            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/negocio/service/TipoAtividadeService.java</file>
-            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/web/pages/tipoAtividade/tipoAtividade.xhtml</file>
-            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/web/pages/medalha/medalhaCadastro.xhtml</file>
-            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/banco/dao/DAOMedalha.java</file>
-            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/banco/Conexao.java</file>
-            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/src/java/negocio/entidade/Usuario.java</file>
+            <file>file:/C:/Users/Camila/Desktop/tcc/projeto_tcc/AprendizagemVirtual/web/pages/curso/cursoAlterar.xhtml</file>
         </group>
     </open-files>
 </project-private>

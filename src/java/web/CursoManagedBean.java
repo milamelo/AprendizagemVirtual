@@ -207,15 +207,14 @@ public class CursoManagedBean extends MB {
         }
     }
     
-    public boolean podeExibirDetalhes(final Curso curso) {
-        boolean retorno = false;
+    public void exibeDetalhes(final Curso curso) {
         try {
-            if (!curso.isCancelado()) {
-                retorno = true;
-            }
+            super.limparMensagem();
+            this.cursoSelecionado = curso;
+            super.redirect("/pages/curso/cursoDetalhes.xhtml");
+            
         } catch (Exception e) {
             super.addMensagemErro(e.getMessage());
         }
-        return retorno;
     }
 }

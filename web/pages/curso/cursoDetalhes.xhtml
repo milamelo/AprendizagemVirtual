@@ -12,17 +12,25 @@ and open the template in the editor.
     </head>
     <body style="background-color: lightblue;">
         <h1 align="center">
-            <font color="white">CURSO - ALTERAR</font>
+            <font color="white">CURSO - DETALHES</font>
         </h1>
-        
-        <h:form id="formCursoAlterar">
+
+        <h:form id="formCursoDetalhes">
             <table align="center" cellpadding="0" cellspacing="5" border="0" style="background-color: white">
                 <tr>
                     <td colspan="2">
-                        <h:outputText id="msgErroCursoAlterar" value="#{cursoMB.mensagem}" rendered="#{cursoMB.exibeMsgErro}" 
+                        <h:outputText id="msgErroCursoDetalhes" value="#{cursoMB.mensagem}" rendered="#{cursoMB.exibeMsgErro}" 
                                       style="color: red;"/>
-                        <h:outputText id="msgSucessoCursoAlterar" value="#{cursoMB.mensagem}" rendered="#{cursoMB.exibeMsgSucesso}" 
+                        <h:outputText id="msgSucessoCursoDetalhes" value="#{cursoMB.mensagem}" rendered="#{cursoMB.exibeMsgSucesso}" 
                                       style="color: blue;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Código:
+                    </td>
+                    <td>
+                        <h:outputText id="cursoDetalhesCodigo" value="#{cursoMB.cursoSelecionado.id}" />
                     </td>
                 </tr>
                 <tr>
@@ -30,12 +38,7 @@ and open the template in the editor.
                         Nome:
                     </td>
                     <td>
-                        <h:inputText id="grupoAlterarNome" value="#{cursoMB.cursoSelecionado.nome}" maxlength="50" 
-                                     size="30" required="true" requiredMessage="Nome obrigatório"
-                                     readonly="#{cursoMB.podeEditarNome(curso)}" disabled="#{cursoMB.podeEditarNome(curso)}"/>
-                    </td>
-                    <td>
-                        <h:message for="grupoAlterarNome" />
+                        <h:outputText id="cursoDetalhesNome" value="#{cursoMB.cursoSelecionado.nome}" />
                     </td>
                 </tr>
                 <tr>
@@ -43,17 +46,22 @@ and open the template in the editor.
                         Descrição:
                     </td>
                     <td>
-                        <h:inputTextarea id="cursoAlterarDescricao" value="#{cursoMB.cursoSelecionado.descricao}"  
-                                         cols="75" rows="20" required="true" requiredMessage="Descrição obrigatório" />
-                    </td>
-                    <td>
-                        <h:message for="cursoAlterarDescricao" />
+                        <h:inputTextarea id="cursoDetalhesDescricao" value="#{cursoMB.cursoSelecionado.descricao}"  
+                                         cols="75" rows="25" disabled="true" readonly="true" />
                     </td>
                 </tr>
                 <tr>
+                    <td>
+                        Total Inscritos:
+                    </td>
+                    <td>
+                        <h:outputText id="cursoDetalhesTotalInscritos" value="#{cursoMB.cursoSelecionado.alunos.size()}" />
+                    </td>
+                </tr>
+
+                <tr>
                     <td colspan="3">
-                        <h:commandButton id="btnCursoAlterarAlterar" value="Alterar" action="#{cursoMB.alterarCurso()}" />
-                        <h:commandButton id="btnCursoAlterarVoltar" value="Voltar" action="#{cursoMB.voltar()}" />
+                        <h:commandButton id="btnCursoDetalhesVoltar" value="Voltar" action="#{cursoMB.voltar()}" />
                     </td>
                 </tr>
             </table>
