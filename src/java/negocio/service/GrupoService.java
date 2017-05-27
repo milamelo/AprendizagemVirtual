@@ -40,7 +40,7 @@ public class GrupoService {
             }
             int retorno = daoGrupo.inserir(grupo);
             if (retorno == 0) {
-                throw new ControleException("Grupo não cadastrada.");
+                throw new ControleException("Grupo não cadastrado.");
             }
         } catch (ControleException e) {
             throw e;

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <head>
+        <title>Aprendizagem Virtual</title>
+    </head>
+    <body style="background-color: lightblue;">
+        <h1 align="center">
+            <font color="white">CURSO - DETALHES</font>
+        </h1>
+
+        <h:form id="formCursoDetalhes">
+            <table align="center" cellpadding="0" cellspacing="5" border="0" style="background-color: white">
+                <tr>
+                    <td colspan="2">
+                        <h:outputText id="msgErroCursoDetalhes" value="#{cursoMB.mensagem}" rendered="#{cursoMB.exibeMsgErro}" 
+                                      style="color: red;"/>
+                        <h:outputText id="msgSucessoCursoDetalhes" value="#{cursoMB.mensagem}" rendered="#{cursoMB.exibeMsgSucesso}" 
+                                      style="color: blue;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Código:
+                    </td>
+                    <td>
+                        <h:outputText id="cursoDetalhesCodigo" value="#{cursoMB.cursoSelecionado.id}" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Nome:
+                    </td>
+                    <td>
+                        <h:outputText id="cursoDetalhesNome" value="#{cursoMB.cursoSelecionado.nome}" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Descrição:
+                    </td>
+                    <td>
+                        <h:inputTextarea id="cursoDetalhesDescricao" value="#{cursoMB.cursoSelecionado.descricao}"  
+                                         cols="75" rows="25" disabled="true" readonly="true" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Total Inscritos:
+                    </td>
+                    <td>
+                        <h:outputText id="cursoDetalhesTotalInscritos" value="#{cursoMB.cursoSelecionado.alunos.size()}" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <h:commandButton id="btnCursoDetalhesVoltar" value="Voltar" action="#{cursoMB.voltar()}" />
+                    </td>
+                </tr>
+            </table>
+        </h:form>
+    </body>
+</html>
