@@ -43,4 +43,8 @@ public class UsuarioService {
         return daoUsuario.consultarUsuario(usuario);
     }
     
+    public Usuario consultarUsuario(final Usuario usuario) throws ControleException, Exception {
+        return daoUsuario.consultarUsuario(usuario);
+    }
+    
 }

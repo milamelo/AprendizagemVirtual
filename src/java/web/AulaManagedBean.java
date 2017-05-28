@@ -11,8 +11,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import negocio.entidade.Aula;
 import negocio.entidade.Curso;
+import negocio.entidade.Usuario;
 import negocio.service.AulaService;
 import negocio.service.ServiceFactory;
+import negocio.service.UsuarioService;
 
 /**
  *
@@ -53,6 +55,8 @@ public class AulaManagedBean extends MB {
     public void acessarAulas() {
         try {
             super.limparMensagem();
+            limparFiltro();
+            filtroAula.setCurso((Curso) pegarDaSessao("cursoSelecionado"));
             listar();
             super.redirect("/pages/curso/aula/aula.xhtml");
         } catch (Exception e) {
@@ -136,7 +140,10 @@ public class AulaManagedBean extends MB {
         try {
             final AulaService aulaService = (AulaService) ServiceFactory.criarService(ServiceFactory.AULA);
             final Curso curso = (Curso) pegarDaSessao("cursoSelecionado");
-            if (curso != null
+            if (aula != null 
+                    && aula.getCurso() != null
+                    && curso != null
+                    && curso.equals(aula.getCurso())
                     && curso.getUsuario().equals(getUsuarioLogado())
                     && !curso.isCancelado()
                     && !aulaService.teveAcesso(aula)) {
@@ -158,11 +165,14 @@ public class AulaManagedBean extends MB {
         }
     }
     
-    public boolean podeVisualizarAula() {
+    public boolean podeVisualizarAula(final Aula aula) {
         boolean retorno = false;
         try {
             final Curso curso = (Curso) pegarDaSessao("cursoSelecionado");
-            if (curso != null
+            if (aula != null 
+                    && aula.getCurso() != null
+                    && curso != null
+                    && curso.equals(aula.getCurso())
                     && !curso.getUsuario().equals(getUsuarioLogado())
                     && !curso.isCancelado()
                     && curso.getAlunos().contains(getUsuarioLogado())) {
@@ -172,5 +182,76 @@ public class AulaManagedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
         return retorno;
+    }
+    
+    public void visualizarAula(final Aula aula) {
+        try {
+            super.limparMensagem();
+            final AulaService aulaService = (AulaService) ServiceFactory.criarService(ServiceFactory.AULA);
+            aulaSelecionada = aula;
+            aulaService.visualizarAula(aulaSelecionada, getUsuarioLogado());
+
+            final UsuarioService usuarioService = (UsuarioService) ServiceFactory.criarService(ServiceFactory.USUARIO);
+            final Usuario usuario = usuarioService.consultarUsuario(getUsuarioLogado());
+            super.guardarNaSessao("usuarioLogado", usuario);
+            
+            super.redirect("/pages/curso/aula/aulaDetalhes.xhtml");
+        } catch (Exception e) {
+            super.addMensagemErro(e.getMessage());
+        }
+    }
+    
+    public void voltar() {
+        try {
+            super.limparMensagem();
+            listar();
+            super.redirect("/pages/curso/aula/aula.xhtml");
+        } catch (Exception e) {
+            super.addMensagemErro(e.getMessage());
+        }
+    }
+    
+    public boolean jaAcessada(final Aula aula) {
+        boolean retorno = false;
+        try {
+            final AulaService aulaService = (AulaService) ServiceFactory.criarService(ServiceFactory.AULA);
+            if (aulaService.aulaJaAcessadaPeloUsuario(aula, getUsuarioLogado())) {
+                retorno = true;
+            }
+            
+        } catch (Exception e) {
+            super.addMensagemErro(e.getMessage());
+        }
+        
+        return retorno;
+    }
+    
+    public void alterarAula() {
+        try {
+            super.limparMensagem();
+            final AulaService aulaService = (AulaService) ServiceFactory.criarService(ServiceFactory.AULA);
+            aulaSelecionada.setCurso((Curso) super.pegarDaSessao("cursoSelecionado"));
+            aulaService.alterar(aulaSelecionada);
+            limparAula();
+            listar();
+            super.addMensagemSucesso("Aula alterarda com sucesso.");
+            super.redirect("/pages/curso/aula/aula.xhtml");
+        } catch (Exception e) {
+            super.addMensagemErro(e.getMessage());
+        }
+    }
+    
+    public void excluir(final Aula aula) {
+        try {
+            super.limparMensagem();
+            final AulaService aulaService = (AulaService) ServiceFactory.criarService(ServiceFactory.AULA);
+            aulaService.excluir(aula);
+            limparAula();
+            listar();
+            super.addMensagemSucesso("Aula excluída com sucesso.");
+            super.redirect("/pages/curso/aula/aula.xhtml");
+        } catch (Exception e) {
+            super.addMensagemErro(e.getMessage());
+        }
     }
 }

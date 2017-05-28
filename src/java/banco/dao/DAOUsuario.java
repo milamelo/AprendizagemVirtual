@@ -70,7 +70,7 @@ public class DAOUsuario extends Conexao {
         usuario.setNome(rs.getString("NOME"));
         usuario.setEmail(rs.getString("EMAIL"));
         usuario.setSenha(rs.getString("SENHA"));
-        usuario.setPontuacaoAcumulada(rs.getBigDecimal("PONTUACAO_ACUMULADA"));
+        usuario.setPontuacaoAcumulada(rs.getDouble("PONTUACAO_ACUMULADA"));
         usuario.setPermissaoEspecial(rs.getBoolean("PERMISSAO_ESPECIAL"));
         usuario.setDataInclusao(rs.getObject("DATA_INCLUSAO", LocalDateTime.class));
         usuario.setUltimoAcesso(rs.getObject("ULTIMO_ACESSO", LocalDateTime.class));

@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import negocio.entidade.Aula;
+import negocio.entidade.Usuario;
 
 /**
  *
@@ -44,11 +45,12 @@ public class DAOAula extends Conexao {
             sql.append(" INNER JOIN AULA A ON A.ID_POSTAGEM = P.ID ");
             sql.append(" INNER JOIN CURSO C ON C.ID = P.ID_CURSO ");
             sql.append(" INNER JOIN USUARIO U ON U.ID = C.ID_USUARIO ");
-            sql.append("  WHERE 1 = 1 ");
-            if (aula != null && aula.getId() != null && aula.getId() != 0) {
+            sql.append("      WHERE C.ID = ? ");
+            sql.append("        AND P.CANCELADO = ? ");
+            if (aula.getId() != null && aula.getId() != 0) {
                 sql.append(" AND P.ID = ? ");
             }
-            if (aula != null && aula.getTitulo() != null
+            if (aula.getTitulo() != null
                     && !aula.getTitulo().trim().isEmpty()) {
                 sql.append(" AND TRIM(P.TITULO) ILIKE ? ");
             }
@@ -58,10 +60,12 @@ public class DAOAula extends Conexao {
             preparedStatement = conexao.prepareStatement(sql.toString());
 
             int i = 1;
-            if (aula != null && aula.getId() != null && aula.getId() != 0) {
+            preparedStatement.setInt(i++, aula.getCurso().getId());
+            preparedStatement.setBoolean(i++, Boolean.FALSE);
+            if (aula.getId() != null && aula.getId() != 0) {
                 preparedStatement.setInt(i++, aula.getId());
             }
-            if (aula != null && aula.getTitulo() != null
+            if (aula.getTitulo() != null
                     && !aula.getTitulo().trim().isEmpty()) {
                 preparedStatement.setString(i++, "%" + aula.getTitulo().trim().toUpperCase() + "%");
             }
@@ -96,7 +100,7 @@ public class DAOAula extends Conexao {
 
         return aulas;
     }
-    
+
     public boolean existeTitulo(final Aula aula) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -132,7 +136,7 @@ public class DAOAula extends Conexao {
 
         return retorno;
     }
-    
+
     public int inserir(final Aula aula) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -186,7 +190,7 @@ public class DAOAula extends Conexao {
             fecharConexao(conexao);
         }
     }
-    
+
     public boolean teveAcesso(final Aula aula) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -198,7 +202,7 @@ public class DAOAula extends Conexao {
             sql.append("     SELECT * ");
             sql.append("       FROM USUARIO_AULA UA ");
             sql.append("      WHERE UA.ID_AULA = ? ");
-            
+
             conexao = abrirConexao();
             preparedStatement = conexao.prepareStatement(sql.toString());
 
@@ -217,5 +221,166 @@ public class DAOAula extends Conexao {
         }
 
         return retorno;
+    }
+
+    public boolean aulaJaAcessadaPeloUsuario(final Aula aula, final Usuario usuario) throws Exception {
+        Connection conexao = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        boolean retorno = false;
+
+        try {
+            sql = new StringBuilder();
+            sql.append("     SELECT * ");
+            sql.append("       FROM USUARIO_AULA UA ");
+            sql.append("      WHERE UA.ID_AULA = ? ");
+            sql.append("        AND UA.ID_USUARIO = ? ");
+
+            conexao = abrirConexao();
+            preparedStatement = conexao.prepareStatement(sql.toString());
+
+            int i = 1;
+            preparedStatement.setInt(i++, aula.getId());
+            preparedStatement.setInt(i++, usuario.getId());
+
+            resultSet = preparedStatement.executeQuery();
+            retorno = resultSet.next();
+
+        } catch (SQLException e) {
+            throw new SQLException("Erro: DAOAula.aulaJaAcessadaPeloUsuario \n" + e.getMessage());
+        } finally {
+            fecharPreparedStatement(preparedStatement);
+            fecharResultSet(resultSet);
+            fecharConexao(conexao);
+        }
+
+        return retorno;
+    }
+
+    public int inserirAulaUsuario(final Aula aula, final Usuario usuario) throws Exception {
+        Connection conexao = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet result = null;
+
+        try {
+            sql = new StringBuilder();
+            sql.append(" INSERT INTO USUARIO_AULA ");
+            sql.append("    (ID_USUARIO, ID_AULA, DATA_ACESSO) ");
+            sql.append(" VALUES(?, ?, CURRENT_TIMESTAMP) ");
+
+            conexao = abrirConexao();
+            conexao.setAutoCommit(false);
+            preparedStatement = conexao.prepareStatement(sql.toString());
+
+            int i = 1;
+            preparedStatement.setInt(i++, usuario.getId());
+            preparedStatement.setInt(i++, aula.getId());
+
+            preparedStatement.executeUpdate();
+
+            sql.setLength(0);
+            sql.append(" UPDATE USUARIO ");
+            sql.append("    SET PONTUACAO_ACUMULADA = ?  ");
+            sql.append("  WHERE ID = ? ");
+
+            preparedStatement = conexao.prepareStatement(sql.toString());
+
+            i = 1;
+            preparedStatement.setDouble(i++, usuario.getPontuacaoAcumulada() + aula.calcularPontuacao());
+            preparedStatement.setInt(i++, usuario.getId());
+
+            int retorno = preparedStatement.executeUpdate();
+
+            conexao.commit();
+            return retorno;
+        } catch (SQLException e) {
+            if (conexao != null) {
+                conexao.rollback();
+            }
+            throw new SQLException("Erro: DAOAula.inserirAulaUsuario \n" + e.getMessage());
+        } finally {
+            fecharPreparedStatement(preparedStatement);
+            fecharResultSet(result);
+            fecharConexao(conexao);
+        }
+    }
+
+    public int alterar(final Aula aula) throws Exception {
+        Connection conexao = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet result = null;
+
+        try {
+            sql = new StringBuilder();
+            sql.append(" UPDATE POSTAGEM ");
+            sql.append("    SET TITULO = ?, PONTUACAO = ?, ULTIMA_ATUALIZACAO = CURRENT_TIMESTAMP ");
+            sql.append("  WHERE ID = ? ");
+
+            conexao = abrirConexao();
+            conexao.setAutoCommit(false);
+            preparedStatement = conexao.prepareStatement(sql.toString());
+
+            int i = 1;
+            preparedStatement.setString(i++, aula.getTitulo().trim().toUpperCase());
+            preparedStatement.setDouble(i++, aula.getPontuacao());
+            preparedStatement.setInt(i++, aula.getId());
+
+            preparedStatement.executeUpdate();
+
+            sql.setLength(0);
+            sql.append(" UPDATE AULA ");
+            sql.append("    SET CONTEUDO = ? ");
+            sql.append("  WHERE ID_POSTAGEM = ? ");
+
+            preparedStatement = conexao.prepareStatement(sql.toString());
+
+            i = 1;
+            preparedStatement.setString(i++, aula.getConteudo());
+            preparedStatement.setInt(i++, aula.getId());
+
+            int retorno = preparedStatement.executeUpdate();
+
+            conexao.commit();
+            return retorno;
+        } catch (SQLException e) {
+            if (conexao != null) {
+                conexao.rollback();
+            }
+            throw new SQLException("Erro: DAOAula.alterar \n" + e.getMessage());
+        } finally {
+            fecharPreparedStatement(preparedStatement);
+            fecharResultSet(result);
+            fecharConexao(conexao);
+        }
+    }
+    
+    public int excluir(final Aula aula) throws Exception {
+        Connection conexao = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet result = null;
+
+        try {
+            sql = new StringBuilder();
+            sql.append(" UPDATE POSTAGEM ");
+            sql.append("    SET CANCELADO = ?, ULTIMA_ATUALIZACAO = CURRENT_TIMESTAMP ");
+            sql.append("  WHERE ID = ? ");
+
+            conexao = abrirConexao();
+            preparedStatement = conexao.prepareStatement(sql.toString());
+
+            int i = 1;
+            preparedStatement.setBoolean(i++, Boolean.TRUE);
+            preparedStatement.setInt(i++, aula.getId());
+
+            int retorno = preparedStatement.executeUpdate();
+
+            return retorno;
+        } catch (SQLException e) {
+            throw new SQLException("Erro: DAOAula.excluir \n" + e.getMessage());
+        } finally {
+            fecharPreparedStatement(preparedStatement);
+            fecharResultSet(result);
+            fecharConexao(conexao);
+        }
     }
 }

@@ -108,7 +108,8 @@ and open the template in the editor.
                                 <h:column>
                                     <f:facet name="header">CÓDIGO</f:facet>
                                     <center>
-                                        <h:outputText value="#{aula.id}" rendered="#{!aula.cancelado}" />
+                                        <h:outputText value="#{aula.id}" rendered="#{!aula.cancelado and !aulaMB.jaAcessada(aula)}" />
+                                        <h:outputText value="#{aula.id}" rendered="#{!aula.cancelado and aulaMB.jaAcessada(aula)}" style="color: blue"/>
                                         <h:outputText value="#{aula.id}" rendered="#{aula.cancelado}" style="color: red" />
                                     </center>
                                 </h:column>
@@ -116,7 +117,8 @@ and open the template in the editor.
                                 <h:column>
                                     <f:facet name="header">TÍTULO</f:facet>
                                     <center>
-                                        <h:outputText value="#{aula.titulo}" rendered="#{!aula.cancelado}" />
+                                        <h:outputText value="#{aula.titulo}" rendered="#{!aula.cancelado and !aulaMB.jaAcessada(aula)}" />
+                                        <h:outputText value="#{aula.titulo}" rendered="#{!aula.cancelado and aulaMB.jaAcessada(aula)}" style="color: blue"/>
                                         <h:outputText value="#{aula.titulo}" rendered="#{aula.cancelado}" style="color: red" />
                                     </center>
                                 </h:column>
@@ -124,7 +126,8 @@ and open the template in the editor.
                                 <h:column>
                                     <f:facet name="header">DATA INCLUSÃO</f:facet>
                                     <center>
-                                        <h:outputText value="#{aula.dataInclusao}" rendered="#{!aula.cancelado}" />
+                                        <h:outputText value="#{aula.dataInclusao}" rendered="#{!aula.cancelado and !aulaMB.jaAcessada(aula)}" />
+                                        <h:outputText value="#{aula.dataInclusao}" rendered="#{!aula.cancelado and aulaMB.jaAcessada(aula)}" style="color: blue"/>
                                         <h:outputText value="#{aula.dataInclusao}" rendered="#{aula.cancelado}" style="color: red" />
                                     </center>
                                 </h:column>
@@ -132,7 +135,7 @@ and open the template in the editor.
                                 <h:column>
                                     <center>
                                         <h:commandButton id="btnAulaVisualizar" value="Visualizar" 
-                                                         action="#{cursoMB.visualiarAula(aula)}" rendered="#{aulaMB.podeVisualizarAula(aula)}"/>
+                                                         action="#{aulaMB.visualizarAula(aula)}" rendered="#{aulaMB.podeVisualizarAula(aula)}"/>
                                     </center>
                                 </h:column>
                                 
@@ -146,7 +149,7 @@ and open the template in the editor.
                                 <h:column>
                                     <center>
                                         <h:commandButton id="btnAulaExcluir" value="Excluir" 
-                                                         action="#{cursoMB.excluir(aula)}" rendered="#{cursoMB.podeAlterarExcluir(aula)}"/>
+                                                         action="#{aulaMB.excluir(aula)}" rendered="#{aulaMB.podeAlterarExcluir(aula)}"/>
                                     </center>
                                 </h:column>
                             </h:dataTable>

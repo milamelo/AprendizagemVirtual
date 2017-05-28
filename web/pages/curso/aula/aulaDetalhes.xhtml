@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <head>
+        <title>Aprendizagem Virtual</title>
+    </head>
+    <body style="background-color: lightblue;">
+        <h1 align="center">
+            <font color="white">AULA - DETALHES</font>
+        </h1>
+
+        <h:form id="formAulaDetalhes">
+            <table align="center" cellpadding="0" cellspacing="5" border="0" style="background-color: white">
+                <tr>
+                    <td colspan="2">
+                        <h:outputText id="msgErroAulaDetalhes" value="#{aulaMB.mensagem}" rendered="#{aulaMB.exibeMsgErro}" 
+                                      style="color: red;"/>
+                        <h:outputText id="msgSucessoAulaDetalhes" value="#{aulaMB.mensagem}" rendered="#{aulaMB.exibeMsgSucesso}" 
+                                      style="color: blue;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Código:
+                    </td>
+                    <td>
+                        <h:outputText id="aulaDetalhesCodigo" value="#{aulaMB.aulaSelecionada.id}" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Título:
+                    </td>
+                    <td>
+                        <h:outputText id="aulaDetalhesTítulo" value="#{aulaMB.aulaSelecionada.titulo}" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Conteúdo:
+                    </td>
+                    <td>
+                        <h:inputTextarea id="aulaDetalhesConteudo" value="#{aulaMB.aulaSelecionada.conteudo}"  
+                                         cols="75" rows="25" disabled="true" readonly="true" />
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td colspan="2">
+                        <center><h:commandButton id="btnAulaDetalhesVoltar" value="Voltar" action="#{aulaMB.voltar()}" /></center>
+                    </td>
+                </tr>
+            </table>
+        </h:form>
+    </body>
+</html>

@@ -55,7 +55,6 @@ public class MB {
     }
 
     public void setPermissaoEspecial() {
-
     }
 
     protected Usuario getUsuarioLogado() {
