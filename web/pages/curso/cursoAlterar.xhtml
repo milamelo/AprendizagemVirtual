@@ -30,12 +30,12 @@ and open the template in the editor.
                         Nome:
                     </td>
                     <td>
-                        <h:inputText id="grupoAlterarNome" value="#{cursoMB.cursoSelecionado.nome}" maxlength="50" 
+                        <h:inputText id="cursoAlterarNome" value="#{cursoMB.cursoSelecionado.nome}" maxlength="50" 
                                      size="30" required="true" requiredMessage="Nome obrigatório"
                                      readonly="#{cursoMB.podeEditarNome(curso)}" disabled="#{cursoMB.podeEditarNome(curso)}"/>
                     </td>
                     <td>
-                        <h:message for="grupoAlterarNome" />
+                        <h:message for="cursoAlterarNome" />
                     </td>
                 </tr>
                 <tr>

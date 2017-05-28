@@ -158,9 +158,6 @@ public class DAOCurso extends Conexao {
 
             return retorno;
         } catch (SQLException e) {
-            if (conexao != null) {
-                conexao.rollback();
-            }
             throw new SQLException("Erro: DAOCurso.inserir \n" + e.getMessage());
         } finally {
             fecharPreparedStatement(preparedStatement);

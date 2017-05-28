@@ -5,8 +5,7 @@
  */
 package negocio.entidade;
 
-import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -20,11 +19,11 @@ public class Usuario {
     private String nome;
     private String email;
     private String senha;
-    private BigDecimal pontuacaoAcumulada;
+    private Double pontuacaoAcumulada;
     private Medalha medalha;
     private boolean permissaoEspecial;
-    private Timestamp dataInclusao;
-    private Timestamp ultimoAcesso;
+    private LocalDateTime dataInclusao;
+    private LocalDateTime ultimoAcesso;
 
     public Integer getId() {
         return id;
@@ -66,11 +65,11 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public BigDecimal getPontuacaoAcumulada() {
+    public Double getPontuacaoAcumulada() {
         return pontuacaoAcumulada;
     }
 
-    public void setPontuacaoAcumulada(BigDecimal pontuacaoAcumulada) {
+    public void setPontuacaoAcumulada(Double pontuacaoAcumulada) {
         this.pontuacaoAcumulada = pontuacaoAcumulada;
     }
 
@@ -90,20 +89,27 @@ public class Usuario {
         this.permissaoEspecial = permissaoEspecial;
     }
 
-    public Timestamp getDataInclusao() {
+    public LocalDateTime getDataInclusao() {
         return dataInclusao;
     }
 
-    public void setDataInclusao(Timestamp dataInclusao) {
+    public void setDataInclusao(LocalDateTime dataInclusao) {
         this.dataInclusao = dataInclusao;
     }
 
-    public Timestamp getUltimoAcesso() {
+    public LocalDateTime getUltimoAcesso() {
         return ultimoAcesso;
     }
 
-    public void setUltimoAcesso(Timestamp ultimoAcesso) {
+    public void setUltimoAcesso(LocalDateTime ultimoAcesso) {
         this.ultimoAcesso = ultimoAcesso;
+    }
+    
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        return hash;
     }
 
     @Override
@@ -123,5 +129,5 @@ public class Usuario {
         }
         return true;
     }
-    
+
 }
