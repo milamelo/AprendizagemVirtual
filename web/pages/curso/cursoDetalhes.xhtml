@@ -61,7 +61,18 @@ and open the template in the editor.
 
                 <tr>
                     <td colspan="3">
-                        <h:commandButton id="btnCursoDetalhesVoltar" value="Voltar" action="#{cursoMB.voltar()}" />
+                        <hr/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <center><h:commandButton id="btnCursoDetalhesAulas" value="Aulas" action="#{aulaMB.acessarAulas()}" /></center>
+                    </td>
+                    <td>
+                        <center><h:commandButton id="btnCursoDetalhesAtividades" value="Atividades" action="#{atividadeMB.acessarAtividades()}" /></center>
+                    </td>
+                    <td>
+                        <center><h:commandButton id="btnCursoDetalhesVoltar" value="Voltar" action="#{cursoMB.voltar()}" /></center>
                     </td>
                 </tr>
             </table>

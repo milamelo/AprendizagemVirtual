@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import negocio.entidade.Medalha;
 import negocio.entidade.Usuario;
 
@@ -71,8 +72,8 @@ public class DAOUsuario extends Conexao {
         usuario.setSenha(rs.getString("SENHA"));
         usuario.setPontuacaoAcumulada(rs.getBigDecimal("PONTUACAO_ACUMULADA"));
         usuario.setPermissaoEspecial(rs.getBoolean("PERMISSAO_ESPECIAL"));
-        usuario.setDataInclusao(rs.getTimestamp("DATA_INCLUSAO"));
-        usuario.setUltimoAcesso(rs.getTimestamp("ULTIMO_ACESSO"));
+        usuario.setDataInclusao(rs.getObject("DATA_INCLUSAO", LocalDateTime.class));
+        usuario.setUltimoAcesso(rs.getObject("ULTIMO_ACESSO", LocalDateTime.class));
 
         final Medalha medalha = new Medalha();
         if (rs.getInt("ID_MEDALHA") != 0) {

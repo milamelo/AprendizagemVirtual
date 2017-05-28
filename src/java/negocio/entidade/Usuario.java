@@ -7,6 +7,7 @@ package negocio.entidade;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -23,8 +24,8 @@ public class Usuario {
     private BigDecimal pontuacaoAcumulada;
     private Medalha medalha;
     private boolean permissaoEspecial;
-    private Timestamp dataInclusao;
-    private Timestamp ultimoAcesso;
+    private LocalDateTime dataInclusao;
+    private LocalDateTime ultimoAcesso;
 
     public Integer getId() {
         return id;
@@ -90,19 +91,19 @@ public class Usuario {
         this.permissaoEspecial = permissaoEspecial;
     }
 
-    public Timestamp getDataInclusao() {
+    public LocalDateTime getDataInclusao() {
         return dataInclusao;
     }
 
-    public void setDataInclusao(Timestamp dataInclusao) {
+    public void setDataInclusao(LocalDateTime dataInclusao) {
         this.dataInclusao = dataInclusao;
     }
 
-    public Timestamp getUltimoAcesso() {
+    public LocalDateTime getUltimoAcesso() {
         return ultimoAcesso;
     }
 
-    public void setUltimoAcesso(Timestamp ultimoAcesso) {
+    public void setUltimoAcesso(LocalDateTime ultimoAcesso) {
         this.ultimoAcesso = ultimoAcesso;
     }
 

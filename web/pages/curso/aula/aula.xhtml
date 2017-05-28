@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <title>Aprendizagem Virtual</title>
+    </head>
+    <body style="background-color: lightblue;">
+        <h1 align="center">
+            <font color="white">APRENDIAZAGEM VIRTUAL - AULA</font>
+        </h1>
+
+        <h:form id="formAula">
+            <table align="center" cellpadding="4" cellspacing="4" border="0" 
+                   style="background-color: white; width: 800px;">
+                <tr>
+                    <td colspan="3">
+                        <center>
+                            <h:outputText id="msgErroAula" value="#{aulaMB.mensagem}" rendered="#{aulaMB.exibeMsgErro}" 
+                                          style="color: red;"/>
+                            <h:outputText id="msgSucessoAula" value="#{aulaMB.mensagem}" rendered="#{aulaMB.exibeMsgSucesso}" 
+                                          style="color: blue;"/>
+                        </center>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <center>
+                            <h:commandButton id="btnAulaCadastrar" value="Cadastrar" action="#{aulaMB.prepararCadastrar()}" rendered="#{aulaMB.podeCadastrar()}"/>
+                        </center>
+                    </td>
+                    <td>
+                        <center>
+                            <h:commandButton id="btnAulaVoltarCursos" value="Voltar" action="#{aulaMB.voltarCursos()}" />
+                        </center>
+                    </td>
+                    <td>
+                        <center>
+                            <h:commandButton id="btnAulaLogout" value="Logout" action="#{loginMB.sair()}" />
+                        </center>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <hr/>
+                    </td>
+                </tr>
+
+                <!-- FILTRO -->
+                <tr>
+                    <td colspan="3">
+                        <table align="center" cellpadding="4" cellspacing="4" border="0" 
+                               style="background-color: white;">
+                            <tr>
+                                <td colspan="2">
+                                    <center><b>FILTRO</b></center>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Código:
+                                </td>
+                                <td>
+                                    <h:inputText id="aulaId" value="#{aulaMB.filtroAula.id}" maxlength="15" 
+                                                 size="30" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Título:
+                                </td>
+                                <td>
+                                    <h:inputText id="aulaTitulo" value="#{aulaMB.filtroAula.titulo}" maxlength="50" 
+                                                 size="30" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <h:commandButton id="btnAulaLocalizar" value="Localizar" action="#{aulaMB.localizar()}" />
+                                    <h:commandButton id="btnAulaLimpar" value="Limpar" action="#{aulaMB.limparFiltro()}" />
+                                </td>
+                            </tr>
+
+                        </table>
+                    </td>
+                </tr>
+                <!-- FILTRO -->
+
+                <tr>
+                    <td colspan="3">
+                        <hr/>
+                    </td>
+                </tr>
+
+                <!-- LISTA -->
+                <tr>
+                    <td colspan="3">
+                        <center>
+                            <h:dataTable value="#{aulaMB.aulas}" var="aula" style="width: 750px;">
+                                <h:column>
+                                    <f:facet name="header">CÓDIGO</f:facet>
+                                    <center>
+                                        <h:outputText value="#{aula.id}" rendered="#{!aula.cancelado}" />
+                                        <h:outputText value="#{aula.id}" rendered="#{aula.cancelado}" style="color: red" />
+                                    </center>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">TÍTULO</f:facet>
+                                    <center>
+                                        <h:outputText value="#{aula.titulo}" rendered="#{!aula.cancelado}" />
+                                        <h:outputText value="#{aula.titulo}" rendered="#{aula.cancelado}" style="color: red" />
+                                    </center>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">DATA INCLUSÃO</f:facet>
+                                    <center>
+                                        <h:outputText value="#{aula.dataInclusao}" rendered="#{!aula.cancelado}" />
+                                        <h:outputText value="#{aula.dataInclusao}" rendered="#{aula.cancelado}" style="color: red" />
+                                    </center>
+                                </h:column>
+                                
+                                <h:column>
+                                    <center>
+                                        <h:commandButton id="btnAulaVisualizar" value="Visualizar" 
+                                                         action="#{cursoMB.visualiarAula(aula)}" rendered="#{aulaMB.podeVisualizarAula(aula)}"/>
+                                    </center>
+                                </h:column>
+                                
+                                <h:column>
+                                    <center>
+                                        <h:commandButton id="btnAulaAlterar" value="Alterar" 
+                                                         action="#{aulaMB.prepararAula(aula)}" rendered="#{aulaMB.podeAlterarExcluir(aula)}"/>
+                                    </center>
+                                </h:column>
+
+                                <h:column>
+                                    <center>
+                                        <h:commandButton id="btnAulaExcluir" value="Excluir" 
+                                                         action="#{cursoMB.excluir(aula)}" rendered="#{cursoMB.podeAlterarExcluir(aula)}"/>
+                                    </center>
+                                </h:column>
+                            </h:dataTable>
+                        </center>
+                    </td>
+                </tr>
+                <!-- LISTA -->
+
+            </table>
+        </h:form>
+    </body>
+</html>

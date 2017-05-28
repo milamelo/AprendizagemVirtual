@@ -157,6 +157,7 @@ public class CursoManagedBean extends MB {
     public void voltar() {
         try {
             super.limparMensagem();
+            super.removerDaSessao("cursoSelecionado");
             listar();
             super.redirect("/pages/curso/curso.xhtml");
         } catch (Exception e) {
@@ -168,7 +169,8 @@ public class CursoManagedBean extends MB {
         boolean retorno = false;
         try {
             if (!curso.getUsuario().equals(getUsuarioLogado())
-                    && !curso.isCancelado()) {
+                    && !curso.isCancelado()
+                    && !curso.getAlunos().contains(getUsuarioLogado())) {
                 retorno = true;
             }
         } catch (Exception e) {
@@ -211,6 +213,7 @@ public class CursoManagedBean extends MB {
         try {
             super.limparMensagem();
             this.cursoSelecionado = curso;
+            super.guardarNaSessao("cursoSelecionado", curso);
             super.redirect("/pages/curso/cursoDetalhes.xhtml");
             
         } catch (Exception e) {

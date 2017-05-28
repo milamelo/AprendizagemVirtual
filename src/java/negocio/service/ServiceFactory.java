@@ -19,6 +19,7 @@ public class ServiceFactory {
     public static final byte TIPO_ATIVIDADE = 3;
     public static final byte GRUPO = 4;
     public static final byte CURSO = 5;
+    public static final byte AULA = 6;
 
     private static LoginService loginService;
     private static UsuarioService usuarioService;
@@ -26,6 +27,7 @@ public class ServiceFactory {
     private static TipoAtividadeService tipoAtividadeService;
     private static GrupoService grupoService;
     private static CursoService cursoService;
+    private static AulaService aulaService;
 
     public static Object criarService(final byte id) throws ControleException {
         try {
@@ -65,6 +67,12 @@ public class ServiceFactory {
                         cursoService = new CursoService();
                     }
                     return cursoService;
+
+                case AULA:
+                    if (aulaService == null) {
+                        aulaService = new AulaService();
+                    }
+                    return aulaService;
 
                 default:
                     throw new ControleException("Erro ao criar service");
