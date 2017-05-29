@@ -38,6 +38,18 @@ and open the template in the editor.
                     </td>
                 </tr>
                 <tr>
+                    <td>
+                        Multiplicidade:
+                    </td>
+                    <td>
+                        <h:inputText id="tipoAtividadeCadastroMultiplicidade" value="#{tipoAtividadeMB.tipoAtividadeSelecionada.multiplicidade}" maxlength="50" 
+                                     size="30" required="true" requiredMessage="Multiplicidade obrigatório" />
+                    </td>
+                    <td>
+                        <h:message for="tipoAtividadeCadastroMultiplicidade" />
+                    </td>
+                </tr>
+                <tr>
                     <td colspan="3">
                         <h:commandButton id="btnTipoAtividadeCadastroCadastrar" value="Cadastrar" action="#{tipoAtividadeMB.cadastrarTipoAtividade()}" />
                         <h:button id="btnTipoAtividadeCadastroVoltar" value="Voltar" outcome="tipoAtividade" />

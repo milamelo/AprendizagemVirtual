@@ -54,6 +54,7 @@ public class DAOTipoAtividade extends Conexao {
                 TipoAtividade tipo = new TipoAtividade();
                 tipo.setId(resultSet.getInt("ID"));
                 tipo.setDescricao((resultSet.getString("DESCRICAO")).trim());
+                tipo.setMultiplicidade(resultSet.getInt("MULTIPLICIDADE"));
                 tipoAtividades.add(tipo);
             }
 
@@ -76,14 +77,15 @@ public class DAOTipoAtividade extends Conexao {
         try {
             sql = new StringBuilder();
             sql.append(" INSERT INTO TIPO_ATIVIDADE ");
-            sql.append("    (DESCRICAO) ");
-            sql.append(" VALUES(?) ");
+            sql.append("    (DESCRICAO, MULTIPLICIDADE) ");
+            sql.append(" VALUES(?, ?) ");
 
             conexao = abrirConexao();
             preparedStatement = conexao.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 
             int i = 1;
             preparedStatement.setString(i++, tipoAtividade.getDescricao().trim().toUpperCase());
+            preparedStatement.setInt(i++, tipoAtividade.getMultiplicidade());
             
             int retorno = preparedStatement.executeUpdate();
             result = preparedStatement.getGeneratedKeys();
@@ -109,7 +111,7 @@ public class DAOTipoAtividade extends Conexao {
         try {
             sql = new StringBuilder();
             sql.append(" UPDATE TIPO_ATIVIDADE ");
-            sql.append("    SET DESCRICAO = ? ");
+            sql.append("    SET DESCRICAO = ?, MULTIPLICIDADE = ? ");
             sql.append(" WHERE ID = ? ");
 
             conexao = abrirConexao();
@@ -117,6 +119,7 @@ public class DAOTipoAtividade extends Conexao {
 
             int i = 1;
             preparedStatement.setString(i++, tipoAtividade.getDescricao().trim().toUpperCase());
+            preparedStatement.setInt(i++, tipoAtividade.getMultiplicidade());
             preparedStatement.setInt(i++, tipoAtividade.getId());
 
             return preparedStatement.executeUpdate();
@@ -188,8 +191,42 @@ public class DAOTipoAtividade extends Conexao {
 
         return retorno;
     }
+    
+    public boolean existeMultiplicidade(final TipoAtividade tipoAtividade) throws Exception {
+        Connection conexao = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        boolean retorno = false;
 
-    public int countUsuariosComTipoAtividade(final TipoAtividade tipoAtividade) throws Exception {
+        try {
+            sql = new StringBuilder();
+            sql.append("    SELECT * ");
+            sql.append("      FROM TIPO_ATIVIDADE TA ");
+            sql.append("     WHERE MULTIPLICIDADE = ? ");
+            sql.append("       AND ID <> ? ");
+
+            conexao = abrirConexao();
+            preparedStatement = conexao.prepareStatement(sql.toString());
+
+            int i = 1;
+            preparedStatement.setInt(i++, tipoAtividade.getMultiplicidade());
+            preparedStatement.setInt(i++, tipoAtividade.getId() == null ? 0 : tipoAtividade.getId());
+
+            resultSet = preparedStatement.executeQuery();
+            retorno = resultSet.next();
+
+        } catch (SQLException e) {
+            throw new SQLException("Erro: DAOTipoAtividade.existeMultiplicidade \n" + e.getMessage());
+        } finally {
+            fecharPreparedStatement(preparedStatement);
+            fecharResultSet(resultSet);
+            fecharConexao(conexao);
+        }
+
+        return retorno;
+    }
+
+    public int countAtividadesComTipoAtividade(final TipoAtividade tipoAtividade) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -224,4 +261,38 @@ public class DAOTipoAtividade extends Conexao {
         return retorno;
     }
     
+    public List<TipoAtividade> listarTodos() throws Exception {
+        Connection conexao = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<TipoAtividade> tipoAtividades = new ArrayList<>();
+
+        try {
+            sql = new StringBuilder();
+            sql.append("   SELECT * ");
+            sql.append("     FROM TIPO_ATIVIDADE TA ");
+            sql.append(" ORDER BY MULTIPLICIDADE ");
+
+            conexao = abrirConexao();
+            preparedStatement = conexao.prepareStatement(sql.toString());
+
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                TipoAtividade tipo = new TipoAtividade();
+                tipo.setId(resultSet.getInt("ID"));
+                tipo.setDescricao((resultSet.getString("DESCRICAO")).trim());
+                tipo.setMultiplicidade(resultSet.getInt("MULTIPLICIDADE"));
+                tipoAtividades.add(tipo);
+            }
+
+        } catch (SQLException e) {
+            throw new SQLException("Erro: DAOTipoAtividade.listarTodos \n" + e.getMessage());
+        } finally {
+            fecharPreparedStatement(preparedStatement);
+            fecharResultSet(resultSet);
+            fecharConexao(conexao);
+        }
+
+        return tipoAtividades;
+    }
 }

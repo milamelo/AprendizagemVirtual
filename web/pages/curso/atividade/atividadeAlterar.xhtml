@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <title>Aprendizagem Virtual</title>
+    </head>
+    <body style="background-color: lightblue;">
+        <h1 align="center">
+            <font color="white">ATIVIDADE - ALTERAR</font>
+        </h1>
+        
+        <h:form id="formAtividadeAlterar">
+            <table align="center" cellpadding="0" cellspacing="5" border="0" style="background-color: white">
+                <tr>
+                    <td colspan="2">
+                        <h:outputText id="msgErroAtividadeAlterar" value="#{atividadeMB.mensagem}" rendered="#{atividadeMB.exibeMsgErro}" 
+                                      style="color: red;"/>
+                        <h:outputText id="msgSucessoAtividadeAlterar" value="#{atividadeMB.mensagem}" rendered="#{atividadeMB.exibeMsgSucesso}" 
+                                      style="color: blue;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Título:
+                    </td>
+                    <td>
+                        <h:inputText id="atividadeAlterarTitulo" value="#{atividadeMB.atividadeSelecionada.titulo}" maxlength="50" 
+                                     size="30" required="true" requiredMessage="Título obrigatório" />
+                    </td>
+                    <td>
+                        <h:message for="atividadeAlterarTitulo" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Pontuação:
+                    </td>
+                    <td>
+                        <h:inputText id="atividadeAlterarPontuacao" value="#{atividadeMB.atividadeSelecionada.pontuacao}" maxlength="50" 
+                                     size="30" required="true" requiredMessage="Pontuação obrigatório" />
+                    </td>
+                    <td>
+                        <h:message for="atividadeAlterarPontuacao" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Tipo Atividade:
+                    </td>
+                    <td>
+                        <h:selectOneMenu id="atividadeAlterarTipoAtividade" value="#{atividadeMB.atividadeSelecionada.tipoAtividade.id}"  
+                                         required="true" requiredMessage="Tipo Atividade obrigatório" >
+                            <f:selectItem itemLabel="SELECIONE" noSelectionOption="true" />
+                            <f:selectItems value="#{atividadeMB.tipoAtividades()}" var="tipoAtividade" itemLabel="#{tipoAtividade.descricao}" itemValue="#{tipoAtividade.id}" />
+                        </h:selectOneMenu>
+                    </td>
+                    <td>
+                        <h:message for="atividadeAlterarTipoAtividade" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Data Entrega:
+                    </td>
+                    <td>
+                        <h:inputText id="atividadeAlterarDataEntrega" value="#{atividadeMB.atividadeSelecionada.dataEntrega}" maxlength="10" 
+                                     size="30" required="true" requiredMessage="Data Entrega obrigatório" 
+                                     converterMessage="A data deve estar no formato dd/MM/yyyy">
+                            <f:converter converterId="localDateConverter"  for="atividadeCadastroDataEntrega" />
+                        </h:inputText>
+                    </td>
+                    <td>
+                        <h:message for="atividadeAlterarDataEntrega" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Descrição:
+                    </td>
+                    <td>
+                        <h:inputTextarea id="cursoAlterarDescricao" value="#{atividadeMB.atividadeSelecionada.descricao}"  
+                                         cols="75" rows="20" required="true" requiredMessage="Descricao obrigatório" />
+                    </td>
+                    <td>
+                        <h:message for="cursoAlterarDescricao" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <h:commandButton id="btnAtividadeAlterarAlterar" value="Alterar" action="#{atividadeMB.alterarAtividade()}" />
+                        <h:commandButton id="btnAtividadeAlterarVoltar" value="Voltar" action="#{atividadeMB.voltar()}" />
+                    </td>
+                </tr>
+            </table>
+        </h:form>
+    </body>
+</html>
