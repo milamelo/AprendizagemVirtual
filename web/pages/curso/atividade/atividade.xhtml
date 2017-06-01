@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <title>Aprendizagem Virtual</title>
+    </head>
+    <body style="background-color: lightblue;">
+        <h1 align="center">
+            <font color="white">APRENDIAZAGEM VIRTUAL - ATIVIDADE</font>
+        </h1>
+
+        <h:form id="formAtividade">
+            <table align="center" cellpadding="4" cellspacing="4" border="0" 
+                   style="background-color: white; width: 800px;">
+                <tr>
+                    <td colspan="3">
+                        <center>
+                            <h:outputText id="msgErroAtividade" value="#{atividadeMB.mensagem}" rendered="#{atividadeMB.exibeMsgErro}" 
+                                          style="color: red;"/>
+                            <h:outputText id="msgSucessoAtividade" value="#{atividadeMB.mensagem}" rendered="#{atividadeMB.exibeMsgSucesso}" 
+                                          style="color: blue;"/>
+                        </center>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <center>
+                            <h:commandButton id="btnAtividadeCadastrar" value="Cadastrar" action="#{atividadeMB.prepararCadastrar()}" rendered="#{atividadeMB.podeCadastrar()}"/>
+                        </center>
+                    </td>
+                    <td>
+                        <center>
+                            <h:commandButton id="btnAtividadeVoltarCursos" value="Voltar" action="#{atividadeMB.voltarCursos()}" />
+                        </center>
+                    </td>
+                    <td>
+                        <center>
+                            <h:commandButton id="btnAtividadeLogout" value="Logout" action="#{loginMB.sair()}" />
+                        </center>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <hr/>
+                    </td>
+                </tr>
+
+                <!-- FILTRO -->
+                <tr>
+                    <td colspan="3">
+                        <table align="center" cellpadding="4" cellspacing="4" border="0" 
+                               style="background-color: white;">
+                            <tr>
+                                <td colspan="2">
+                                    <center><b>FILTRO</b></center>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Código:
+                                </td>
+                                <td>
+                                    <h:inputText id="atividadeId" value="#{atividadeMB.filtroAtividade.id}" maxlength="15" 
+                                                 size="30" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Título:
+                                </td>
+                                <td>
+                                    <h:inputText id="atividadeTitulo" value="#{atividadeMB.filtroAtividade.titulo}" maxlength="50" 
+                                                 size="30" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <h:commandButton id="btnAtividadeLocalizar" value="Localizar" action="#{atividadeMB.localizar()}" />
+                                    <h:commandButton id="btnAtividadeLimpar" value="Limpar" action="#{atividadeMB.limparFiltro()}" />
+                                </td>
+                            </tr>
+
+                        </table>
+                    </td>
+                </tr>
+                <!-- FILTRO -->
+
+                <tr>
+                    <td colspan="3">
+                        <hr/>
+                    </td>
+                </tr>
+
+                <!-- LISTA -->
+                <tr>
+                    <td colspan="3">
+                        <center>
+                            <h:dataTable value="#{atividadeMB.atividades}" var="atividade" style="width: 750px;">
+                                <h:column>
+                                    <f:facet name="header">CÓDIGO</f:facet>
+                                    <center>
+                                        <h:outputText value="#{atividade.id}" rendered="#{!atividade.cancelado and !atividadeMB.jaAcessada(atividade)}" />
+                                        <h:outputText value="#{atividade.id}" rendered="#{!atividade.cancelado and atividadeMB.jaAcessada(atividade)}" style="color: blue"/>
+                                        <h:outputText value="#{atividade.id}" rendered="#{atividade.cancelado}" style="color: red" />
+                                    </center>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">TÍTULO</f:facet>
+                                    <center>
+                                        <h:outputText value="#{atividade.titulo}" rendered="#{!atividade.cancelado and !atividadeMB.jaAcessada(atividade)}" />
+                                        <h:outputText value="#{atividade.titulo}" rendered="#{!atividade.cancelado and atividadeMB.jaAcessada(atividade)}" style="color: blue"/>
+                                        <h:outputText value="#{atividade.titulo}" rendered="#{atividade.cancelado}" style="color: red" />
+                                    </center>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">DATA INCLUSÃO</f:facet>
+                                    <center>
+                                        <h:outputText value="#{atividade.dataInclusao}" rendered="#{!atividade.cancelado and !atividadeMB.jaAcessada(atividade)}" />
+                                        <h:outputText value="#{atividade.dataInclusao}" rendered="#{!atividade.cancelado and atividadeMB.jaAcessada(atividade)}" style="color: blue"/>
+                                        <h:outputText value="#{atividade.dataInclusao}" rendered="#{atividade.cancelado}" style="color: red" />
+                                    </center>
+                                </h:column>
+                                
+                                <h:column>
+                                    <center>
+                                        <h:commandButton id="btnAtividadeVisualizar" value="Visualizar" 
+                                                         action="#{atividadeMB.visualizarAtividade(atividade)}" rendered="#{atividadeMB.podeVisualizarAtividade(atividade)}"/>
+                                    </center>
+                                </h:column>
+                                
+                                <h:column>
+                                    <center>
+                                        <h:commandButton id="btnAtividadeAlterar" value="Alterar" 
+                                                         action="#{atividadeMB.prepararAtividade(atividade)}" rendered="#{atividadeMB.podeAlterarExcluir(atividade)}"/>
+                                    </center>
+                                </h:column>
+
+                                <h:column>
+                                    <center>
+                                        <h:commandButton id="btnAtividadeExcluir" value="Excluir" 
+                                                         action="#{atividadeMB.excluir(atividade)}" rendered="#{atividadeMB.podeAlterarExcluir(atividade)}"/>
+                                    </center>
+                                </h:column>
+                            </h:dataTable>
+                        </center>
+                    </td>
+                </tr>
+                <!-- LISTA -->
+
+            </table>
+        </h:form>
+    </body>
+</html>

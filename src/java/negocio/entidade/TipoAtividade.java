@@ -13,6 +13,7 @@ public class TipoAtividade {
     
     private Integer id;
     private String descricao;
+    private Integer multiplicidade;
 
     public Integer getId() {
         return id;
@@ -29,4 +30,13 @@ public class TipoAtividade {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
+    public Integer getMultiplicidade() {
+        return multiplicidade;
+    }
+
+    public void setMultiplicidade(Integer multiplicidade) {
+        this.multiplicidade = multiplicidade;
+    }
+    
 }

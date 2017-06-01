@@ -79,7 +79,7 @@ public class DAOUsuario extends Conexao {
         if (rs.getInt("ID_MEDALHA") != 0) {
             medalha.setId(rs.getInt("ID_MEDALHA"));
             medalha.setNome(rs.getString("NOME_MEDALHA"));
-            medalha.setPontuacaoNecessaria(rs.getInt("PONTUACAO_NECESSARIA"));
+            medalha.setPontuacaoNecessaria(rs.getDouble("PONTUACAO_NECESSARIA"));
         }
         usuario.setMedalha(medalha);
 

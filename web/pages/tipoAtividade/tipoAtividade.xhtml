@@ -96,15 +96,20 @@ and open the template in the editor.
                 <tr>
                     <td colspan="3">
                         <center>
-                            <h:dataTable value="#{tipoAtividadeMB.tipoAtividades}" var="tipoAtividade" style="width: 450px;">
+                            <h:dataTable value="#{tipoAtividadeMB.tipoAtividades}" var="tipoAtividade" style="width: 700px;">
                                 <h:column>
                                     <f:facet name="header">CÓDIGO</f:facet>
-                                        #{tipoAtividade.id}
+                                    <center>#{tipoAtividade.id}</center>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">DESCRIÇÃO</f:facet>
                                     <center>#{tipoAtividade.descricao}</center>
+                                </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">MULTIPLICIDADE</f:facet>
+                                    <center>#{tipoAtividade.multiplicidade}</center>
                                 </h:column>
 
                                 <h:column>

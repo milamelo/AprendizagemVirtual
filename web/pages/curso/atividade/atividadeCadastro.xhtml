@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <title>Aprendizagem Virtual</title>
+    </head>
+    <body style="background-color: lightblue;">
+        <h1 align="center">
+            <font color="white">ATIVIDADE - CADASTRAR</font>
+        </h1>
+
+        <h:form id="formAtividadeCadastro">
+            <table align="center" cellpadding="0" cellspacing="5" border="0" style="background-color: white">
+                <tr>
+                    <td colspan="2">
+                        <h:outputText id="msgErroAtividadeCadastro" value="#{atividadeMB.mensagem}" rendered="#{atividadeMB.exibeMsgErro}" 
+                                      style="color: red;"/>
+                        <h:outputText id="msgSucessoAtividadeCadastro" value="#{atividadeMB.mensagem}" rendered="#{atividadeMB.exibeMsgSucesso}" 
+                                      style="color: blue;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Título:
+                    </td>
+                    <td>
+                        <h:inputText id="atividadeCadastroTitulo" value="#{atividadeMB.atividadeSelecionada.titulo}" maxlength="50" 
+                                     size="30" required="true" requiredMessage="Título obrigatório" />
+                    </td>
+                    <td>
+                        <h:message for="atividadeCadastroTitulo" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Pontuação:
+                    </td>
+                    <td>
+                        <h:inputText id="atividadeCadastroPontuacao" value="#{atividadeMB.atividadeSelecionada.pontuacao}" maxlength="50" 
+                                     size="30" required="true" requiredMessage="Pontuação obrigatório" />
+                    </td>
+                    <td>
+                        <h:message for="atividadeCadastroPontuacao" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Tipo Atividade:
+                    </td>
+                    <td>
+                        <h:selectOneMenu id="atividadeCadastroTipoAtividade" value="#{atividadeMB.atividadeSelecionada.tipoAtividade.id}"  
+                                         required="true" requiredMessage="Tipo Atividade obrigatório" >
+                            <f:selectItem itemLabel="SELECIONE" noSelectionOption="true" />
+                            <f:selectItems value="#{atividadeMB.tipoAtividades()}" var="tipoAtividade" itemLabel="#{tipoAtividade.descricao}" itemValue="#{tipoAtividade.id}" />
+                        </h:selectOneMenu>
+                    </td>
+                    <td>
+                        <h:message for="atividadeCadastroTipoAtividade" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Data Entrega:
+                    </td>
+                    <td>
+                        <h:inputText id="atividadeCadastroDataEntrega" value="#{atividadeMB.atividadeSelecionada.dataEntrega}" maxlength="10" 
+                                     size="30" required="true" requiredMessage="Data Entrega obrigatório" 
+                                     converterMessage="A data deve estar no formato dd/MM/yyyy">
+                            <f:converter converterId="localDateConverter"  for="atividadeCadastroDataEntrega" />
+                        </h:inputText>
+                    </td>
+                    <td>
+                        <h:message for="atividadeCadastroDataEntrega" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Descrição:
+                    </td>
+                    <td>
+                        <h:inputTextarea id="atividadeCadastroDescricao" value="#{atividadeMB.atividadeSelecionada.descricao}"  
+                                         cols="75" rows="20" required="true" requiredMessage="Descricao obrigatório" />
+                    </td>
+                    <td>
+                        <h:message for="atividadeCadastroDescricao" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <h:commandButton id="btnAtividadeCadastroCadastrar" value="Cadastrar" action="#{atividadeMB.cadastrarAtividade()}" />
+                        <h:button id="btnAtividadeCadastroVoltar" value="Voltar" outcome="atividade" />
+                    </td>
+                </tr>
+            </table>
+        </h:form>
+    </body>
+</html>

@@ -34,9 +34,7 @@ public class TipoAtividadeService {
 
     public void inserir(final TipoAtividade tipoAtividade) throws ControleException, Exception {
         try {
-            if (daoTipoAtividade.existeDescricao(tipoAtividade)) {
-                throw new ControleException("Nome já cadastrado.");
-            }
+            validarTipoAtividade(tipoAtividade);
 
             int retorno = daoTipoAtividade.inserir(tipoAtividade);
             if (retorno == 0) {
@@ -51,9 +49,7 @@ public class TipoAtividadeService {
 
     public void alterar(final TipoAtividade tipoAtividade) throws ControleException, Exception {
         try {
-            if (daoTipoAtividade.existeDescricao(tipoAtividade)) {
-                throw new ControleException("Nome já cadastrado.");
-            }
+            validarTipoAtividade(tipoAtividade);
             int retorno = daoTipoAtividade.atualizar(tipoAtividade);
             if (retorno == 0) {
                 throw new ControleException("Tipo Atividade não atualizada.");
@@ -67,7 +63,7 @@ public class TipoAtividadeService {
 
     public void remover(final TipoAtividade tipoAtividade) throws ControleException, Exception {
         try {
-            int totalAtividadesComTipoAtividade = daoTipoAtividade.countUsuariosComTipoAtividade(tipoAtividade);
+            int totalAtividadesComTipoAtividade = daoTipoAtividade.countAtividadesComTipoAtividade(tipoAtividade);
             if (totalAtividadesComTipoAtividade > 0) {
                 throw new ControleException("Impossível remover. Total atividade(s) com este Tipo de Atividade: " + totalAtividadesComTipoAtividade + ".");
             }
@@ -81,5 +77,25 @@ public class TipoAtividadeService {
         } catch (Exception e) {
             throw new ControleException("ERRO INESPERADO. TipoAtividadeService.remover");
         }
+    }
+
+    private void validarTipoAtividade(final TipoAtividade tipoAtividade) throws ControleException, Exception {
+        if (daoTipoAtividade.existeDescricao(tipoAtividade)) {
+            throw new ControleException("Descrição já cadastrada.");
+        }
+
+        if (daoTipoAtividade.existeMultiplicidade(tipoAtividade)) {
+            throw new ControleException("Multiplicidade já cadastrada.");
+        }
+    }
+    
+    public List<TipoAtividade> listarTodos() throws ControleException, Exception {
+        List<TipoAtividade> tipoAtividades = null;
+        try {
+            tipoAtividades = daoTipoAtividade.listarTodos();
+        } catch (Exception e) {
+            throw new ControleException("ERRO INESPERADO. TipoAtividadeService.listarTodos");
+        }
+        return tipoAtividades;
     }
 }
