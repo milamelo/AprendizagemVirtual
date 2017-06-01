@@ -167,11 +167,17 @@ public class DAOAtividade extends Conexao {
             sql.setLength(0);
             sql.append(" UPDATE USUARIO ");
             sql.append("    SET PONTUACAO_ACUMULADA = ?  ");
+            sql.append("        ID_MEDALHA = (SELECT ID ");
+            sql.append("                        FROM MEDALHA ");
+            sql.append("                       WHERE PONTUACAO_NECESSARIA <= ? ");
+            sql.append("                    ORDER BY PONTUACAO_NECESSARIA DESC "); 
+            sql.append("                       LIMIT 1) ");
             sql.append("  WHERE ID = ? ");
 
             preparedStatement = conexao.prepareStatement(sql.toString());
 
             i = 1;
+            preparedStatement.setDouble(i++, usuario.getPontuacaoAcumulada() + atividade.calcularPontuacao());
             preparedStatement.setDouble(i++, usuario.getPontuacaoAcumulada() + atividade.calcularPontuacao());
             preparedStatement.setInt(i++, usuario.getId());
 

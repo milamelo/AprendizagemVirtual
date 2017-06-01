@@ -52,7 +52,7 @@ public class DAOMedalha extends Conexao {
                 preparedStatement.setString(i++, "%" + medalha.getNome().trim().toUpperCase() + "%");
             }
             if (medalha != null && medalha.getPontuacaoNecessaria() != null && medalha.getPontuacaoNecessaria() > 0) {
-                preparedStatement.setInt(i++, medalha.getPontuacaoNecessaria());
+                preparedStatement.setDouble(i++, medalha.getPontuacaoNecessaria());
             }
 
             resultSet = preparedStatement.executeQuery();
@@ -60,7 +60,7 @@ public class DAOMedalha extends Conexao {
                 Medalha med = new Medalha();
                 med.setId(resultSet.getInt("ID"));
                 med.setNome((resultSet.getString("NOME")).trim());
-                med.setPontuacaoNecessaria(resultSet.getInt("PONTUACAO_NECESSARIA"));
+                med.setPontuacaoNecessaria(resultSet.getDouble("PONTUACAO_NECESSARIA"));
                 medalhas.add(med);
             }
 
@@ -87,11 +87,12 @@ public class DAOMedalha extends Conexao {
             sql.append(" VALUES(?, ?) ");
 
             conexao = abrirConexao();
+            conexao.setAutoCommit(false);
             preparedStatement = conexao.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 
             int i = 1;
             preparedStatement.setString(i++, medalha.getNome().trim().toUpperCase());
-            preparedStatement.setInt(i++, medalha.getPontuacaoNecessaria());
+            preparedStatement.setDouble(i++, medalha.getPontuacaoNecessaria());
 
             int retorno = preparedStatement.executeUpdate();
             result = preparedStatement.getGeneratedKeys();
@@ -99,8 +100,23 @@ public class DAOMedalha extends Conexao {
                 medalha.setId(result.getInt(1));
             }
 
+            sql.setLength(0);
+            sql.append("  UPDATE USUARIO U ");
+            sql.append("     SET ID_MEDALHA = (  SELECT ID ");
+            sql.append("		 	   FROM MEDALHA ");
+            sql.append("			  WHERE PONTUACAO_NECESSARIA <= U.PONTUACAO_ACUMULADA ");
+            sql.append("		       ORDER BY PONTUACAO_NECESSARIA DESC ");
+            sql.append("			  LIMIT 1) ");
+
+            preparedStatement = conexao.prepareStatement(sql.toString());
+            preparedStatement.executeUpdate();
+
+            conexao.commit();
             return retorno;
         } catch (SQLException e) {
+            if (conexao != null) {
+                conexao.rollback();
+            }
             throw new SQLException("Erro: DAOMedalha.inserir \n" + e.getMessage());
         } finally {
             fecharPreparedStatement(preparedStatement);
@@ -121,15 +137,33 @@ public class DAOMedalha extends Conexao {
             sql.append(" WHERE ID = ? ");
 
             conexao = abrirConexao();
+            conexao.setAutoCommit(false);
             preparedStatement = conexao.prepareStatement(sql.toString());
 
             int i = 1;
             preparedStatement.setString(i++, medalha.getNome().trim().toUpperCase());
-            preparedStatement.setInt(i++, medalha.getPontuacaoNecessaria());
+            preparedStatement.setDouble(i++, medalha.getPontuacaoNecessaria());
             preparedStatement.setInt(i++, medalha.getId());
 
-            return preparedStatement.executeUpdate();
+            int retorno = preparedStatement.executeUpdate();
+            
+            sql.setLength(0);
+            sql.append("  UPDATE USUARIO U ");
+            sql.append("     SET ID_MEDALHA = (  SELECT ID ");
+            sql.append("		 	   FROM MEDALHA ");
+            sql.append("			  WHERE PONTUACAO_NECESSARIA <= U.PONTUACAO_ACUMULADA ");
+            sql.append("		       ORDER BY PONTUACAO_NECESSARIA DESC ");
+            sql.append("			  LIMIT 1) ");
+
+            preparedStatement = conexao.prepareStatement(sql.toString());
+            preparedStatement.executeUpdate();
+
+            conexao.commit();
+            return retorno;
         } catch (SQLException e) {
+            if (conexao != null) {
+                conexao.rollback();
+            }
             throw new SQLException("Erro: DAOMedalha.atualizar \n" + e.getMessage());
         } finally {
             fecharPreparedStatement(preparedStatement);
@@ -181,7 +215,7 @@ public class DAOMedalha extends Conexao {
             preparedStatement = conexao.prepareStatement(sql.toString());
 
             int i = 1;
-            preparedStatement.setInt(i++, medalha.getPontuacaoNecessaria());
+            preparedStatement.setDouble(i++, medalha.getPontuacaoNecessaria());
             preparedStatement.setInt(i++, medalha.getId() == null ? 0 : medalha.getId());
 
             resultSet = preparedStatement.executeQuery();

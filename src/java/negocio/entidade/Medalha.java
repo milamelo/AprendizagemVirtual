@@ -13,7 +13,7 @@ public class Medalha {
 
     private Integer id;
     private String nome;
-    private Integer pontuacaoNecessaria;
+    private Double pontuacaoNecessaria;
 
     public Integer getId() {
         return id;
@@ -31,11 +31,11 @@ public class Medalha {
         this.nome = nome;
     }
 
-    public Integer getPontuacaoNecessaria() {
+    public Double getPontuacaoNecessaria() {
         return pontuacaoNecessaria;
     }
 
-    public void setPontuacaoNecessaria(Integer pontuacaoNecessaria) {
+    public void setPontuacaoNecessaria(Double pontuacaoNecessaria) {
         this.pontuacaoNecessaria = pontuacaoNecessaria;
     }
 }
