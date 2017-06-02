@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    
+    <head>
+        <title>Aprendizagem Virtual</title>
+    </head>
+    <body style="background-color: lightblue;">
+        <h1 align="center">
+            <font color="white">APRENDIAZAGEM VIRTUAL - MENSAGENS GRUPO</font>
+        </h1>
+
+        <h:form id="formGrupoMensagens">
+            <table align="center" cellpadding="4" cellspacing="4" border="0" 
+                   style="background-color: white;">
+                <tr>
+                    <td colspan="2">
+                        <center>
+                            <h:outputText id="msgErroGrupoMensagens" value="#{grupoMB.mensagem}" rendered="#{grupoMB.exibeMsgErro}" 
+                                          style="color: red;"/>
+                            <h:outputText id="msgSucessoGrupoMensagens" value="#{grupoMB.mensagem}" rendered="#{grupoMB.exibeMsgSucesso}" 
+                                          style="color: blue;"/>
+                        </center>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <center>
+                            <h:commandButton id="btnGrupoMensagensMenu" value="Voltar ao Menu" action="#{grupoMB.paginaLogado()}" />
+                        </center>
+                    </td>
+                    <td>
+                        <center>
+                            <h:commandButton id="btnGrupoMensagensLogout" value="Logout" action="#{loginMB.sair()}" />
+                        </center>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">
+                        <hr/>
+                    </td>
+                </tr>
+
+                <!-- LISTA -->
+                <tr>
+                    <td colspan="3">
+                        <center>
+                            <h:dataTable value="#{grupoMB.grupoSelecionado.grupoUsuarioMensagem}" var="grupoUsuarioMensagem" style="width: 600px;">
+                                <h:column>
+                                    <h:outputText value="#{grupoUsuarioMensagem.usuario.nome}" style="color: blue;" rendered="#{grupoMB.isUsuarioLogado(grupoUsuarioMensagem.usuario)}" />
+                                    <h:outputText value="#{grupoUsuarioMensagem.usuario.nome}" rendered="#{!grupoMB.isUsuarioLogado(grupoUsuarioMensagem.usuario)}" />
+                                </h:column>
+
+                                <h:column>
+                                    <h:outputText value="#{grupoUsuarioMensagem.mensagem}" style="color: blue;" rendered="#{grupoMB.isUsuarioLogado(grupoUsuarioMensagem.usuario)}" />
+                                    <h:outputText value="#{grupoUsuarioMensagem.mensagem}" rendered="#{!grupoMB.isUsuarioLogado(grupoUsuarioMensagem.usuario)}" />
+                                </h:column>
+                                
+                            </h:dataTable>
+                        </center>
+                    </td>
+                </tr>
+                <!-- LISTA -->
+                
+                <tr>
+                    <td colspan="2">
+                        <hr/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <h:inputTextarea id="grupoMensagensMensagem" value="#{grupoMB.grupoUsuarioMensagemSelecionada.mensagem}"  
+                                         cols="75" rows="3" />
+                    </td>
+                    <td>
+                        <center>
+                            <h:commandButton id="btnGrupoMensagensEnviar" value="Enviar" action="#{grupoMB.enviarMensagem()}" />
+                        </center>
+                    </td>
+                </tr>
+            </table>
+        </h:form>
+    </body>
+</html>

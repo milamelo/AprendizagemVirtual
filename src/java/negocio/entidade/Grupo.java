@@ -18,6 +18,7 @@ public class Grupo {
     private String nome;
     private Usuario usuario = new Usuario();
     private List<Usuario> usuarios = new ArrayList<>();
+    private List<GrupoUsuarioMensagem> grupoUsuarioMensagem = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -49,6 +50,14 @@ public class Grupo {
 
     public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
+    }
+
+    public List<GrupoUsuarioMensagem> getGrupoUsuarioMensagem() {
+        return grupoUsuarioMensagem;
+    }
+
+    public void setGrupoUsuarioMensagem(List<GrupoUsuarioMensagem> grupoUsuarioMensagem) {
+        this.grupoUsuarioMensagem = grupoUsuarioMensagem;
     }
 
 }
