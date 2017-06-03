@@ -16,13 +16,13 @@ import negocio.excecao.ControleException;
  * @author Camila
  */
 public class GrupoService {
-    
+
     private final DAOGrupo daoGrupo;
-    
+
     public GrupoService() {
         this.daoGrupo = new DAOGrupo();
     }
-    
+
     public List<Grupo> listar(final Grupo grupo) throws ControleException, Exception {
         List<Grupo> grupos = null;
         try {
@@ -32,7 +32,7 @@ public class GrupoService {
         }
         return grupos;
     }
-    
+
     public void inserir(final Grupo grupo) throws ControleException, Exception {
         try {
             if (daoGrupo.existeNome(grupo)) {
@@ -48,7 +48,7 @@ public class GrupoService {
             throw new ControleException("ERRO INESPERADO. GrupoService.inserir");
         }
     }
-    
+
     public void entrar(final Grupo grupo, final Usuario usuario) throws ControleException, Exception {
         try {
             int retorno = daoGrupo.entrar(grupo, usuario);
@@ -61,7 +61,7 @@ public class GrupoService {
             throw new ControleException("ERRO INESPERADO. GrupoService.entrar");
         }
     }
-    
+
     public void sair(final Grupo grupo, final Usuario usuario) throws ControleException, Exception {
         try {
             int retorno = daoGrupo.sair(grupo, usuario);
@@ -74,7 +74,7 @@ public class GrupoService {
             throw new ControleException("ERRO INESPERADO. GrupoService.sair");
         }
     }
-    
+
     public void alterar(final Grupo grupo) throws ControleException, Exception {
         try {
             if (daoGrupo.existeNome(grupo)) {
@@ -90,7 +90,7 @@ public class GrupoService {
             throw new ControleException("ERRO INESPERADO. GrupoService.alterar");
         }
     }
-    
+
     public void remover(final Grupo grupo) throws ControleException, Exception {
         try {
             if (grupo.getUsuarios().size() > 1) {

@@ -35,11 +35,14 @@ public class DAOGrupo extends Conexao {
         try {
             sql = new StringBuilder();
             sql.append("     SELECT G.ID, G.NOME, G.ID_USUARIO, ");
-            sql.append("            U.NOME USUARIO_NOME, ");
-            sql.append("            UG.ID_USUARIO USUARIO_GRUPO_ID_USUARIO ");
+            sql.append("            U_CRIADOR.NOME USUARIO_CRIADOR_NOME, ");
+            sql.append("            UG.ID_USUARIO USUARIO_GRUPO_ID_USUARIO, ");
+            sql.append("            UG.ID_USUARIO USUARIO_GRUPO_ID_USUARIO, ");
+            sql.append("            U.NOME USUARIO_GRUPO_NOME ");
             sql.append("       FROM GRUPO G ");
-            sql.append(" INNER JOIN USUARIO U ON U.ID = G.ID_USUARIO ");
+            sql.append(" INNER JOIN USUARIO U_CRIADOR ON U_CRIADOR.ID = G.ID_USUARIO ");
             sql.append(" INNER JOIN USUARIO_GRUPO UG ON UG.ID_GRUPO = G.ID ");
+            sql.append(" INNER JOIN USUARIO U ON U.ID = UG.ID_USUARIO ");
             sql.append("  WHERE 1 = 1 ");
             if (grupo != null && grupo.getNome() != null && !grupo.getNome().trim().isEmpty()) {
                 sql.append(" AND TRIM(G.NOME) ILIKE ? ");
@@ -63,13 +66,14 @@ public class DAOGrupo extends Conexao {
                     gru.setId(resultSet.getInt("ID"));
                     gru.setNome((resultSet.getString("NOME")).trim());
                     gru.getUsuario().setId(resultSet.getInt("ID_USUARIO"));
-                    gru.getUsuario().setNome(resultSet.getString("USUARIO_NOME"));
+                    gru.getUsuario().setNome(resultSet.getString("USUARIO_CRIADOR_NOME"));
                     grupos.add(gru);
-                    
+
                     codigoGrupo = gru.getId();
                 }
                 Usuario usu = new Usuario();
                 usu.setId(resultSet.getInt("USUARIO_GRUPO_ID_USUARIO"));
+                usu.setNome(resultSet.getString("USUARIO_GRUPO_NOME"));
                 grupos.get(grupos.size() - 1).getUsuarios().add(usu);
             }
 
@@ -206,18 +210,33 @@ public class DAOGrupo extends Conexao {
 
         try {
             sql = new StringBuilder();
-            sql.append(" DELETE FROM USUARIO_GRUPO ");
+            sql.append(" DELETE FROM GRUPO_USUARIO_MENSAGEM ");
             sql.append("  WHERE ID_GRUPO = ? ");
             sql.append("    AND ID_USUARIO = ? ");
 
             conexao = abrirConexao();
+            conexao.setAutoCommit(false);
             preparedStatement = conexao.prepareStatement(sql.toString());
 
             int i = 1;
             preparedStatement.setInt(i++, grupo.getId());
             preparedStatement.setInt(i++, usuario.getId());
 
+            preparedStatement.executeUpdate();
+
+            sql.setLength(0);
+            sql.append(" DELETE FROM USUARIO_GRUPO ");
+            sql.append("  WHERE ID_GRUPO = ? ");
+            sql.append("    AND ID_USUARIO = ? ");
+
+            preparedStatement = conexao.prepareStatement(sql.toString());
+            i = 1;
+            preparedStatement.setInt(i++, grupo.getId());
+            preparedStatement.setInt(i++, usuario.getId());
+
             int retorno = preparedStatement.executeUpdate();
+
+            conexao.commit();
             return retorno;
         } catch (SQLException e) {
             throw new SQLException("Erro: DAOGrupo.sair \n" + e.getMessage());
@@ -255,7 +274,7 @@ public class DAOGrupo extends Conexao {
             fecharConexao(conexao);
         }
     }
-    
+
     public int remover(final Grupo grupo) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -265,16 +284,16 @@ public class DAOGrupo extends Conexao {
             sql = new StringBuilder();
             sql.append(" DELETE FROM USUARIO_GRUPO ");
             sql.append("  WHERE ID_GRUPO = ? ");
-            
+
             conexao = abrirConexao();
             conexao.setAutoCommit(false);
             preparedStatement = conexao.prepareStatement(sql.toString());
 
             int i = 1;
             preparedStatement.setInt(i++, grupo.getId());
-            
+
             preparedStatement.executeUpdate();
-            
+
             sql.setLength(0);
             sql.append(" DELETE FROM GRUPO ");
             sql.append("  WHERE ID = ? ");
@@ -283,7 +302,7 @@ public class DAOGrupo extends Conexao {
 
             i = 1;
             preparedStatement.setInt(i++, grupo.getId());
-            
+
             int retorno = preparedStatement.executeUpdate();
 
             conexao.commit();

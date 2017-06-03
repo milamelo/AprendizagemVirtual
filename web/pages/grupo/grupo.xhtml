@@ -108,13 +108,20 @@ and open the template in the editor.
 
                                 <h:column>
                                     <center>
+                                        <h:commandButton id="btnGrupoMensagens" value="Mensagens" 
+                                                         action="#{grupoUsuarioMensagemMB.prepararGrupoMensagens(grupo)}" rendered="#{grupoUsuarioMensagemMB.podeEnviarMensagem(grupo)}"/>
+                                    </center>
+                                </h:column>
+
+                                <h:column>
+                                    <center>
                                         <h:commandButton id="btnGrupoEntrar" value="Entrar" 
                                                          action="#{grupoMB.entrar(grupo)}" rendered="#{grupoMB.podeEntrar(grupo)}"/>
                                         <h:commandButton id="btnGrupoSair" value="Sair" 
                                                          action="#{grupoMB.sair(grupo)}" rendered="#{grupoMB.podeSair(grupo)}"/>
                                     </center>
                                 </h:column>
-                                
+
                                 <h:column>
                                     <center>
                                         <h:commandButton id="btnGrupoAlterar" value="Alterar" 

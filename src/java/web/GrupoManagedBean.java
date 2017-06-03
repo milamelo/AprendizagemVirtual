@@ -104,15 +104,15 @@ public class GrupoManagedBean extends MB {
         }
         return retorno;
     }
-    
+
     private void limparGrupo() {
         grupoSelecionado = new Grupo();
     }
-    
+
     public void limparFiltro() {
         filtroGrupo = new Grupo();
     }
-    
+
     public void localizar() {
         super.limparMensagem();
         listar();
@@ -156,7 +156,7 @@ public class GrupoManagedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     public void sair(final Grupo grupo) {
         try {
             super.limparMensagem();
@@ -170,7 +170,7 @@ public class GrupoManagedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     public void prepararGrupo(final Grupo grupo) {
         try {
             super.limparMensagem();
@@ -180,7 +180,7 @@ public class GrupoManagedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     public void alterarGrupo() {
         try {
             super.limparMensagem();
@@ -194,7 +194,7 @@ public class GrupoManagedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     public void remover(final Grupo grupo) {
         try {
             super.limparMensagem();
@@ -208,7 +208,7 @@ public class GrupoManagedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     public void voltar() {
         try {
             super.limparMensagem();
