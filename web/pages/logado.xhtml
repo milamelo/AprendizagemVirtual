@@ -32,9 +32,12 @@
                     <td>
                         <center><h:commandButton id="btnLogadoTipoAtividade" value="TIPO ATIVIDADE" action="tipoAtividade/tipoAtividade" /></center>
                     </td>
+                    <td>
+                        <center><h:commandButton id="btnLogadoRanking" value="RANKING" action="#{rankingMB.listarRanking()}" /></center>
+                    </td>
                 </tr>
                 <tr>
-                    <td colspan="2" align="center">
+                    <td colspan="3" align="center">
                         <center><h:commandButton id="btnLogadoLogout" value="LOGOUT" action="#{loginMB.sair()}" /></center>
                     </td>
                 </tr>
