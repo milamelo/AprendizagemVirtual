@@ -8,7 +8,6 @@ package negocio.service;
 import banco.dao.DAOGrupo;
 import java.util.List;
 import negocio.entidade.Grupo;
-import negocio.entidade.GrupoUsuarioMensagem;
 import negocio.entidade.Usuario;
 import negocio.excecao.ControleException;
 
@@ -106,30 +105,6 @@ public class GrupoService {
             throw e;
         } catch (Exception e) {
             throw new ControleException("ERRO INESPERADO. GrupoService.remover");
-        }
-    }
-
-    public void consultarMensagens(final Grupo grupo) throws ControleException, Exception {
-        try {
-            daoGrupo.consultarMensagens(grupo);
-        } catch (ControleException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new ControleException("ERRO INESPERADO. GrupoService.consultarMensagens");
-        }
-    }
-
-    public void inserirMensagem(final GrupoUsuarioMensagem grupoUsuarioMensagem) throws ControleException, Exception {
-        try {
-            if (grupoUsuarioMensagem.getMensagem() != null && grupoUsuarioMensagem.getMensagem().length() > 1500) {
-                throw new ControleException("Mensagem não pode conter mais de 200 caracteres.");
-            }
-            daoGrupo.inserirMensagem(grupoUsuarioMensagem);
-
-        } catch (ControleException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new ControleException("ERRO INESPERADO. GrupoService.inserirMensagem");
         }
     }
 }

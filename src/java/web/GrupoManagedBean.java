@@ -10,8 +10,6 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import negocio.entidade.Grupo;
-import negocio.entidade.GrupoUsuarioMensagem;
-import negocio.entidade.Usuario;
 import negocio.service.GrupoService;
 import negocio.service.ServiceFactory;
 
@@ -26,7 +24,6 @@ public class GrupoManagedBean extends MB {
     private Grupo grupoSelecionado = new Grupo();
     private Grupo filtroGrupo = new Grupo();
     private List<Grupo> grupos = new ArrayList<>();
-    private GrupoUsuarioMensagem grupoUsuarioMensagemSelecionada = new GrupoUsuarioMensagem();
 
     public Grupo getGrupoSelecionado() {
         return grupoSelecionado;
@@ -50,14 +47,6 @@ public class GrupoManagedBean extends MB {
 
     public void setGrupos(List<Grupo> grupos) {
         this.grupos = grupos;
-    }
-
-    public GrupoUsuarioMensagem getGrupoUsuarioMensagemSelecionada() {
-        return grupoUsuarioMensagemSelecionada;
-    }
-
-    public void setGrupoUsuarioMensagemSelecionada(GrupoUsuarioMensagem grupoUsuarioMensagemSelecionada) {
-        this.grupoUsuarioMensagemSelecionada = grupoUsuarioMensagemSelecionada;
     }
 
     public GrupoManagedBean() {
@@ -115,15 +104,15 @@ public class GrupoManagedBean extends MB {
         }
         return retorno;
     }
-    
+
     private void limparGrupo() {
         grupoSelecionado = new Grupo();
     }
-    
+
     public void limparFiltro() {
         filtroGrupo = new Grupo();
     }
-    
+
     public void localizar() {
         super.limparMensagem();
         listar();
@@ -167,7 +156,7 @@ public class GrupoManagedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     public void sair(final Grupo grupo) {
         try {
             super.limparMensagem();
@@ -181,7 +170,7 @@ public class GrupoManagedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     public void prepararGrupo(final Grupo grupo) {
         try {
             super.limparMensagem();
@@ -191,7 +180,7 @@ public class GrupoManagedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     public void alterarGrupo() {
         try {
             super.limparMensagem();
@@ -205,7 +194,7 @@ public class GrupoManagedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     public void remover(final Grupo grupo) {
         try {
             super.limparMensagem();
@@ -219,7 +208,7 @@ public class GrupoManagedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     public void voltar() {
         try {
             super.limparMensagem();
@@ -228,58 +217,5 @@ public class GrupoManagedBean extends MB {
         } catch (Exception e) {
             super.addMensagemErro(e.getMessage());
         }
-    }
-    
-    public void prepararGrupoMensagens(final Grupo grupo) {
-        try {
-            super.limparMensagem();
-            limparGrupoUsuarioMensagemSelecionada();
-            final GrupoService grupoService = (GrupoService) ServiceFactory.criarService(ServiceFactory.GRUPO);
-            
-            this.grupoUsuarioMensagemSelecionada.setGrupo(grupo);
-            this.grupoUsuarioMensagemSelecionada.setUsuario(getUsuarioLogado());
-            this.grupoSelecionado = grupo;
-            
-            grupoService.consultarMensagens(grupoSelecionado);
-            super.redirect("/pages/grupo/grupoMensagens.xhtml");
-        } catch (Exception e) {
-            super.addMensagemErro(e.getMessage());
-        }
-    }
-    
-    public boolean isUsuarioLogado(final Usuario usuario) {
-        boolean retorno = false;
-        try {
-            retorno = getUsuarioLogado().equals(usuario);
-        } catch (Exception e) {
-            super.addMensagemErro(e.getMessage());
-        }        
-        return retorno;
-    }
-    
-    private void limparGrupoUsuarioMensagemSelecionada() {
-        this.grupoUsuarioMensagemSelecionada = new GrupoUsuarioMensagem();
-    }
-    
-    public void enviarMensagem() {
-        try {
-            final GrupoService grupoService = (GrupoService) ServiceFactory.criarService(ServiceFactory.GRUPO);
-            grupoService.inserirMensagem(grupoUsuarioMensagemSelecionada);
-            prepararGrupoMensagens(grupoUsuarioMensagemSelecionada.getGrupo());
-        } catch (Exception e) {
-            super.addMensagemErro(e.getMessage());
-        }
-    }
-    
-    public boolean podeEnviarMensagem(final Grupo grupo) {
-        boolean retorno = false;
-        try {
-            if (grupo.getUsuarios().contains(getUsuarioLogado())) {
-                retorno = true;
-            }
-        } catch (Exception e) {
-            super.addMensagemErro(e.getMessage());
-        }
-        return retorno;
     }
 }

@@ -7,7 +7,7 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
-    
+
     <head>
         <title>Aprendizagem Virtual</title>
     </head>
@@ -22,9 +22,9 @@ and open the template in the editor.
                 <tr>
                     <td colspan="2">
                         <center>
-                            <h:outputText id="msgErroGrupoMensagens" value="#{grupoMB.mensagem}" rendered="#{grupoMB.exibeMsgErro}" 
+                            <h:outputText id="msgErroGrupoMensagens" value="#{grupoUsuarioMensagemMB.mensagem}" rendered="#{grupoUsuarioMensagemMB.exibeMsgErro}" 
                                           style="color: red;"/>
-                            <h:outputText id="msgSucessoGrupoMensagens" value="#{grupoMB.mensagem}" rendered="#{grupoMB.exibeMsgSucesso}" 
+                            <h:outputText id="msgSucessoGrupoMensagens" value="#{grupoUsuarioMensagemMB.mensagem}" rendered="#{grupoUsuarioMensagemMB.exibeMsgSucesso}" 
                                           style="color: blue;"/>
                         </center>
                     </td>
@@ -33,7 +33,7 @@ and open the template in the editor.
                 <tr>
                     <td>
                         <center>
-                            <h:commandButton id="btnGrupoMensagensMenu" value="Voltar ao Menu" action="#{grupoMB.paginaLogado()}" />
+                            <h:commandButton id="btnGrupoMensagensVoltar" value="Voltar" action="#{grupoMB.voltar()}" />
                         </center>
                     </td>
                     <td>
@@ -53,23 +53,23 @@ and open the template in the editor.
                 <tr>
                     <td colspan="3">
                         <center>
-                            <h:dataTable value="#{grupoMB.grupoSelecionado.grupoUsuarioMensagem}" var="grupoUsuarioMensagem" style="width: 600px;">
+                            <h:dataTable value="#{grupoUsuarioMensagemMB.grupoUsuarioMensagemSelecionada.grupo.grupoUsuarioMensagem}" var="grupoUsuarioMensagem" style="width: 600px;">
                                 <h:column>
-                                    <h:outputText value="#{grupoUsuarioMensagem.usuario.nome}" style="color: blue;" rendered="#{grupoMB.isUsuarioLogado(grupoUsuarioMensagem.usuario)}" />
-                                    <h:outputText value="#{grupoUsuarioMensagem.usuario.nome}" rendered="#{!grupoMB.isUsuarioLogado(grupoUsuarioMensagem.usuario)}" />
+                                    <h:outputText value="#{grupoUsuarioMensagem.usuario.nome}" style="color: blue;" rendered="#{grupoUsuarioMensagemMB.isUsuarioLogado(grupoUsuarioMensagem.usuario)}" />
+                                    <h:outputText value="#{grupoUsuarioMensagem.usuario.nome}" rendered="#{!grupoUsuarioMensagemMB.isUsuarioLogado(grupoUsuarioMensagem.usuario)}" />
                                 </h:column>
 
                                 <h:column>
-                                    <h:outputText value="#{grupoUsuarioMensagem.mensagem}" style="color: blue;" rendered="#{grupoMB.isUsuarioLogado(grupoUsuarioMensagem.usuario)}" />
-                                    <h:outputText value="#{grupoUsuarioMensagem.mensagem}" rendered="#{!grupoMB.isUsuarioLogado(grupoUsuarioMensagem.usuario)}" />
+                                    <h:outputText value="#{grupoUsuarioMensagem.mensagem}" style="color: blue;" rendered="#{grupoUsuarioMensagemMB.isUsuarioLogado(grupoUsuarioMensagem.usuario)}" />
+                                    <h:outputText value="#{grupoUsuarioMensagem.mensagem}" rendered="#{!grupoUsuarioMensagemMB.isUsuarioLogado(grupoUsuarioMensagem.usuario)}" />
                                 </h:column>
-                                
+
                             </h:dataTable>
                         </center>
                     </td>
                 </tr>
                 <!-- LISTA -->
-                
+
                 <tr>
                     <td colspan="2">
                         <hr/>
@@ -78,12 +78,12 @@ and open the template in the editor.
 
                 <tr>
                     <td>
-                        <h:inputTextarea id="grupoMensagensMensagem" value="#{grupoMB.grupoUsuarioMensagemSelecionada.mensagem}"  
+                        <h:inputTextarea id="grupoMensagensMensagem" value="#{grupoUsuarioMensagemMB.grupoUsuarioMensagemSelecionada.mensagem}"  
                                          cols="75" rows="3" />
                     </td>
                     <td>
                         <center>
-                            <h:commandButton id="btnGrupoMensagensEnviar" value="Enviar" action="#{grupoMB.enviarMensagem()}" />
+                            <h:commandButton id="btnGrupoMensagensEnviar" value="Enviar" action="#{grupoUsuarioMensagemMB.enviarMensagem()}" />
                         </center>
                     </td>
                 </tr>
