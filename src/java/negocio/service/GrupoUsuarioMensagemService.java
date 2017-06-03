@@ -5,9 +5,10 @@
  */
 package negocio.service;
 
-import banco.dao.DAOGrupoUsuarioMensagem;
+import banco.DAOFactory;
 import negocio.entidade.GrupoUsuarioMensagem;
 import negocio.excecao.ControleException;
+import negocio.interfaces.IGrupoUsuarioMensagem;
 
 /**
  *
@@ -15,15 +16,15 @@ import negocio.excecao.ControleException;
  */
 public class GrupoUsuarioMensagemService {
 
-    private final DAOGrupoUsuarioMensagem daoGrupoUsuarioMensagem;
+    private final IGrupoUsuarioMensagem iGrupoUsuarioMensagem;
 
-    public GrupoUsuarioMensagemService() {
-        this.daoGrupoUsuarioMensagem = new DAOGrupoUsuarioMensagem();
+    public GrupoUsuarioMensagemService() throws ControleException {
+        this.iGrupoUsuarioMensagem = (IGrupoUsuarioMensagem) DAOFactory.criar(DAOFactory.GRUPO_USUARIO_MENSAGEM);
     }
 
     public void consultarMensagens(final GrupoUsuarioMensagem grupoUsuarioMensagem) throws ControleException, Exception {
         try {
-            daoGrupoUsuarioMensagem.consultarMensagens(grupoUsuarioMensagem);
+            iGrupoUsuarioMensagem.consultarMensagens(grupoUsuarioMensagem);
         } catch (ControleException e) {
             throw e;
         } catch (Exception e) {
@@ -36,7 +37,7 @@ public class GrupoUsuarioMensagemService {
             if (grupoUsuarioMensagem.getMensagem() != null && grupoUsuarioMensagem.getMensagem().length() > 1500) {
                 throw new ControleException("Mensagem não pode conter mais de 200 caracteres.");
             }
-            daoGrupoUsuarioMensagem.inserirMensagem(grupoUsuarioMensagem);
+            iGrupoUsuarioMensagem.inserirMensagem(grupoUsuarioMensagem);
 
         } catch (ControleException e) {
             throw e;

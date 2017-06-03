@@ -14,17 +14,19 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import negocio.entidade.TipoAtividade;
+import negocio.interfaces.ITipoAtividade;
 
 /**
  *
  * @author Camila
  */
-public class DAOTipoAtividade extends Conexao {
-    
-    public DAOTipoAtividade(){
-        
+public class DAOTipoAtividade extends Conexao implements ITipoAtividade {
+
+    public DAOTipoAtividade() {
+
     }
-    
+
+    @Override
     public List<TipoAtividade> listar(final TipoAtividade tipoAtividade) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -48,7 +50,7 @@ public class DAOTipoAtividade extends Conexao {
             if (tipoAtividade != null && tipoAtividade.getDescricao() != null && !tipoAtividade.getDescricao().trim().isEmpty()) {
                 preparedStatement.setString(i++, "%" + tipoAtividade.getDescricao().trim().toUpperCase() + "%");
             }
-            
+
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 TipoAtividade tipo = new TipoAtividade();
@@ -69,6 +71,7 @@ public class DAOTipoAtividade extends Conexao {
         return tipoAtividades;
     }
 
+    @Override
     public int inserir(final TipoAtividade tipoAtividade) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -86,7 +89,7 @@ public class DAOTipoAtividade extends Conexao {
             int i = 1;
             preparedStatement.setString(i++, tipoAtividade.getDescricao().trim().toUpperCase());
             preparedStatement.setInt(i++, tipoAtividade.getMultiplicidade());
-            
+
             int retorno = preparedStatement.executeUpdate();
             result = preparedStatement.getGeneratedKeys();
             if (result.next()) {
@@ -103,6 +106,7 @@ public class DAOTipoAtividade extends Conexao {
         }
     }
 
+    @Override
     public int atualizar(final TipoAtividade tipoAtividade) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -132,6 +136,7 @@ public class DAOTipoAtividade extends Conexao {
         }
     }
 
+    @Override
     public int remover(final TipoAtividade tipoAtividade) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -158,6 +163,7 @@ public class DAOTipoAtividade extends Conexao {
         }
     }
 
+    @Override
     public boolean existeDescricao(final TipoAtividade tipoAtividade) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -191,7 +197,8 @@ public class DAOTipoAtividade extends Conexao {
 
         return retorno;
     }
-    
+
+    @Override
     public boolean existeMultiplicidade(final TipoAtividade tipoAtividade) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -226,6 +233,7 @@ public class DAOTipoAtividade extends Conexao {
         return retorno;
     }
 
+    @Override
     public int countAtividadesComTipoAtividade(final TipoAtividade tipoAtividade) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -260,7 +268,8 @@ public class DAOTipoAtividade extends Conexao {
 
         return retorno;
     }
-    
+
+    @Override
     public List<TipoAtividade> listarTodos() throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;

@@ -15,17 +15,19 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import negocio.entidade.Medalha;
 import negocio.entidade.Usuario;
+import negocio.interfaces.IUsuario;
 
 /**
  *
  * @author Camila
  */
-public class DAOUsuario extends Conexao {
+public class DAOUsuario extends Conexao implements IUsuario {
 
     public DAOUsuario() {
 
     }
 
+    @Override
     public Usuario logar(final Usuario usuario) throws Exception {
         Usuario usu = null;
         Connection conexao = null;
@@ -86,6 +88,7 @@ public class DAOUsuario extends Conexao {
         return usuario;
     }
 
+    @Override
     public boolean existeCpf(final String cpf) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -118,6 +121,7 @@ public class DAOUsuario extends Conexao {
         return retorno;
     }
 
+    @Override
     public boolean existeEmail(final String email) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement;
@@ -147,6 +151,7 @@ public class DAOUsuario extends Conexao {
         return retorno;
     }
 
+    @Override
     public int inserir(final Usuario usuario) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -176,6 +181,7 @@ public class DAOUsuario extends Conexao {
         }
     }
 
+    @Override
     public int atualizarUltimoAcesso(final Usuario usuario) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -201,6 +207,7 @@ public class DAOUsuario extends Conexao {
         }
     }
 
+    @Override
     public int alterar(final Usuario usuario) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -228,6 +235,7 @@ public class DAOUsuario extends Conexao {
         }
     }
 
+    @Override
     public Usuario consultarUsuario(final Usuario usuario) throws Exception {
         Usuario usu = null;
         Connection conexao = null;

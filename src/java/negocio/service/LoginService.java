@@ -5,8 +5,10 @@
  */
 package negocio.service;
 
-import banco.dao.DAOUsuario;
+import banco.DAOFactory;
 import negocio.entidade.Usuario;
+import negocio.excecao.ControleException;
+import negocio.interfaces.IUsuario;
 
 /**
  *
@@ -14,17 +16,17 @@ import negocio.entidade.Usuario;
  */
 public class LoginService {
 
-    final private DAOUsuario daoUsuario;
+    final private IUsuario iUsuario;
 
-    public LoginService() {
-        this.daoUsuario = new DAOUsuario();
+    public LoginService() throws ControleException {
+        this.iUsuario = (IUsuario) DAOFactory.criar(DAOFactory.USUARIO);
     }
 
     public Usuario logar(final Usuario usuario) throws Exception {
         try {
-            final Usuario usu = this.daoUsuario.logar(usuario);
+            final Usuario usu = this.iUsuario.logar(usuario);
             if (usu != null) {
-                this.daoUsuario.atualizarUltimoAcesso(usu);
+                this.iUsuario.atualizarUltimoAcesso(usu);
             }
             return usu;
         } catch (Exception e) {

@@ -5,11 +5,12 @@
  */
 package negocio.service;
 
-import banco.dao.DAOAtividade;
+import banco.DAOFactory;
 import java.util.List;
 import negocio.entidade.Atividade;
 import negocio.entidade.Usuario;
 import negocio.excecao.ControleException;
+import negocio.interfaces.IAtividade;
 
 /**
  *
@@ -17,30 +18,30 @@ import negocio.excecao.ControleException;
  */
 public class AtividadeService {
 
-    private final DAOAtividade daoAtividade;
+    private final IAtividade iAtividade;
 
-    public AtividadeService() {
-        this.daoAtividade = new DAOAtividade();
+    public AtividadeService() throws ControleException {
+        this.iAtividade = (IAtividade) DAOFactory.criar(DAOFactory.ATIVIDADE);
     }
 
     public List<Atividade> listar(final Atividade atividade) throws ControleException, Exception {
         List<Atividade> atividades = null;
         try {
-            atividades = daoAtividade.listar(atividade);
+            atividades = iAtividade.listar(atividade);
         } catch (Exception e) {
             throw new ControleException("ERRO INESPERADO. AtividadeService.listar");
         }
         return atividades;
     }
-    
+
     public boolean atividadeJaAcessadaPeloUsuario(final Atividade atividade, final Usuario usuario) throws ControleException, Exception {
-        return daoAtividade.atividadeJaAcessadaPeloUsuario(atividade, usuario);
+        return iAtividade.atividadeJaAcessadaPeloUsuario(atividade, usuario);
     }
-    
+
     public void visualizarAtividade(final Atividade atividade, final Usuario usuario) throws ControleException, Exception {
         try {
             if (!atividadeJaAcessadaPeloUsuario(atividade, usuario)) {
-                int retorno = daoAtividade.inserirAtividadeUsuario(atividade, usuario);
+                int retorno = iAtividade.inserirAtividadeUsuario(atividade, usuario);
 
                 if (retorno == 0) {
                     throw new ControleException("Pontuação da aula não computada.");
@@ -52,23 +53,23 @@ public class AtividadeService {
             throw new ControleException("ERRO INESPERADO. AtividadeService.visualizarAtividade");
         }
     }
-    
+
     public boolean teveAcesso(final Atividade atividade) throws ControleException, Exception {
         try {
-            return daoAtividade.teveAcesso(atividade);
+            return iAtividade.teveAcesso(atividade);
         } catch (ControleException e) {
             throw e;
         } catch (Exception e) {
             throw new ControleException("ERRO INESPERADO. AtividadeService.teveAcesso");
         }
     }
-    
+
     public void excluir(final Atividade atividade) throws ControleException, Exception {
         try {
             if (teveAcesso(atividade)) {
                 throw new ControleException("Atividade não pode ser excluída.");
             }
-            int retorno = daoAtividade.excluir(atividade);
+            int retorno = iAtividade.excluir(atividade);
             if (retorno == 0) {
                 throw new ControleException("Atividade não excluída.");
             }
@@ -78,11 +79,11 @@ public class AtividadeService {
             throw new ControleException("ERRO INESPERADO. AtividadeService.excluir");
         }
     }
-    
+
     public void inserir(final Atividade atividade) throws ControleException, Exception {
         try {
             validarAtividade(atividade);
-            int retorno = daoAtividade.inserir(atividade);
+            int retorno = iAtividade.inserir(atividade);
             if (retorno == 0) {
                 throw new ControleException("Atividade não cadastrado.");
             }
@@ -92,21 +93,21 @@ public class AtividadeService {
             throw new ControleException("ERRO INESPERADO. AtividadeService.inserir");
         }
     }
-    
+
     private void validarAtividade(final Atividade atividade) throws ControleException, Exception {
         if (atividade.getDescricao() != null && atividade.getDescricao().length() > 1500) {
             throw new ControleException("Descrição não pode conter mais de 1500 caracteres.");
         }
 
-        if (daoAtividade.existeTitulo(atividade)) {
+        if (iAtividade.existeTitulo(atividade)) {
             throw new ControleException("Título já cadastrado.");
         }
     }
-    
+
     public void alterar(final Atividade atividade) throws ControleException, Exception {
         try {
             validarAtividade(atividade);
-            int retorno = daoAtividade.alterar(atividade);
+            int retorno = iAtividade.alterar(atividade);
             if (retorno == 0) {
                 throw new ControleException("Atividade não atualizada.");
             }

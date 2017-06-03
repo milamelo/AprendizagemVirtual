@@ -13,16 +13,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import negocio.entidade.Usuario;
+import negocio.interfaces.IRanking;
 
 /**
  *
  * @author Camila
  */
-public class DAORanking extends Conexao {
+public class DAORanking extends Conexao implements IRanking {
 
     public DAORanking() {
     }
 
+    @Override
     public List<Usuario> listarRanking(final int limite) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;

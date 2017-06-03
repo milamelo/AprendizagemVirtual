@@ -15,17 +15,19 @@ import java.util.ArrayList;
 import java.util.List;
 import negocio.entidade.Curso;
 import negocio.entidade.Usuario;
+import negocio.interfaces.ICurso;
 
 /**
  *
  * @author Camila
  */
-public class DAOCurso extends Conexao {
+public class DAOCurso extends Conexao implements ICurso {
 
     public DAOCurso() {
 
     }
 
+    @Override
     public List<Curso> listar(final Curso curso) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -95,7 +97,8 @@ public class DAOCurso extends Conexao {
 
         return cursos;
     }
-    
+
+    @Override
     public boolean existeNome(final Curso curso) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -129,7 +132,8 @@ public class DAOCurso extends Conexao {
 
         return retorno;
     }
-    
+
+    @Override
     public int inserir(final Curso curso) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -165,7 +169,8 @@ public class DAOCurso extends Conexao {
             fecharConexao(conexao);
         }
     }
-    
+
+    @Override
     public int atualizar(final Curso curso) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -194,7 +199,8 @@ public class DAOCurso extends Conexao {
             fecharConexao(conexao);
         }
     }
-    
+
+    @Override
     public int seInscrever(final Curso curso, final Usuario usuario) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -222,7 +228,8 @@ public class DAOCurso extends Conexao {
             fecharConexao(conexao);
         }
     }
-    
+
+    @Override
     public int cancelar(final Curso curso) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -240,7 +247,7 @@ public class DAOCurso extends Conexao {
             int i = 1;
             preparedStatement.setBoolean(i++, Boolean.TRUE);
             preparedStatement.setInt(i++, curso.getId());
-            
+
             return preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new SQLException("Erro: DAOCurso.cancelar \n" + e.getMessage());
