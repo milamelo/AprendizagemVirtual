@@ -16,17 +16,19 @@ import java.util.ArrayList;
 import java.util.List;
 import negocio.entidade.Aula;
 import negocio.entidade.Usuario;
+import negocio.interfaces.IAula;
 
 /**
  *
  * @author Camila
  */
-public class DAOAula extends Conexao {
+public class DAOAula extends Conexao implements IAula {
 
     public DAOAula() {
 
     }
 
+    @Override
     public List<Aula> listar(final Aula aula) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -101,6 +103,7 @@ public class DAOAula extends Conexao {
         return aulas;
     }
 
+    @Override
     public boolean existeTitulo(final Aula aula) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -137,6 +140,7 @@ public class DAOAula extends Conexao {
         return retorno;
     }
 
+    @Override
     public int inserir(final Aula aula) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -191,6 +195,7 @@ public class DAOAula extends Conexao {
         }
     }
 
+    @Override
     public boolean teveAcesso(final Aula aula) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -223,6 +228,7 @@ public class DAOAula extends Conexao {
         return retorno;
     }
 
+    @Override
     public boolean aulaJaAcessadaPeloUsuario(final Aula aula, final Usuario usuario) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -257,6 +263,7 @@ public class DAOAula extends Conexao {
         return retorno;
     }
 
+    @Override
     public int inserirAulaUsuario(final Aula aula, final Usuario usuario) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -284,7 +291,7 @@ public class DAOAula extends Conexao {
             sql.append("        ID_MEDALHA = (SELECT ID ");
             sql.append("                        FROM MEDALHA ");
             sql.append("                       WHERE PONTUACAO_NECESSARIA <= ? ");
-            sql.append("                    ORDER BY PONTUACAO_NECESSARIA DESC "); 
+            sql.append("                    ORDER BY PONTUACAO_NECESSARIA DESC ");
             sql.append("                       LIMIT 1) ");
             sql.append("  WHERE ID = ? ");
 
@@ -311,6 +318,7 @@ public class DAOAula extends Conexao {
         }
     }
 
+    @Override
     public int alterar(final Aula aula) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -359,7 +367,8 @@ public class DAOAula extends Conexao {
             fecharConexao(conexao);
         }
     }
-    
+
+    @Override
     public int excluir(final Aula aula) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;

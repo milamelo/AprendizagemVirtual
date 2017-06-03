@@ -5,10 +5,11 @@
  */
 package negocio.service;
 
-import banco.dao.DAOMedalha;
+import banco.DAOFactory;
 import java.util.List;
 import negocio.entidade.Medalha;
 import negocio.excecao.ControleException;
+import negocio.interfaces.IMedalha;
 
 /**
  *
@@ -16,16 +17,16 @@ import negocio.excecao.ControleException;
  */
 public class MedalhaService {
 
-    private final DAOMedalha daoMedalha;
+    private final IMedalha iMedalha;
 
-    public MedalhaService() {
-        this.daoMedalha = new DAOMedalha();
+    public MedalhaService() throws ControleException {
+        this.iMedalha = (IMedalha) DAOFactory.criar(DAOFactory.MEDALHA);
     }
 
     public List<Medalha> listar(final Medalha medalha) throws ControleException, Exception {
         List<Medalha> medalhas = null;
         try {
-            medalhas = daoMedalha.listar(medalha);
+            medalhas = iMedalha.listar(medalha);
         } catch (Exception e) {
             throw new ControleException("ERRO INESPERADO. MedalhaService.listar");
         }
@@ -34,13 +35,13 @@ public class MedalhaService {
 
     public void inserir(final Medalha medalha) throws ControleException, Exception {
         try {
-            if (daoMedalha.existePontuacao(medalha)) {
+            if (iMedalha.existePontuacao(medalha)) {
                 throw new ControleException("Pontuação já cadastrada.");
             }
-            if (daoMedalha.existeNome(medalha)) {
+            if (iMedalha.existeNome(medalha)) {
                 throw new ControleException("Nome já cadastrado.");
             }
-            int retorno = daoMedalha.inserir(medalha);
+            int retorno = iMedalha.inserir(medalha);
             if (retorno == 0) {
                 throw new ControleException("Medalha não cadastrada.");
             }
@@ -53,13 +54,13 @@ public class MedalhaService {
 
     public void alterar(final Medalha medalha) throws ControleException, Exception {
         try {
-            if (daoMedalha.existePontuacao(medalha)) {
+            if (iMedalha.existePontuacao(medalha)) {
                 throw new ControleException("Pontuação já cadastrada.");
             }
-            if (daoMedalha.existeNome(medalha)) {
+            if (iMedalha.existeNome(medalha)) {
                 throw new ControleException("Nome já cadastrado.");
             }
-            int retorno = daoMedalha.atualizar(medalha);
+            int retorno = iMedalha.atualizar(medalha);
             if (retorno == 0) {
                 throw new ControleException("Medalha não atualizada.");
             }
@@ -72,12 +73,12 @@ public class MedalhaService {
 
     public void remover(final Medalha medalha) throws ControleException, Exception {
         try {
-            int totalUsuariosComMedalha = daoMedalha.countUsuariosComMedalha(medalha);
+            int totalUsuariosComMedalha = iMedalha.countUsuariosComMedalha(medalha);
             if (totalUsuariosComMedalha > 0) {
                 throw new ControleException("Impossível remover. Total usuário(s) com medalha: " + totalUsuariosComMedalha + ".");
             }
 
-            int retorno = daoMedalha.remover(medalha);
+            int retorno = iMedalha.remover(medalha);
             if (retorno == 0) {
                 throw new ControleException("Medalha não removida.");
             }

@@ -10,7 +10,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.SQLType;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,17 +17,19 @@ import java.util.ArrayList;
 import java.util.List;
 import negocio.entidade.Atividade;
 import negocio.entidade.Usuario;
+import negocio.interfaces.IAtividade;
 
 /**
  *
  * @author Camila
  */
-public class DAOAtividade extends Conexao {
+public class DAOAtividade extends Conexao implements IAtividade {
 
     public DAOAtividade() {
 
     }
 
+    @Override
     public List<Atividade> listar(final Atividade atividade) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -109,6 +110,7 @@ public class DAOAtividade extends Conexao {
         return atividades;
     }
 
+    @Override
     public boolean atividadeJaAcessadaPeloUsuario(final Atividade atividade, final Usuario usuario) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -142,7 +144,8 @@ public class DAOAtividade extends Conexao {
 
         return retorno;
     }
-    
+
+    @Override
     public int inserirAtividadeUsuario(final Atividade atividade, final Usuario usuario) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -170,7 +173,7 @@ public class DAOAtividade extends Conexao {
             sql.append("        ID_MEDALHA = (SELECT ID ");
             sql.append("                        FROM MEDALHA ");
             sql.append("                       WHERE PONTUACAO_NECESSARIA <= ? ");
-            sql.append("                    ORDER BY PONTUACAO_NECESSARIA DESC "); 
+            sql.append("                    ORDER BY PONTUACAO_NECESSARIA DESC ");
             sql.append("                       LIMIT 1) ");
             sql.append("  WHERE ID = ? ");
 
@@ -196,7 +199,8 @@ public class DAOAtividade extends Conexao {
             fecharConexao(conexao);
         }
     }
-    
+
+    @Override
     public boolean teveAcesso(final Atividade atividade) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -228,7 +232,8 @@ public class DAOAtividade extends Conexao {
 
         return retorno;
     }
-    
+
+    @Override
     public int excluir(final Atividade atividade) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -258,7 +263,8 @@ public class DAOAtividade extends Conexao {
             fecharConexao(conexao);
         }
     }
-    
+
+    @Override
     public boolean existeTitulo(final Atividade atividade) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -294,7 +300,8 @@ public class DAOAtividade extends Conexao {
 
         return retorno;
     }
-    
+
+    @Override
     public int inserir(final Atividade atividade) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -350,7 +357,8 @@ public class DAOAtividade extends Conexao {
             fecharConexao(conexao);
         }
     }
-    
+
+    @Override
     public int alterar(final Atividade atividade) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;

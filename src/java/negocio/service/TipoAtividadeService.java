@@ -5,10 +5,11 @@
  */
 package negocio.service;
 
-import banco.dao.DAOTipoAtividade;
+import banco.DAOFactory;
 import java.util.List;
 import negocio.entidade.TipoAtividade;
 import negocio.excecao.ControleException;
+import negocio.interfaces.ITipoAtividade;
 
 /**
  *
@@ -16,16 +17,16 @@ import negocio.excecao.ControleException;
  */
 public class TipoAtividadeService {
 
-    private final DAOTipoAtividade daoTipoAtividade;
+    private final ITipoAtividade iTipoAtividade;
 
-    public TipoAtividadeService() {
-        this.daoTipoAtividade = new DAOTipoAtividade();
+    public TipoAtividadeService() throws ControleException {
+        this.iTipoAtividade = (ITipoAtividade) DAOFactory.criar(DAOFactory.TIPO_ATIVIDADE);
     }
 
     public List<TipoAtividade> listar(final TipoAtividade tipoAtividade) throws ControleException, Exception {
         List<TipoAtividade> tipoAtividades = null;
         try {
-            tipoAtividades = daoTipoAtividade.listar(tipoAtividade);
+            tipoAtividades = iTipoAtividade.listar(tipoAtividade);
         } catch (Exception e) {
             throw new ControleException("ERRO INESPERADO. TipoAtividadeService.listar");
         }
@@ -36,7 +37,7 @@ public class TipoAtividadeService {
         try {
             validarTipoAtividade(tipoAtividade);
 
-            int retorno = daoTipoAtividade.inserir(tipoAtividade);
+            int retorno = iTipoAtividade.inserir(tipoAtividade);
             if (retorno == 0) {
                 throw new ControleException("Tipo Atividade não cadastrada.");
             }
@@ -50,7 +51,7 @@ public class TipoAtividadeService {
     public void alterar(final TipoAtividade tipoAtividade) throws ControleException, Exception {
         try {
             validarTipoAtividade(tipoAtividade);
-            int retorno = daoTipoAtividade.atualizar(tipoAtividade);
+            int retorno = iTipoAtividade.atualizar(tipoAtividade);
             if (retorno == 0) {
                 throw new ControleException("Tipo Atividade não atualizada.");
             }
@@ -63,12 +64,12 @@ public class TipoAtividadeService {
 
     public void remover(final TipoAtividade tipoAtividade) throws ControleException, Exception {
         try {
-            int totalAtividadesComTipoAtividade = daoTipoAtividade.countAtividadesComTipoAtividade(tipoAtividade);
+            int totalAtividadesComTipoAtividade = iTipoAtividade.countAtividadesComTipoAtividade(tipoAtividade);
             if (totalAtividadesComTipoAtividade > 0) {
                 throw new ControleException("Impossível remover. Total atividade(s) com este Tipo de Atividade: " + totalAtividadesComTipoAtividade + ".");
             }
 
-            int retorno = daoTipoAtividade.remover(tipoAtividade);
+            int retorno = iTipoAtividade.remover(tipoAtividade);
             if (retorno == 0) {
                 throw new ControleException("Tipo Atividade não removida.");
             }
@@ -80,19 +81,19 @@ public class TipoAtividadeService {
     }
 
     private void validarTipoAtividade(final TipoAtividade tipoAtividade) throws ControleException, Exception {
-        if (daoTipoAtividade.existeDescricao(tipoAtividade)) {
+        if (iTipoAtividade.existeDescricao(tipoAtividade)) {
             throw new ControleException("Descrição já cadastrada.");
         }
 
-        if (daoTipoAtividade.existeMultiplicidade(tipoAtividade)) {
+        if (iTipoAtividade.existeMultiplicidade(tipoAtividade)) {
             throw new ControleException("Multiplicidade já cadastrada.");
         }
     }
-    
+
     public List<TipoAtividade> listarTodos() throws ControleException, Exception {
         List<TipoAtividade> tipoAtividades = null;
         try {
-            tipoAtividades = daoTipoAtividade.listarTodos();
+            tipoAtividades = iTipoAtividade.listarTodos();
         } catch (Exception e) {
             throw new ControleException("ERRO INESPERADO. TipoAtividadeService.listarTodos");
         }

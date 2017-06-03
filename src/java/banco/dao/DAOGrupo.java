@@ -15,17 +15,19 @@ import java.util.ArrayList;
 import java.util.List;
 import negocio.entidade.Grupo;
 import negocio.entidade.Usuario;
+import negocio.interfaces.IGrupo;
 
 /**
  *
  * @author Camila
  */
-public class DAOGrupo extends Conexao {
+public class DAOGrupo extends Conexao implements IGrupo {
 
     public DAOGrupo() {
 
     }
 
+    @Override
     public List<Grupo> listar(final Grupo grupo) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -88,6 +90,7 @@ public class DAOGrupo extends Conexao {
         return grupos;
     }
 
+    @Override
     public boolean existeNome(final Grupo grupo) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -122,6 +125,7 @@ public class DAOGrupo extends Conexao {
         return retorno;
     }
 
+    @Override
     public int inserir(final Grupo grupo) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -174,6 +178,7 @@ public class DAOGrupo extends Conexao {
         }
     }
 
+    @Override
     public int entrar(final Grupo grupo, final Usuario usuario) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -203,6 +208,7 @@ public class DAOGrupo extends Conexao {
         }
     }
 
+    @Override
     public int sair(final Grupo grupo, final Usuario usuario) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -247,6 +253,7 @@ public class DAOGrupo extends Conexao {
         }
     }
 
+    @Override
     public int atualizar(final Grupo grupo) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -275,6 +282,7 @@ public class DAOGrupo extends Conexao {
         }
     }
 
+    @Override
     public int remover(final Grupo grupo) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;

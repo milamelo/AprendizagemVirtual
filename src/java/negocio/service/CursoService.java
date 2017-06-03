@@ -5,11 +5,12 @@
  */
 package negocio.service;
 
-import banco.dao.DAOCurso;
+import banco.DAOFactory;
 import java.util.List;
 import negocio.entidade.Curso;
 import negocio.entidade.Usuario;
 import negocio.excecao.ControleException;
+import negocio.interfaces.ICurso;
 
 /**
  *
@@ -17,16 +18,16 @@ import negocio.excecao.ControleException;
  */
 public class CursoService {
 
-    private final DAOCurso daoCurso;
+    private final ICurso iCurso;
 
-    public CursoService() {
-        this.daoCurso = new DAOCurso();
+    public CursoService() throws ControleException {
+        this.iCurso = (ICurso) DAOFactory.criar(DAOFactory.CURSO);
     }
 
     public List<Curso> listar(final Curso curso) throws ControleException, Exception {
         List<Curso> cursos = null;
         try {
-            cursos = daoCurso.listar(curso);
+            cursos = iCurso.listar(curso);
         } catch (Exception e) {
             throw new ControleException("ERRO INESPERADO. CursoService.listar");
         }
@@ -36,7 +37,7 @@ public class CursoService {
     public void inserir(final Curso curso) throws ControleException, Exception {
         try {
             validarCurso(curso);
-            int retorno = daoCurso.inserir(curso);
+            int retorno = iCurso.inserir(curso);
             if (retorno == 0) {
                 throw new ControleException("Curso não cadastrado.");
             }
@@ -50,7 +51,7 @@ public class CursoService {
     public void alterar(final Curso curso) throws ControleException, Exception {
         try {
             validarCurso(curso);
-            int retorno = daoCurso.atualizar(curso);
+            int retorno = iCurso.atualizar(curso);
             if (retorno == 0) {
                 throw new ControleException("Curso não atualizado.");
             }
@@ -66,14 +67,14 @@ public class CursoService {
             throw new ControleException("Descrição não pode conter mais de 1500 caracteres.");
         }
 
-        if (daoCurso.existeNome(curso)) {
+        if (iCurso.existeNome(curso)) {
             throw new ControleException("Nome já cadastrado.");
         }
     }
-    
+
     public void seInscrever(final Curso curso, final Usuario usuario) throws ControleException, Exception {
         try {
-            int retorno = daoCurso.seInscrever(curso, usuario);
+            int retorno = iCurso.seInscrever(curso, usuario);
             if (retorno == 0) {
                 throw new ControleException("Você não se inscreveru no curso: " + curso.getNome());
             }
@@ -83,10 +84,10 @@ public class CursoService {
             throw new ControleException("ERRO INESPERADO. CursoService.seInscrever");
         }
     }
-    
+
     public void cancelar(final Curso curso) throws ControleException, Exception {
         try {
-            int retorno = daoCurso.cancelar(curso);
+            int retorno = iCurso.cancelar(curso);
             if (retorno == 0) {
                 throw new ControleException("Curso não cancelado.");
             }

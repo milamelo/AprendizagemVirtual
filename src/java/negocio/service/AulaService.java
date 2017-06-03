@@ -5,11 +5,12 @@
  */
 package negocio.service;
 
-import banco.dao.DAOAula;
+import banco.DAOFactory;
 import java.util.List;
 import negocio.entidade.Aula;
 import negocio.entidade.Usuario;
 import negocio.excecao.ControleException;
+import negocio.interfaces.IAula;
 
 /**
  *
@@ -17,16 +18,16 @@ import negocio.excecao.ControleException;
  */
 public class AulaService {
 
-    private final DAOAula daoAula;
+    private final IAula iAula;
 
-    public AulaService() {
-        this.daoAula = new DAOAula();
+    public AulaService() throws ControleException {
+        this.iAula = (IAula) DAOFactory.criar(DAOFactory.AULA);
     }
 
     public List<Aula> listar(final Aula aula) throws ControleException, Exception {
         List<Aula> aulas = null;
         try {
-            aulas = daoAula.listar(aula);
+            aulas = iAula.listar(aula);
         } catch (Exception e) {
             throw new ControleException("ERRO INESPERADO. AulaService.listar");
         }
@@ -36,7 +37,7 @@ public class AulaService {
     public void inserir(final Aula aula) throws ControleException, Exception {
         try {
             validarAula(aula);
-            int retorno = daoAula.inserir(aula);
+            int retorno = iAula.inserir(aula);
             if (retorno == 0) {
                 throw new ControleException("Aula não cadastrado.");
             }
@@ -52,14 +53,14 @@ public class AulaService {
             throw new ControleException("Conteúdo não pode conter mais de 1500 caracteres.");
         }
 
-        if (daoAula.existeTitulo(aula)) {
+        if (iAula.existeTitulo(aula)) {
             throw new ControleException("Título já cadastrado.");
         }
     }
 
     public boolean teveAcesso(final Aula aula) throws ControleException, Exception {
         try {
-            return daoAula.teveAcesso(aula);
+            return iAula.teveAcesso(aula);
         } catch (ControleException e) {
             throw e;
         } catch (Exception e) {
@@ -70,7 +71,7 @@ public class AulaService {
     public void visualizarAula(final Aula aula, final Usuario usuario) throws ControleException, Exception {
         try {
             if (!aulaJaAcessadaPeloUsuario(aula, usuario)) {
-                int retorno = daoAula.inserirAulaUsuario(aula, usuario);
+                int retorno = iAula.inserirAulaUsuario(aula, usuario);
 
                 if (retorno == 0) {
                     throw new ControleException("Pontuação da aula não computada.");
@@ -82,15 +83,15 @@ public class AulaService {
             throw new ControleException("ERRO INESPERADO. AulaService.visualizarAula");
         }
     }
-    
+
     public boolean aulaJaAcessadaPeloUsuario(final Aula aula, final Usuario usuario) throws ControleException, Exception {
-        return daoAula.aulaJaAcessadaPeloUsuario(aula, usuario);
+        return iAula.aulaJaAcessadaPeloUsuario(aula, usuario);
     }
-    
+
     public void alterar(final Aula aula) throws ControleException, Exception {
         try {
             validarAula(aula);
-            int retorno = daoAula.alterar(aula);
+            int retorno = iAula.alterar(aula);
             if (retorno == 0) {
                 throw new ControleException("Aula não atualizada.");
             }
@@ -100,13 +101,13 @@ public class AulaService {
             throw new ControleException("ERRO INESPERADO. AulaService.alterar");
         }
     }
-    
+
     public void excluir(final Aula aula) throws ControleException, Exception {
         try {
             if (teveAcesso(aula)) {
                 throw new ControleException("Aula não pode ser excluída.");
             }
-            int retorno = daoAula.excluir(aula);
+            int retorno = iAula.excluir(aula);
             if (retorno == 0) {
                 throw new ControleException("Aula não excluída.");
             }

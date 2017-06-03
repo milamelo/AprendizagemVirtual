@@ -14,17 +14,19 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import negocio.entidade.Medalha;
+import negocio.interfaces.IMedalha;
 
 /**
  *
  * @author Camila
  */
-public class DAOMedalha extends Conexao {
+public class DAOMedalha extends Conexao implements IMedalha {
 
     public DAOMedalha() {
 
     }
 
+    @Override
     public List<Medalha> listar(final Medalha medalha) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -75,6 +77,7 @@ public class DAOMedalha extends Conexao {
         return medalhas;
     }
 
+    @Override
     public int inserir(final Medalha medalha) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -125,6 +128,7 @@ public class DAOMedalha extends Conexao {
         }
     }
 
+    @Override
     public int atualizar(final Medalha medalha) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -146,7 +150,7 @@ public class DAOMedalha extends Conexao {
             preparedStatement.setInt(i++, medalha.getId());
 
             int retorno = preparedStatement.executeUpdate();
-            
+
             sql.setLength(0);
             sql.append("  UPDATE USUARIO U ");
             sql.append("     SET ID_MEDALHA = (  SELECT ID ");
@@ -172,6 +176,7 @@ public class DAOMedalha extends Conexao {
         }
     }
 
+    @Override
     public int remover(final Medalha medalha) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -198,6 +203,7 @@ public class DAOMedalha extends Conexao {
         }
     }
 
+    @Override
     public boolean existePontuacao(final Medalha medalha) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -232,6 +238,7 @@ public class DAOMedalha extends Conexao {
         return retorno;
     }
 
+    @Override
     public boolean existeNome(final Medalha medalha) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -266,6 +273,7 @@ public class DAOMedalha extends Conexao {
         return retorno;
     }
 
+    @Override
     public int countUsuariosComMedalha(final Medalha medalha) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;

@@ -13,17 +13,19 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import negocio.entidade.GrupoUsuarioMensagem;
+import negocio.interfaces.IGrupoUsuarioMensagem;
 
 /**
  *
  * @author Camila
  */
-public class DAOGrupoUsuarioMensagem extends Conexao {
+public class DAOGrupoUsuarioMensagem extends Conexao implements IGrupoUsuarioMensagem {
 
     public DAOGrupoUsuarioMensagem() {
 
     }
 
+    @Override
     public void consultarMensagens(final GrupoUsuarioMensagem grupoUsuarioMensagem) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;
@@ -68,6 +70,7 @@ public class DAOGrupoUsuarioMensagem extends Conexao {
         }
     }
 
+    @Override
     public int inserirMensagem(final GrupoUsuarioMensagem grupoUsuarioMensagem) throws Exception {
         Connection conexao = null;
         PreparedStatement preparedStatement = null;

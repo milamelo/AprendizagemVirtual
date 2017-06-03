@@ -5,11 +5,12 @@
  */
 package negocio.service;
 
-import banco.dao.DAOGrupo;
+import banco.DAOFactory;
 import java.util.List;
 import negocio.entidade.Grupo;
 import negocio.entidade.Usuario;
 import negocio.excecao.ControleException;
+import negocio.interfaces.IGrupo;
 
 /**
  *
@@ -17,16 +18,16 @@ import negocio.excecao.ControleException;
  */
 public class GrupoService {
 
-    private final DAOGrupo daoGrupo;
+    private final IGrupo iGrupo;
 
-    public GrupoService() {
-        this.daoGrupo = new DAOGrupo();
+    public GrupoService() throws ControleException {
+        this.iGrupo = (IGrupo) DAOFactory.criar(DAOFactory.GRUPO);
     }
 
     public List<Grupo> listar(final Grupo grupo) throws ControleException, Exception {
         List<Grupo> grupos = null;
         try {
-            grupos = daoGrupo.listar(grupo);
+            grupos = iGrupo.listar(grupo);
         } catch (Exception e) {
             throw new ControleException("ERRO INESPERADO. GrupoService.listar");
         }
@@ -35,10 +36,10 @@ public class GrupoService {
 
     public void inserir(final Grupo grupo) throws ControleException, Exception {
         try {
-            if (daoGrupo.existeNome(grupo)) {
+            if (iGrupo.existeNome(grupo)) {
                 throw new ControleException("Nome já cadastrado.");
             }
-            int retorno = daoGrupo.inserir(grupo);
+            int retorno = iGrupo.inserir(grupo);
             if (retorno == 0) {
                 throw new ControleException("Grupo não cadastrado.");
             }
@@ -51,7 +52,7 @@ public class GrupoService {
 
     public void entrar(final Grupo grupo, final Usuario usuario) throws ControleException, Exception {
         try {
-            int retorno = daoGrupo.entrar(grupo, usuario);
+            int retorno = iGrupo.entrar(grupo, usuario);
             if (retorno == 0) {
                 throw new ControleException("Você não entrou no grupo: " + grupo.getNome());
             }
@@ -64,7 +65,7 @@ public class GrupoService {
 
     public void sair(final Grupo grupo, final Usuario usuario) throws ControleException, Exception {
         try {
-            int retorno = daoGrupo.sair(grupo, usuario);
+            int retorno = iGrupo.sair(grupo, usuario);
             if (retorno == 0) {
                 throw new ControleException("Você não saiu do grupo: " + grupo.getNome());
             }
@@ -77,10 +78,10 @@ public class GrupoService {
 
     public void alterar(final Grupo grupo) throws ControleException, Exception {
         try {
-            if (daoGrupo.existeNome(grupo)) {
+            if (iGrupo.existeNome(grupo)) {
                 throw new ControleException("Nome já cadastrado.");
             }
-            int retorno = daoGrupo.atualizar(grupo);
+            int retorno = iGrupo.atualizar(grupo);
             if (retorno == 0) {
                 throw new ControleException("Grupo não atualizado.");
             }
@@ -97,7 +98,7 @@ public class GrupoService {
                 throw new ControleException("Impossível remover. Total usuário(s) no grupo: " + grupo.getUsuarios().size() + ".");
             }
 
-            int retorno = daoGrupo.remover(grupo);
+            int retorno = iGrupo.remover(grupo);
             if (retorno == 0) {
                 throw new ControleException("Grupo não removido.");
             }

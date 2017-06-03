@@ -5,10 +5,11 @@
  */
 package negocio.service;
 
-import banco.dao.DAORanking;
+import banco.DAOFactory;
 import java.util.List;
 import negocio.entidade.Usuario;
 import negocio.excecao.ControleException;
+import negocio.interfaces.IRanking;
 
 /**
  *
@@ -16,16 +17,16 @@ import negocio.excecao.ControleException;
  */
 public class RankingService {
 
-    private final DAORanking daoRanking;
+    private final IRanking iRanking;
 
-    public RankingService() {
-        this.daoRanking = new DAORanking();
+    public RankingService() throws ControleException {
+        this.iRanking = (IRanking) DAOFactory.criar(DAOFactory.RANKING);
     }
 
     public List<Usuario> listarRanking(final int limite) throws ControleException, Exception {
         List<Usuario> usuarios = null;
         try {
-            usuarios = daoRanking.listarRanking(limite);
+            usuarios = iRanking.listarRanking(limite);
         } catch (Exception e) {
             throw new ControleException("ERRO INESPERADO. RankingService.listarRanking");
         }
