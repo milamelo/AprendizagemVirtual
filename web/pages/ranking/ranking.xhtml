@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <title>Aprendizagem Virtual</title>
+    </head>
+    <body style="background-color: lightblue;">
+        <h1 align="center">
+            <font color="white">APRENDIAZAGEM VIRTUAL - RANKING</font>
+        </h1>
+
+        <h:form id="formRanking">
+            <table align="center" cellpadding="4" cellspacing="4" border="0" 
+                   style="background-color: white;">
+                <tr>
+                    <td colspan="3">
+                        <center>
+                            <h:outputText id="msgErroRanking" value="#{rankingMB.mensagem}" rendered="#{rankingMB.exibeMsgErro}" 
+                                          style="color: red;"/>
+                            <h:outputText id="msgSucessoRanking" value="#{rankingMB.mensagem}" rendered="#{rankingMB.exibeMsgSucesso}" 
+                                          style="color: blue;"/>
+                        </center>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <center>
+                            <h:commandButton id="btnRankingMenu" value="Voltar ao Menu" action="#{rankingMB.paginaLogado()}" />
+                        </center>
+                    </td>
+                    <td>
+                        <center>
+                            <h:commandButton id="btnRankingLogout" value="Logout" action="#{loginMB.sair()}" />
+                        </center>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <hr/>
+                    </td>
+                </tr>
+
+                <!-- FILTRO -->
+                <tr>
+                    <td colspan="3">
+                        <table align="center" cellpadding="4" cellspacing="4" border="0" 
+                               style="background-color: white;">
+                            <tr>
+                                <td>
+                                    Limite:
+                                </td>
+                                <td>
+                                    <h:selectOneMenu id="rankingLimite" value="#{rankingMB.limite}"  
+                                                     required="true" requiredMessage="Limite obrigatório" >
+                                        <f:selectItem itemLabel="5" itemValue="5" />
+                                        <f:selectItem itemLabel="10" itemValue="10" />
+                                        <f:selectItem itemLabel="30" itemValue="30" />
+                                        <f:selectItem itemLabel="50" itemValue="50" />
+                                        <f:selectItem itemLabel="100" itemValue="100" />
+                                        <f:selectItem itemLabel="TODOS" itemValue="0" />
+                                    </h:selectOneMenu>
+                                </td>
+                                <td>
+                                    <h:commandButton id="btnRankingLlistar" value="Listar" action="#{rankingMB.listarRanking()}" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <!-- FILTRO -->
+
+                <tr>
+                    <td colspan="3">
+                        <hr/>
+                    </td>
+                </tr>
+
+                <!-- LISTA -->
+                <tr>
+                    <td colspan="3">
+                        <center>
+                            <h:dataTable value="#{rankingMB.usuarios}" var="usuario" style="width: 700px;">
+                                <h:column>
+                                    <f:facet name="header">POSIÇÃO</f:facet>
+                                        #{usuario.id}º
+                                </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">NOME</f:facet>
+                                        #{usuario.nome}
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">PONTUAÇÃO</f:facet>
+                                    <center>#{usuario.pontuacaoAcumulada}</center>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">MEDALHA</f:facet>
+                                        #{usuario.medalha.nome}
+                                </h:column>
+
+                            </h:dataTable>
+                        </center>
+                    </td>
+                </tr>
+                <!-- LISTA -->
+
+            </table>
+        </h:form>
+    </body>
+</html>

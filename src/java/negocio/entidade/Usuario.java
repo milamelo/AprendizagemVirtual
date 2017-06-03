@@ -20,7 +20,7 @@ public class Usuario {
     private String email;
     private String senha;
     private Double pontuacaoAcumulada;
-    private Medalha medalha;
+    private Medalha medalha = new Medalha();
     private boolean permissaoEspecial;
     private LocalDateTime dataInclusao;
     private LocalDateTime ultimoAcesso;
