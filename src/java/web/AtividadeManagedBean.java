@@ -267,4 +267,13 @@ public class AtividadeManagedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
+    
+    public void voltarDetalhes() {
+        try {
+            super.limparMensagem();
+            super.redirect("/pages/curso/cursoDetalhes.xhtml");
+        } catch (Exception e) {
+            super.addMensagemErro(e.getMessage());
+        }
+    }
 }

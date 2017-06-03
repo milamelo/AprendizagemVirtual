@@ -104,11 +104,11 @@ public class CursoManagedBean extends MB {
         }
     }
     
-    public boolean podeEditarNome(final Curso curso) {
+    public boolean podeEditarNome() {
         boolean retorno = false;
         try {
-            if (curso.getUsuario().equals(getUsuarioLogado())
-                    && curso.getAlunos().isEmpty()) {
+            if (cursoSelecionado.getUsuario().equals(getUsuarioLogado())
+                    && cursoSelecionado.getAlunos().isEmpty()) {
                 retorno = true;
             }
         } catch (Exception e) {

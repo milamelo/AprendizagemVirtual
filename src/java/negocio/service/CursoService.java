@@ -94,7 +94,7 @@ public class CursoService {
         } catch (ControleException e) {
             throw e;
         } catch (Exception e) {
-            throw new ControleException("ERRO INESPERADO. GrupoService.remover");
+            throw new ControleException("ERRO INESPERADO. CursoService.cancelar");
         }
     }
 }
