@@ -23,16 +23,23 @@ public class UsuarioService {
     }
 
     public void cadastrarUsuario(final Usuario usuario) throws ControleException, Exception {
-        if (iUsuario.existeCpf(usuario.getCpf())) {
-            throw new ControleException("CPF já cadastrado.");
-        }
-        if (iUsuario.existeEmail(usuario.getEmail())) {
-            throw new ControleException("Email já cadastrado.");
-        }
+        validarUsuario(usuario);
 
         int retorno = iUsuario.inserir(usuario);
         if (retorno == 0) {
             throw new ControleException("Usuário não cadastrado.");
+        }
+    }
+
+    private void validarUsuario(final Usuario usuario) throws Exception {
+        if (usuario.getCpf().length() < 11) {
+            throw new ControleException("Tamanho CPF inválido.");
+        }
+        if (iUsuario.existeCpf(usuario.getCpf())) {
+            throw new ControleException("CPF já cadastrado.");
+        }
+        if (iUsuario.existeEmail(usuario.getEmail())) {
+            throw new ControleException("E-mail já cadastrado.");
         }
     }
 

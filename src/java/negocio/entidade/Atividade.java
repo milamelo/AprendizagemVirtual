@@ -12,7 +12,7 @@ import java.time.LocalDate;
  * @author Camila
  */
 public class Atividade extends Postagem {
-    
+
     private TipoAtividade tipoAtividade = new TipoAtividade();
     private String descricao;
     private LocalDate dataEntrega;
@@ -44,14 +44,14 @@ public class Atividade extends Postagem {
     @Override
     public double calcularPontuacao() {
         double retorno;
-        
-        if (LocalDate.now().isAfter(dataEntrega)){
+
+        if (LocalDate.now().isAfter(dataEntrega)) {
             retorno = super.getPontuacao() * (this.tipoAtividade.getMultiplicidade() / 2);
         } else {
             retorno = super.getPontuacao() * this.tipoAtividade.getMultiplicidade();
         }
-        
+
         return retorno;
     }
-    
+
 }

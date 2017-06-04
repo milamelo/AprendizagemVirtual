@@ -78,7 +78,7 @@ public class AtividadeManagedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     public boolean podeCadastrar() {
         boolean retorno = false;
         try {
@@ -93,7 +93,7 @@ public class AtividadeManagedBean extends MB {
         }
         return retorno;
     }
-    
+
     public void prepararCadastrar() {
         try {
             super.limparMensagem();
@@ -103,11 +103,11 @@ public class AtividadeManagedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     private void limparAtividade() {
         this.atividadeSelecionada = new Atividade();
     }
-    
+
     public void voltarCursos() {
         try {
             super.limparMensagem();
@@ -116,12 +116,12 @@ public class AtividadeManagedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     public void localizar() {
         super.limparMensagem();
         listar();
     }
-    
+
     public boolean jaAcessada(final Atividade aula) {
         boolean retorno = false;
         try {
@@ -129,19 +129,19 @@ public class AtividadeManagedBean extends MB {
             if (atividadeService.atividadeJaAcessadaPeloUsuario(aula, getUsuarioLogado())) {
                 retorno = true;
             }
-            
+
         } catch (Exception e) {
             super.addMensagemErro(e.getMessage());
         }
-        
+
         return retorno;
     }
-    
+
     public boolean podeVisualizarAtividade(final Atividade atividade) {
         boolean retorno = false;
         try {
             final Curso curso = (Curso) pegarDaSessao("cursoSelecionado");
-            if (atividade != null 
+            if (atividade != null
                     && atividade.getCurso() != null
                     && curso != null
                     && curso.equals(atividade.getCurso())
@@ -155,7 +155,7 @@ public class AtividadeManagedBean extends MB {
         }
         return retorno;
     }
-    
+
     public void visualizarAtividade(final Atividade atividade) {
         try {
             super.limparMensagem();
@@ -166,19 +166,19 @@ public class AtividadeManagedBean extends MB {
             final UsuarioService usuarioService = (UsuarioService) ServiceFactory.criarService(ServiceFactory.USUARIO);
             final Usuario usuario = usuarioService.consultarUsuario(getUsuarioLogado());
             super.guardarNaSessao("usuarioLogado", usuario);
-            
+
             super.redirect("/pages/curso/atividade/atividadeDetalhes.xhtml");
         } catch (Exception e) {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     public boolean podeAlterarExcluir(final Atividade atividade) {
         boolean retorno = false;
         try {
             final AtividadeService atividadeService = (AtividadeService) ServiceFactory.criarService(ServiceFactory.ATIVIDADE);
             final Curso curso = (Curso) pegarDaSessao("cursoSelecionado");
-            if (atividade != null 
+            if (atividade != null
                     && atividade.getCurso() != null
                     && curso != null
                     && curso.equals(atividade.getCurso())
@@ -192,7 +192,7 @@ public class AtividadeManagedBean extends MB {
         }
         return retorno;
     }
-    
+
     public void prepararAtividade(final Atividade atividade) {
         try {
             super.limparMensagem();
@@ -202,7 +202,7 @@ public class AtividadeManagedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     public void excluir(final Atividade atividade) {
         try {
             super.limparMensagem();
@@ -216,7 +216,7 @@ public class AtividadeManagedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     public List<TipoAtividade> tipoAtividades() {
         List<TipoAtividade> tipoAtividades = null;
         try {
@@ -227,7 +227,7 @@ public class AtividadeManagedBean extends MB {
         }
         return tipoAtividades;
     }
-    
+
     public void cadastrarAtividade() {
         try {
             super.limparMensagem();
@@ -242,7 +242,7 @@ public class AtividadeManagedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     public void voltar() {
         try {
             super.limparMensagem();
@@ -252,7 +252,7 @@ public class AtividadeManagedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     public void alterarAtividade() {
         try {
             super.limparMensagem();
@@ -263,6 +263,15 @@ public class AtividadeManagedBean extends MB {
             listar();
             super.addMensagemSucesso("Atividade alterarda com sucesso.");
             super.redirect("/pages/curso/atividade/atividade.xhtml");
+        } catch (Exception e) {
+            super.addMensagemErro(e.getMessage());
+        }
+    }
+
+    public void voltarDetalhes() {
+        try {
+            super.limparMensagem();
+            super.redirect("/pages/curso/cursoDetalhes.xhtml");
         } catch (Exception e) {
             super.addMensagemErro(e.getMessage());
         }

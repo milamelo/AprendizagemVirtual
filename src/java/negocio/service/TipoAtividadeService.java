@@ -50,6 +50,11 @@ public class TipoAtividadeService {
 
     public void alterar(final TipoAtividade tipoAtividade) throws ControleException, Exception {
         try {
+            int totalAtividadesComTipoAtividade = iTipoAtividade.countAtividadesComTipoAtividade(tipoAtividade);
+            if (totalAtividadesComTipoAtividade > 0) {
+                throw new ControleException("Impossível alterar. Total atividade(s) com este Tipo de Atividade: " + totalAtividadesComTipoAtividade + ".");
+            }
+
             validarTipoAtividade(tipoAtividade);
             int retorno = iTipoAtividade.atualizar(tipoAtividade);
             if (retorno == 0) {

@@ -44,7 +44,7 @@ and open the template in the editor.
                     </td>
                     <td>
                         <h:inputText id="atividadeAlterarPontuacao" value="#{atividadeMB.atividadeSelecionada.pontuacao}" maxlength="50" 
-                                     size="30" required="true" requiredMessage="Pontuação obrigatório" />
+                                     size="30" required="true" requiredMessage="Pontuação obrigatória" />
                     </td>
                     <td>
                         <h:message for="atividadeAlterarPontuacao" />
@@ -71,7 +71,7 @@ and open the template in the editor.
                     </td>
                     <td>
                         <h:inputText id="atividadeAlterarDataEntrega" value="#{atividadeMB.atividadeSelecionada.dataEntrega}" maxlength="10" 
-                                     size="30" required="true" requiredMessage="Data Entrega obrigatório" 
+                                     size="30" required="true" requiredMessage="Data Entrega obrigatória" 
                                      converterMessage="A data deve estar no formato dd/MM/yyyy">
                             <f:converter converterId="localDateConverter"  for="atividadeCadastroDataEntrega" />
                         </h:inputText>
@@ -86,7 +86,7 @@ and open the template in the editor.
                     </td>
                     <td>
                         <h:inputTextarea id="cursoAlterarDescricao" value="#{atividadeMB.atividadeSelecionada.descricao}"  
-                                         cols="75" rows="20" required="true" requiredMessage="Descricao obrigatório" />
+                                         cols="75" rows="20" required="true" requiredMessage="Descrição obrigatória" />
                     </td>
                     <td>
                         <h:message for="cursoAlterarDescricao" />

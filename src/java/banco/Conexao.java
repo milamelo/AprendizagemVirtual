@@ -53,7 +53,7 @@ public class Conexao {
             throw new SQLException("Erro: Conexao.fecharConexao \n" + e.getMessage());
         }
     }
-    
+
     protected void fecharPreparedStatement(final PreparedStatement preparedStatement) throws SQLException {
         try {
             if (preparedStatement != null) {
@@ -63,7 +63,7 @@ public class Conexao {
             throw new SQLException("Erro: Conexao.fecharPreparedStatement \n" + e.getMessage());
         }
     }
-    
+
     protected void fecharResultSet(final ResultSet resultSet) throws SQLException {
         try {
             if (resultSet != null) {

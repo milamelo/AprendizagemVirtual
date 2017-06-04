@@ -44,7 +44,7 @@ public class AtividadeService {
                 int retorno = iAtividade.inserirAtividadeUsuario(atividade, usuario);
 
                 if (retorno == 0) {
-                    throw new ControleException("Pontuação da aula não computada.");
+                    throw new ControleException("Pontuação da atividade não computada.");
                 }
             }
         } catch (ControleException e) {

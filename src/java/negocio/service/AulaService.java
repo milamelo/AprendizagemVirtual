@@ -39,7 +39,7 @@ public class AulaService {
             validarAula(aula);
             int retorno = iAula.inserir(aula);
             if (retorno == 0) {
-                throw new ControleException("Aula não cadastrado.");
+                throw new ControleException("Aula não cadastrada.");
             }
         } catch (ControleException e) {
             throw e;

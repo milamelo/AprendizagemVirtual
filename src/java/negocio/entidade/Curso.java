@@ -69,7 +69,7 @@ public class Curso {
     public void setAlunos(List<Usuario> alunos) {
         this.alunos = alunos;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 5;
@@ -94,5 +94,5 @@ public class Curso {
         }
         return true;
     }
-       
+
 }

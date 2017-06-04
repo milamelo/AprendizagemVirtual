@@ -174,7 +174,7 @@ public class DAOUsuario extends Conexao implements IUsuario {
 
             return preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new SQLException("Erro: DAOUsuario.existeEmail \n" + e.getMessage());
+            throw new SQLException("Erro: DAOUsuario.inserir \n" + e.getMessage());
         } finally {
             fecharPreparedStatement(preparedStatement);
             fecharConexao(conexao);

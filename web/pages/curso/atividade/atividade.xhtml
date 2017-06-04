@@ -20,7 +20,7 @@ and open the template in the editor.
             <table align="center" cellpadding="4" cellspacing="4" border="0" 
                    style="background-color: white; width: 800px;">
                 <tr>
-                    <td colspan="3">
+                    <td colspan="4">
                         <center>
                             <h:outputText id="msgErroAtividade" value="#{atividadeMB.mensagem}" rendered="#{atividadeMB.exibeMsgErro}" 
                                           style="color: red;"/>
@@ -38,7 +38,12 @@ and open the template in the editor.
                     </td>
                     <td>
                         <center>
-                            <h:commandButton id="btnAtividadeVoltarCursos" value="Voltar" action="#{atividadeMB.voltarCursos()}" />
+                            <h:commandButton id="btnAtividadeVoltarDetalhes" value="Voltar Detalhes" action="#{atividadeMB.voltarDetalhes()}" />
+                        </center>
+                    </td>
+                    <td>
+                        <center>
+                            <h:commandButton id="btnAtividadeVoltarCursos" value="Voltar Cursos" action="#{atividadeMB.voltarCursos()}" />
                         </center>
                     </td>
                     <td>
@@ -49,14 +54,14 @@ and open the template in the editor.
                 </tr>
 
                 <tr>
-                    <td colspan="3">
+                    <td colspan="4">
                         <hr/>
                     </td>
                 </tr>
 
                 <!-- FILTRO -->
                 <tr>
-                    <td colspan="3">
+                    <td colspan="4">
                         <table align="center" cellpadding="4" cellspacing="4" border="0" 
                                style="background-color: white;">
                             <tr>
@@ -95,14 +100,14 @@ and open the template in the editor.
                 <!-- FILTRO -->
 
                 <tr>
-                    <td colspan="3">
+                    <td colspan="4">
                         <hr/>
                     </td>
                 </tr>
 
                 <!-- LISTA -->
                 <tr>
-                    <td colspan="3">
+                    <td colspan="4">
                         <center>
                             <h:dataTable value="#{atividadeMB.atividades}" var="atividade" style="width: 750px;">
                                 <h:column>

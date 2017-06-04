@@ -109,7 +109,7 @@ public class UsuarioManagedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     private void alterarUsuario(final String sucesso) {
         try {
             super.limparMensagem();
@@ -122,6 +122,7 @@ public class UsuarioManagedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
+
     public void alterarUsuario() {
         try {
             alterarUsuario("Usuário alterado com sucesso.");
@@ -161,7 +162,7 @@ public class UsuarioManagedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     public void voltar() {
         try {
             super.limparMensagem();

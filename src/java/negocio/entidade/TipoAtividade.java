@@ -10,7 +10,7 @@ package negocio.entidade;
  * @author Camila
  */
 public class TipoAtividade {
-    
+
     private Integer id;
     private String descricao;
     private Integer multiplicidade;
@@ -38,5 +38,5 @@ public class TipoAtividade {
     public void setMultiplicidade(Integer multiplicidade) {
         this.multiplicidade = multiplicidade;
     }
-    
+
 }

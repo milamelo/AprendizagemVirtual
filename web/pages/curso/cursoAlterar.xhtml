@@ -32,7 +32,7 @@ and open the template in the editor.
                     <td>
                         <h:inputText id="cursoAlterarNome" value="#{cursoMB.cursoSelecionado.nome}" maxlength="50" 
                                      size="30" required="true" requiredMessage="Nome obrigatório"
-                                     readonly="#{cursoMB.podeEditarNome(curso)}" disabled="#{cursoMB.podeEditarNome(curso)}"/>
+                                     readonly="#{!cursoMB.podeEditarNome()}" disabled="#{!cursoMB.podeEditarNome()}"/>
                     </td>
                     <td>
                         <h:message for="cursoAlterarNome" />
@@ -44,7 +44,7 @@ and open the template in the editor.
                     </td>
                     <td>
                         <h:inputTextarea id="cursoAlterarDescricao" value="#{cursoMB.cursoSelecionado.descricao}"  
-                                         cols="75" rows="20" required="true" requiredMessage="Descrição obrigatório" />
+                                         cols="75" rows="20" required="true" requiredMessage="Descrição obrigatória" />
                     </td>
                     <td>
                         <h:message for="cursoAlterarDescricao" />

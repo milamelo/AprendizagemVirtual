@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * @author Camila
  */
 public class GrupoUsuarioMensagem {
-    
+
     private Integer id;
     private Grupo grupo = new Grupo();
     private Usuario usuario = new Usuario();
