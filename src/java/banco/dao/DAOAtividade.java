@@ -80,23 +80,7 @@ public class DAOAtividade extends Conexao implements IAtividade {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                final Atividade a = new Atividade();
-                a.setId(resultSet.getInt("ID"));
-                a.setTitulo((resultSet.getString("TITULO")).trim());
-                a.setDataInclusao(resultSet.getObject("DATA_INCLUSAO", LocalDateTime.class));
-                a.setPontuacao(resultSet.getDouble("PONTUACAO"));
-                a.setUltimaAtualizacao(resultSet.getObject("ULTIMA_ATUALIZACAO", LocalDateTime.class));
-                a.setCancelado(resultSet.getBoolean("CANCELADO"));
-                a.setDataEntrega(resultSet.getObject("DATA_ENTREGA", LocalDate.class));
-                a.setDescricao(resultSet.getString("ATIVIDADE_DESCRICAO"));
-                a.getTipoAtividade().setId(resultSet.getInt("ID_TIPO_ATIVIDADE"));
-                a.getTipoAtividade().setDescricao(resultSet.getString("TIPO_ATIVIDADE_DESCRICAO"));
-                a.getTipoAtividade().setMultiplicidade(resultSet.getInt("MULTIPLICIDADE"));
-                a.getCurso().setId(resultSet.getInt("ID_CURSO"));
-                a.getCurso().setNome(resultSet.getString("NOME"));
-                a.getCurso().getUsuario().setId(resultSet.getInt("ID_USUARIO"));
-                a.getCurso().getUsuario().setNome(resultSet.getString("USUARIO_NOME"));
-                a.getCurso().getUsuario().setNome(resultSet.getString("CPF"));
+                Atividade a = createAtividade(resultSet);
                 atividades.add(a);
             }
         } catch (SQLException e) {
@@ -108,6 +92,27 @@ public class DAOAtividade extends Conexao implements IAtividade {
         }
 
         return atividades;
+    }
+
+    private Atividade createAtividade(ResultSet resultSet) throws SQLException {
+        final Atividade a = new Atividade();
+        a.setId(resultSet.getInt("ID"));
+        a.setTitulo((resultSet.getString("TITULO")).trim());
+        a.setDataInclusao(resultSet.getObject("DATA_INCLUSAO", LocalDateTime.class));
+        a.setPontuacao(resultSet.getDouble("PONTUACAO"));
+        a.setUltimaAtualizacao(resultSet.getObject("ULTIMA_ATUALIZACAO", LocalDateTime.class));
+        a.setCancelado(resultSet.getBoolean("CANCELADO"));
+        a.setDataEntrega(resultSet.getObject("DATA_ENTREGA", LocalDate.class));
+        a.setDescricao(resultSet.getString("ATIVIDADE_DESCRICAO"));
+        a.getTipoAtividade().setId(resultSet.getInt("ID_TIPO_ATIVIDADE"));
+        a.getTipoAtividade().setDescricao(resultSet.getString("TIPO_ATIVIDADE_DESCRICAO"));
+        a.getTipoAtividade().setMultiplicidade(resultSet.getInt("MULTIPLICIDADE"));
+        a.getCurso().setId(resultSet.getInt("ID_CURSO"));
+        a.getCurso().setNome(resultSet.getString("NOME"));
+        a.getCurso().getUsuario().setId(resultSet.getInt("ID_USUARIO"));
+        a.getCurso().getUsuario().setNome(resultSet.getString("USUARIO_NOME"));
+        a.getCurso().getUsuario().setNome(resultSet.getString("CPF"));
+        return a;
     }
 
     @Override

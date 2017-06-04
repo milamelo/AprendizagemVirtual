@@ -88,7 +88,7 @@ public class CursoManagedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     public void cadastrarCurso() {
         try {
             super.limparMensagem();
@@ -103,7 +103,7 @@ public class CursoManagedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     public boolean podeEditarNome() {
         boolean retorno = false;
         try {
@@ -116,7 +116,7 @@ public class CursoManagedBean extends MB {
         }
         return retorno;
     }
-    
+
     public void prepararCurso(final Curso curso) {
         try {
             super.limparMensagem();
@@ -126,7 +126,7 @@ public class CursoManagedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     public void alterarCurso() {
         try {
             super.limparMensagem();
@@ -140,7 +140,7 @@ public class CursoManagedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     public boolean podeAlterarCancelar(final Curso curso) {
         boolean retorno = false;
         try {
@@ -153,7 +153,7 @@ public class CursoManagedBean extends MB {
         }
         return retorno;
     }
-    
+
     public void voltar() {
         try {
             super.limparMensagem();
@@ -164,7 +164,7 @@ public class CursoManagedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     public boolean podeSeInscrever(final Curso curso) {
         boolean retorno = false;
         try {
@@ -178,7 +178,7 @@ public class CursoManagedBean extends MB {
         }
         return retorno;
     }
-    
+
     public void seInscrever(final Curso curso) {
         try {
             super.limparMensagem();
@@ -186,15 +186,15 @@ public class CursoManagedBean extends MB {
             cursoService.seInscrever(curso, getUsuarioLogado());
             limparCurso();
             listar();
-            
+
             super.addMensagemSucesso("Você se increveu no curso: " + curso.getNome());
             super.redirect("/pages/curso/curso.xhtml");
-            
+
         } catch (Exception e) {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     public void cancelar(final Curso curso) {
         try {
             super.limparMensagem();
@@ -208,14 +208,14 @@ public class CursoManagedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     public void exibeDetalhes(final Curso curso) {
         try {
             super.limparMensagem();
             this.cursoSelecionado = curso;
             super.guardarNaSessao("cursoSelecionado", curso);
             super.redirect("/pages/curso/cursoDetalhes.xhtml");
-            
+
         } catch (Exception e) {
             super.addMensagemErro(e.getMessage());
         }

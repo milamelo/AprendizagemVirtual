@@ -104,7 +104,7 @@ public class Usuario {
     public void setUltimoAcesso(LocalDateTime ultimoAcesso) {
         this.ultimoAcesso = ultimoAcesso;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 7;

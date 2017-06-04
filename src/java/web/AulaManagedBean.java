@@ -140,7 +140,7 @@ public class AulaManagedBean extends MB {
         try {
             final AulaService aulaService = (AulaService) ServiceFactory.criarService(ServiceFactory.AULA);
             final Curso curso = (Curso) pegarDaSessao("cursoSelecionado");
-            if (aula != null 
+            if (aula != null
                     && aula.getCurso() != null
                     && curso != null
                     && curso.equals(aula.getCurso())
@@ -164,12 +164,12 @@ public class AulaManagedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     public boolean podeVisualizarAula(final Aula aula) {
         boolean retorno = false;
         try {
             final Curso curso = (Curso) pegarDaSessao("cursoSelecionado");
-            if (aula != null 
+            if (aula != null
                     && aula.getCurso() != null
                     && curso != null
                     && curso.equals(aula.getCurso())
@@ -183,7 +183,7 @@ public class AulaManagedBean extends MB {
         }
         return retorno;
     }
-    
+
     public void visualizarAula(final Aula aula) {
         try {
             super.limparMensagem();
@@ -194,13 +194,13 @@ public class AulaManagedBean extends MB {
             final UsuarioService usuarioService = (UsuarioService) ServiceFactory.criarService(ServiceFactory.USUARIO);
             final Usuario usuario = usuarioService.consultarUsuario(getUsuarioLogado());
             super.guardarNaSessao("usuarioLogado", usuario);
-            
+
             super.redirect("/pages/curso/aula/aulaDetalhes.xhtml");
         } catch (Exception e) {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     public void voltar() {
         try {
             super.limparMensagem();
@@ -210,7 +210,7 @@ public class AulaManagedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     public boolean jaAcessada(final Aula aula) {
         boolean retorno = false;
         try {
@@ -218,14 +218,14 @@ public class AulaManagedBean extends MB {
             if (aulaService.aulaJaAcessadaPeloUsuario(aula, getUsuarioLogado())) {
                 retorno = true;
             }
-            
+
         } catch (Exception e) {
             super.addMensagemErro(e.getMessage());
         }
-        
+
         return retorno;
     }
-    
+
     public void alterarAula() {
         try {
             super.limparMensagem();
@@ -240,7 +240,7 @@ public class AulaManagedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     public void excluir(final Aula aula) {
         try {
             super.limparMensagem();
@@ -254,7 +254,7 @@ public class AulaManagedBean extends MB {
             super.addMensagemErro(e.getMessage());
         }
     }
-    
+
     public void voltarDetalhes() {
         try {
             super.limparMensagem();

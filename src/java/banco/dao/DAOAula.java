@@ -75,19 +75,7 @@ public class DAOAula extends Conexao implements IAula {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                final Aula a = new Aula();
-                a.setId(resultSet.getInt("ID"));
-                a.setTitulo((resultSet.getString("TITULO")).trim());
-                a.setDataInclusao(resultSet.getObject("DATA_INCLUSAO", LocalDateTime.class));
-                a.setPontuacao(resultSet.getDouble("PONTUACAO"));
-                a.setUltimaAtualizacao(resultSet.getObject("ULTIMA_ATUALIZACAO", LocalDateTime.class));
-                a.setCancelado(resultSet.getBoolean("CANCELADO"));
-                a.setConteudo(resultSet.getString("CONTEUDO"));
-                a.getCurso().setId(resultSet.getInt("ID_CURSO"));
-                a.getCurso().setNome(resultSet.getString("NOME"));
-                a.getCurso().getUsuario().setId(resultSet.getInt("ID_USUARIO"));
-                a.getCurso().getUsuario().setNome(resultSet.getString("USUARIO_NOME"));
-                a.getCurso().getUsuario().setNome(resultSet.getString("CPF"));
+                Aula a = createAula(resultSet);
                 aulas.add(a);
 
             }
@@ -101,6 +89,23 @@ public class DAOAula extends Conexao implements IAula {
         }
 
         return aulas;
+    }
+
+    private Aula createAula(ResultSet resultSet) throws SQLException {
+        final Aula a = new Aula();
+        a.setId(resultSet.getInt("ID"));
+        a.setTitulo((resultSet.getString("TITULO")).trim());
+        a.setDataInclusao(resultSet.getObject("DATA_INCLUSAO", LocalDateTime.class));
+        a.setPontuacao(resultSet.getDouble("PONTUACAO"));
+        a.setUltimaAtualizacao(resultSet.getObject("ULTIMA_ATUALIZACAO", LocalDateTime.class));
+        a.setCancelado(resultSet.getBoolean("CANCELADO"));
+        a.setConteudo(resultSet.getString("CONTEUDO"));
+        a.getCurso().setId(resultSet.getInt("ID_CURSO"));
+        a.getCurso().setNome(resultSet.getString("NOME"));
+        a.getCurso().getUsuario().setId(resultSet.getInt("ID_USUARIO"));
+        a.getCurso().getUsuario().setNome(resultSet.getString("USUARIO_NOME"));
+        a.getCurso().getUsuario().setNome(resultSet.getString("CPF"));
+        return a;
     }
 
     @Override

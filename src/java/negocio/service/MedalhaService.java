@@ -35,12 +35,7 @@ public class MedalhaService {
 
     public void inserir(final Medalha medalha) throws ControleException, Exception {
         try {
-            if (iMedalha.existePontuacao(medalha)) {
-                throw new ControleException("Pontuação já cadastrada.");
-            }
-            if (iMedalha.existeNome(medalha)) {
-                throw new ControleException("Nome já cadastrado.");
-            }
+            validarMedalha(medalha);
             int retorno = iMedalha.inserir(medalha);
             if (retorno == 0) {
                 throw new ControleException("Medalha não cadastrada.");
@@ -52,14 +47,22 @@ public class MedalhaService {
         }
     }
 
+    private void validarMedalha(final Medalha medalha) throws Exception {
+        if (iMedalha.existePontuacao(medalha)) {
+            throw new ControleException("Pontuação já cadastrada.");
+        }
+        if (iMedalha.existeNome(medalha)) {
+            throw new ControleException("Nome já cadastrado.");
+        }
+    }
+
     public void alterar(final Medalha medalha) throws ControleException, Exception {
         try {
-            if (iMedalha.existePontuacao(medalha)) {
-                throw new ControleException("Pontuação já cadastrada.");
+            int totalUsuariosComMedalha = iMedalha.countUsuariosComMedalha(medalha);
+            if (totalUsuariosComMedalha > 0) {
+                throw new ControleException("Impossível alterar. Total usuário(s) com medalha: " + totalUsuariosComMedalha + ".");
             }
-            if (iMedalha.existeNome(medalha)) {
-                throw new ControleException("Nome já cadastrado.");
-            }
+            validarMedalha(medalha);
             int retorno = iMedalha.atualizar(medalha);
             if (retorno == 0) {
                 throw new ControleException("Medalha não atualizada.");

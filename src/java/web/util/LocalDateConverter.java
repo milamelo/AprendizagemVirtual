@@ -26,7 +26,7 @@ public class LocalDateConverter implements Converter {
         if (value == null || value.isEmpty()) {
             return null;
         }
-        
+
         LocalDate localDate;
         try {
             localDate = LocalDate.parse(
@@ -34,7 +34,7 @@ public class LocalDateConverter implements Converter {
                     DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
         } catch (DateTimeParseException e) {
-            throw new ConverterException("O ano deve conter 4 dígitos. Exemplo: 13/11/2015.");
+            throw new ConverterException("A data deve estar no formato. Exemplo: 04/06/2017.");
         }
 
         return localDate;

@@ -20,10 +20,10 @@ public class Aula extends Postagem {
     public void setConteudo(String conteudo) {
         this.conteudo = conteudo;
     }
-    
+
     @Override
     public double calcularPontuacao() {
         return super.getPontuacao() * 1.3;
     }
-    
+
 }

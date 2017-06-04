@@ -188,7 +188,7 @@ public class DAOTipoAtividade extends Conexao implements ITipoAtividade {
             retorno = resultSet.next();
 
         } catch (SQLException e) {
-            throw new SQLException("Erro: DAOTipoAtividade.existeNome \n" + e.getMessage());
+            throw new SQLException("Erro: DAOTipoAtividade.existeDescricao \n" + e.getMessage());
         } finally {
             fecharPreparedStatement(preparedStatement);
             fecharResultSet(resultSet);

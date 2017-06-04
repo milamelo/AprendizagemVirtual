@@ -138,7 +138,7 @@ public class MedalhaManagedBean extends MB {
         super.limparMensagem();
         listar();
     }
-    
+
     public void voltar() {
         try {
             super.limparMensagem();
